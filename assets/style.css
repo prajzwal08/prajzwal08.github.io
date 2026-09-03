@@ -1,6 +1,7 @@
 /* Prajwal Khanal. Wide two-column layout, white ground.
-   One typeface throughout; hierarchy comes from size, weight, colour and
-   italics rather than from a second family. */
+   One typeface throughout; hierarchy comes from size, weight and colour
+   rather than from a second family. Italics are reserved for employer and
+   institution lines, and for journal names. */
 
 :root {
   --ink: #16231F;        /* headings and body text */
