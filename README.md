@@ -116,6 +116,9 @@ page renders immediately with no font flash. To change it, edit `--type` in
 Email addresses on the contact page are written as `name [at] domain` rather
 than as `mailto:` links, so that address-harvesting bots cannot lift them.
 
+See [TODO.md](TODO.md) for the running list of things to change, decisions to
+check, and how to publish an update.
+
 ## Still to fill in
 
 - The bullet points under each project in `projects.html`, and the photos.
