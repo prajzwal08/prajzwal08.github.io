@@ -1,18 +1,16 @@
 /* Prajwal Khanal. Wide two-column layout, white ground.
-   One typeface throughout; hierarchy comes from size, weight and colour
-   rather than from a second family. Italics are reserved for employer and
+   Times New Roman throughout, and the same blue as the CV, so the site and
+   the PDF read as one thing. Italics are reserved for employer and
    institution lines, and for journal names. */
 
 :root {
   --ink: #16231F;        /* headings and body text */
   --ink-soft: #6b7370;   /* dates, employers, secondary metadata */
   --rule: #e6e6e3;       /* hairlines */
-  --accent: #2F5D62;     /* section titles, nav, links */
-  --accent-warm: #8A6A3C;/* entry titles */
+  --accent: #0070C0;     /* section titles, nav, links; matches the CV */
   --page: #ffffff;
 
-  --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-          "Helvetica Neue", Arial, sans-serif;
+  --type: "Times New Roman", Times, Georgia, serif;
 }
 
 * { box-sizing: border-box; }
@@ -23,9 +21,9 @@ body {
   margin: 0;
   background: var(--page);
   color: var(--ink);
-  font-family: var(--sans);
-  font-size: 1.0625rem;
-  line-height: 1.55;
+  font-family: var(--type);
+  font-size: 1.125rem;
+  line-height: 1.6;
 }
 
 /* Wide: the page uses the screen instead of sitting in a narrow strip. */
@@ -82,12 +80,12 @@ body {
   border-bottom: 3px solid transparent;
 }
 
-.tabs a:hover { color: var(--accent-warm); }
+.tabs a:hover { color: var(--ink); }
 
 .tabs a[aria-current="page"] {
   color: var(--ink);
   font-weight: 700;
-  border-bottom-color: var(--accent-warm);
+  border-bottom-color: var(--accent);
 }
 
 /* Section titles: the top of the hierarchy ------------------------------- */
@@ -116,7 +114,7 @@ p:last-child { margin-bottom: 0; }
 a {
   color: var(--accent);
   text-decoration: none;
-  border-bottom: 1px solid rgba(47, 93, 98, 0.35);
+  border-bottom: 1px solid rgba(0, 112, 192, 0.35);
 }
 
 a:hover { border-bottom-color: var(--accent); }
@@ -145,9 +143,9 @@ a:hover { border-bottom-color: var(--accent); }
 /* Second level of the hierarchy: the entry title. */
 .record-head h3 {
   grid-column: 2;
-  font-size: 1.25rem;
-  font-weight: 600;
-  color: var(--accent-warm);
+  font-size: 1.1875rem;
+  font-weight: 700;
+  color: var(--ink);
   margin: 0 0 0.15rem;
 }
 
@@ -174,8 +172,7 @@ a:hover { border-bottom-color: var(--accent); }
   grid-column: 2;
 }
 
-/* Achievements under each entry: serif, to set them apart from the sans
-   used everywhere else. */
+/* Achievements under each entry. */
 .highlights {
   font-size: 1.0625rem;
   line-height: 1.65;
@@ -227,7 +224,6 @@ a:hover { border-bottom-color: var(--accent); }
 
 .pub-title {
   font-style: italic;
-  color: var(--accent-warm);
 }
 
 .pub-venue,
