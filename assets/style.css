@@ -1,0 +1,315 @@
+/* Prajwal Khanal. Wide two-column layout, white ground.
+   One typeface throughout; hierarchy comes from size, weight, colour and
+   italics rather than from a second family. */
+
+:root {
+  --ink: #16231F;        /* headings and body text */
+  --ink-soft: #6b7370;   /* dates, employers, secondary metadata */
+  --rule: #e6e6e3;       /* hairlines */
+  --accent: #2F5D62;     /* section titles, nav, links */
+  --accent-warm: #8A6A3C;/* entry titles */
+  --page: #ffffff;
+
+  --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          "Helvetica Neue", Arial, sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--page);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 1.125rem;
+  line-height: 1.65;
+}
+
+/* Wide: the page uses the screen instead of sitting in a narrow strip. */
+.shell {
+  max-width: 68rem;
+  margin: 0 auto;
+  padding: 3rem 3rem 4rem;
+}
+
+/* Masthead: portrait top left, name beside it, nav underneath ------------ */
+
+.masthead-id {
+  display: flex;
+  align-items: center;
+  gap: 1.75rem;
+}
+
+.masthead-photo {
+  width: 7rem;
+  height: 7rem;
+  flex: none;
+  object-fit: cover;
+  border-radius: 50%;
+  display: block;
+}
+
+.masthead h1 {
+  font-size: 2.25rem;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  margin: 0;
+}
+
+.masthead-id > div > p {
+  font-size: 1.0625rem;
+  color: var(--ink-soft);
+  margin: 0.35rem 0 0;
+}
+
+.tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 2rem;
+  margin-top: 1.75rem;
+  padding-top: 0.9rem;
+  border-top: 2px solid var(--accent);
+  font-size: 1.0625rem;
+}
+
+.tabs a {
+  color: var(--accent);
+  text-decoration: none;
+  padding: 0.4rem 0;
+  border-bottom: 3px solid transparent;
+}
+
+.tabs a:hover { color: var(--accent-warm); }
+
+.tabs a[aria-current="page"] {
+  color: var(--ink);
+  font-weight: 700;
+  border-bottom-color: var(--accent-warm);
+}
+
+/* Section titles: the top of the hierarchy ------------------------------- */
+
+main { margin-top: 3rem; }
+
+section + section { margin-top: 3.5rem; }
+
+h2 {
+  font-style: italic;
+  font-weight: 400;
+  font-size: 1.875rem;
+  color: var(--accent);
+  margin: 0 0 1.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--rule);
+}
+
+p { margin: 0 0 1rem; }
+p:last-child { margin-bottom: 0; }
+
+.lede {
+  font-size: 1.1875rem;
+  line-height: 1.65;
+}
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(47, 93, 98, 0.35);
+}
+
+a:hover { border-bottom-color: var(--accent); }
+
+/* Entries: dates in a fixed left column, content filling the width -------- */
+
+.record {
+  display: grid;
+  grid-template-columns: 12rem 1fr;
+  gap: 0 2.5rem;
+  padding-top: 1.5rem;
+  margin-top: 1.5rem;
+  border-top: 1px solid var(--rule);
+}
+
+.record:first-of-type {
+  padding-top: 0;
+  margin-top: 0;
+  border-top: 0;
+}
+
+.record-head {
+  display: contents;   /* title goes right, date goes left */
+}
+
+/* Second level of the hierarchy: the entry title. */
+.record-head h3 {
+  grid-column: 2;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--accent-warm);
+  margin: 0 0 0.15rem;
+}
+
+.record-when {
+  grid-column: 1;
+  grid-row: 1;
+  font-size: 0.9375rem;
+  color: var(--ink-soft);
+  padding-top: 0.25rem;
+}
+
+/* Third level: employer or venue, set in italic. */
+.record-where {
+  grid-column: 2;
+  font-style: italic;
+  font-size: 1rem;
+  color: var(--ink-soft);
+  margin: 0 0 0.6rem;
+}
+
+.record > p,
+.record > ul,
+.record > figure {
+  grid-column: 2;
+}
+
+/* Achievements under each entry: serif, to set them apart from the sans
+   used everywhere else. */
+.highlights {
+  font-size: 1.0625rem;
+  line-height: 1.65;
+  margin: 0.25rem 0 1rem;
+  padding-left: 1.2rem;
+}
+
+.highlights li { margin-bottom: 0.4rem; }
+
+/* Project photos ---------------------------------------------------------- */
+
+.project-shot { margin: 1.25rem 0; }
+
+.project-shot img {
+  display: block;
+  width: 100%;
+  max-width: 36rem;
+  height: auto;
+  border: 1px solid var(--rule);
+}
+
+.project-shot figcaption {
+  font-size: 0.9375rem;
+  color: var(--ink-soft);
+  margin-top: 0.5rem;
+}
+
+.project-links { font-size: 0.9375rem; }
+
+/* Publications ------------------------------------------------------------ */
+
+.pub-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.pub-list li {
+  padding-top: 1rem;
+  margin-top: 1rem;
+  border-top: 1px solid var(--rule);
+}
+
+.pub-list li:first-child {
+  padding-top: 0;
+  margin-top: 0;
+  border-top: 0;
+}
+
+.pub-title {
+  font-style: italic;
+  color: var(--accent-warm);
+}
+
+.pub-venue,
+.pub-note {
+  font-size: 0.9375rem;
+  color: var(--ink-soft);
+}
+
+.pub-note { display: block; margin-top: 0.3rem; }
+
+/* Contact ----------------------------------------------------------------- */
+
+.contact-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.contact-list li {
+  display: grid;
+  grid-template-columns: 12rem 1fr;
+  gap: 2.5rem;
+  padding: 0.7rem 0;
+  border-top: 1px solid var(--rule);
+}
+
+.contact-list li:first-child { border-top: 0; padding-top: 0; }
+
+.contact-key {
+  font-size: 0.9375rem;
+  color: var(--ink-soft);
+}
+
+/* Footer ------------------------------------------------------------------ */
+
+footer {
+  margin-top: 4rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--rule);
+  font-size: 0.9375rem;
+  color: var(--ink-soft);
+}
+
+/* Narrow screens: collapse the two columns -------------------------------- */
+
+@media (max-width: 48rem) {
+  .shell { padding: 2rem 1.25rem 3rem; }
+
+  main { margin-top: 2.25rem; }
+
+  .tabs { gap: 0 1.25rem; font-size: 1rem; }
+
+  .masthead-id {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .masthead h1 { font-size: 1.875rem; }
+
+
+  .record {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .record-head h3,
+  .record-where,
+  .record > p,
+  .record > ul,
+  .record > figure { grid-column: 1; }
+
+  .record-when {
+    grid-column: 1;
+    grid-row: auto;
+    order: -1;
+    padding-top: 0;
+    margin-bottom: 0.2rem;
+  }
+
+  .contact-list li {
+    grid-template-columns: 1fr;
+    gap: 0.15rem;
+  }
+}

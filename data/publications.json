@@ -1,0 +1,76 @@
+[
+  {
+    "status": "published",
+    "year": "2026",
+    "authors": "Moutahir, H., Sulzer, M., Kiese, R., Christen, A., Weiler, M., Dedden, L., Brzozon, J., ... Khanal, P., et al.",
+    "title": "Matching scales of eddy covariance measurements and process-based modelling: assessing spatiotemporal dynamics of carbon and water fluxes in a mixed forest in Southern Germany",
+    "venue": "Biogeosciences, 23, 1719-1738",
+    "doi": "https://doi.org/10.5194/bg-23-1719-2026"
+  },
+  {
+    "status": "published",
+    "year": "2025",
+    "authors": "Zeng, Y., Alidoost, F., Schilperoort, B., Liu, Y., Verhoeven, S., Grootes, M. W., ... Khanal, P., et al.",
+    "title": "Towards an open soil-plant digital twin based on the STEMMUS-SCOPE model, following open science",
+    "venue": "Computers & Geosciences, 205, 106013",
+    "doi": "https://doi.org/10.1016/j.cageo.2025.106013"
+  },
+  {
+    "status": "published",
+    "year": "2024",
+    "authors": "Khanal, P., Hoek van Dijke, A. J., Schaffhauser, T., Li, W., Paulus, S. J., Zhan, C., et al.",
+    "title": "Relevance of near-surface soil moisture vs. terrestrial water storage for global vegetation functioning",
+    "venue": "Biogeosciences, 21(6), 1533-1547",
+    "doi": "https://doi.org/10.5194/bg-21-1533-2024"
+  },
+  {
+    "status": "published",
+    "year": "2019",
+    "authors": "Bhattarai, P., Khanal, P., Tiwari, P., Lamichhane, N., Dhakal, P., Lamichhane, P., et al.",
+    "title": "Flood inundation mapping of Babai basin using HEC-RAS and GIS",
+    "venue": "Journal of the Institute of Engineering, 15(2), 32-44",
+    "doi": "https://doi.org/10.3126/jie.v15i2.27639"
+  },
+  {
+    "status": "review",
+    "year": "",
+    "authors": "Khanal, P., Zeng, Y., Daoud, M. G., Beckers, J., Su, Z.",
+    "title": "Investigating the impact of multilayer resistance schemes on simulating land surface temperature and turbulent fluxes: evaluation within the STEMMUS-SCOPE model",
+    "venue": "",
+    "doi": "https://papers.ssrn.com/sol3/papers.cfm?abstract_id=6389498",
+    "note": "Under review. Preprint on SSRN."
+  },
+  {
+    "status": "review",
+    "year": "",
+    "authors": "Khanal, P., et al.",
+    "title": "Deep learning soil moisture and fluxes with multimodal foundation-model embeddings",
+    "venue": "",
+    "doi": "",
+    "note": "In review"
+  },
+  {
+    "status": "conference",
+    "year": "2026",
+    "authors": "Khanal, P., et al.",
+    "title": "Bridging the scale gap: daily 10-metre soil moisture, evapotranspiration and carbon fluxes via multimodal deep learning",
+    "venue": "Workshop on Machine Learning for Land and Hydrology, ECMWF, Reading, UK",
+    "doi": ""
+  },
+  {
+    "status": "conference",
+    "year": "2023",
+    "authors": "Khanal, P., Hoek van Dijke, A., Zeng, Y., Orth, R.",
+    "title": "Near-surface vs. sub-surface soil moisture impacts on vegetation functioning",
+    "venue": "EGU General Assembly, Vienna, Austria, EGU23-7670",
+    "doi": "https://doi.org/10.5194/egusphere-egu23-7670"
+  },
+  {
+    "status": "conference",
+    "year": "2019",
+    "authors": "Khanal, P.",
+    "title": "Flood inundation mapping: an inference on the outbreak of flood-borne diseases",
+    "venue": "International Conference on Health Engineering in Disaster",
+    "doi": ""
+  }
+]
