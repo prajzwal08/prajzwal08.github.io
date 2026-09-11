@@ -53,9 +53,10 @@ Written 3 September 2026, revised 11 September. Tick these off as you go.
 - [ ] **ECEP location differs between site and CV.** The website says
       "Lazimpat, Kathmandu, Nepal"; the CV says "Kathmandu, Nepal", because the
       CV has one page and no room for the longer form. Fine if deliberate.
-- [ ] **Work experience order.** Max Planck is first because you asked for it,
-      but it is not strictly newest-first: the TUM position ran to Mar 2022 and
-      ECEP to Dec 2022. Fine if you are ordering by importance — just be aware.
+- [ ] **Work experience order.** Max Planck is first. With the corrected dates
+      that is newest-first by start date (Mar 2022, then Nov 2021, May 2021,
+      Dec 2018), though ECEP ran to Dec 2022 and so ends later than two of the
+      entries above it. Fine either way — just be aware.
 
 ## Loose ends
 
