@@ -84,8 +84,10 @@
       });
       if (!inGroup.length) return;
 
-      var section = el('section');
-      var heading = el('h2');
+      // A div, not a section: the page's `section + section` spacing is sized
+      // for top-level topics and is far too wide between publication groups.
+      var section = el('div');
+      var heading = el('h3', 'pub-group');
       heading.textContent = group.heading;
       section.appendChild(heading);
 
@@ -113,4 +115,53 @@
       mount.appendChild(p);
       console.error('publications.json failed to load:', err);
     });
+})();
+
+/* Marks the nav link for whichever section is currently on screen. Sections
+   without a data-nav attribute (Awards, Teaching) deliberately have no link of
+   their own, so scrolling through them leaves Education marked. */
+(function () {
+  'use strict';
+
+  var nav = document.querySelector('.tabs');
+  if (!nav || !('IntersectionObserver' in window)) return;
+
+  var sections = document.querySelectorAll('main section[data-nav]');
+  if (!sections.length) return;
+
+  var links = {};
+  Array.prototype.forEach.call(nav.querySelectorAll('a'), function (a) {
+    links[a.getAttribute('href').slice(1)] = a;
+  });
+
+  var visible = {};
+
+  function mark() {
+    var current = null;
+    Array.prototype.forEach.call(sections, function (section) {
+      if (visible[section.id] && !current) current = section.id;
+    });
+    if (!current) return;
+
+    Object.keys(links).forEach(function (id) {
+      if (id === current) links[id].setAttribute('aria-current', 'true');
+      else links[id].removeAttribute('aria-current');
+    });
+  }
+
+  var observer = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      visible[e.target.id] = e.isIntersecting;
+    });
+    mark();
+  }, {
+    // Ignore the strip under the sticky nav, and treat the top part of the
+    // viewport as "where the reader is looking". rootMargin takes px or %
+    // only — rem is silently rejected and the observer never fires.
+    rootMargin: '-72px 0px -55% 0px'
+  });
+
+  Array.prototype.forEach.call(sections, function (section) {
+    observer.observe(section);
+  });
 })();

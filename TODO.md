@@ -4,13 +4,15 @@ Written 3 September 2026. Tick these off as you go.
 
 ## Content you said you would write yourself
 
-- [ ] **Projects page is empty.** `projects.html` has only the heading. The
-      markup pattern is in an HTML comment inside the file — copy it out and
-      edit. Newest project first.
+- [ ] **Projects section has one entry.** The markup pattern is in an HTML
+      comment at the end of the section in `index.html` — copy it out and edit.
+      Newest project first.
 - [ ] **Project photos.** Put image files in `images/`, then uncomment the
       `<figure class="project-shot">` block in a project entry and point `src`
       at your file. Resize anything wider than about 1600 px first; the layout
-      cannot use more than that and large files slow the page down.
+      cannot use more than that and large files slow the page down. On one long
+      page this matters more than it did: every visitor now downloads every
+      image, not just the ones on the page they opened.
 
 ## Decisions I made that you should check
 

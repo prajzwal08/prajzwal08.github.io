@@ -41,24 +41,34 @@ that on `file://` URLs.
 
 ## Files
 
-    index.html              About, with portrait
-    projects.html           Selected projects, with photos
-    publications.html       Rendered from data/publications.json
-    education.html          Education, awards, teaching
-    experience.html         Work experience
-    contact.html            Contact details
+    index.html              The whole site: every section, one page
     assets/style.css        All styling
-    assets/site.js          Renders the publication list
+    assets/site.js          Publication list, and the nav highlighting
     assets/photo.jpg        Portrait shown on the About page
     data/publications.json  The publication list itself
     images/                 Project photos go here
     Prajwal_Khanal_CV.pdf   CV, linked from the contact page
 
+## One page, not six
+
+Everything lives in `index.html`: About, Experience, Education, Awards,
+Teaching, Publications, Projects, Contact, in that order. The nav does not load
+pages — each link is an anchor to a `<section id="...">` further down, and the
+bar sticks to the top of the window as you scroll.
+
+To add a section: give it an `id`, and add `data-nav` if it should get its own
+nav link. `data-nav` is what `assets/site.js` watches to decide which link to
+mark as you scroll, which is why Awards and Teaching do not carry it — they
+belong under Education and share its link.
+
+On a phone the nav becomes a single row you swipe sideways, rather than
+wrapping onto two lines and changing the height of the sticky bar.
+
 ## Adding a project
 
-Open `projects.html`. Each project is one `<article class="record">` block.
-Copy an existing block, paste it below, and edit the text. The comment at the
-top of the section says the same thing.
+Find the Projects section in `index.html`. Each project is one
+`<div class="record">` block. Copy an existing block, paste it below, and edit
+the text. The comment at the end of the section says the same thing.
 
 To add a photo: drop the image file into `images/`, then uncomment the
 `<figure class="project-shot">` block and point `src` at your file.
@@ -122,8 +132,9 @@ increasingly ask for an ORCID at submission.
 
 ## Adding a position
 
-Open `experience.html`. Same pattern as the projects page: each position is one
-`<div class="record">` block. Copy one, paste it, edit the text. Newest first.
+Find the Experience section in `index.html`. Same pattern as the projects
+section: each position is one `<div class="record">` block. Copy one, paste it,
+edit the text. Newest first.
 
 ## Typography
 
@@ -140,7 +151,7 @@ check, and how to publish an update.
 
 ## Still to fill in
 
-- The bullet points under each project in `projects.html`, and the photos.
+- The bullet points under each project in the Projects section, and the photos.
 
 `Prajwal_Khanal_CV.pdf` is the published CV, exported from the .docx with the
 phone number removed. The source `Prajwal_Khanal_resume.docx` is gitignored, so

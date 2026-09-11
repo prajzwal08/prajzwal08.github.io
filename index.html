@@ -18,24 +18,34 @@
       <p>PhD researcher, Faculty of Geo-Information Science and Earth Observation (ITC), University of Twente</p>
     </div>
   </div>
-  <nav class="tabs" aria-label="Sections">
-    <a href="index.html" aria-current="page">About</a>
-    <a href="education.html">Education</a>
-    <a href="publications.html">Publications</a>
-    <a href="projects.html">Projects</a>
-    <a href="contact.html">Contact</a>
-  </nav>
 </header>
 
+<!--
+  The nav scrolls the page rather than loading a new one: every href is an
+  anchor to a section below. Adding a section means adding an id here and a
+  matching <section id="..." data-nav> in main.
+-->
+<nav class="tabs" aria-label="Sections">
+  <a href="#about" aria-current="true">About</a>
+  <a href="#experience">Experience</a>
+  <a href="#education">Education</a>
+  <a href="#publications-section">Publications</a>
+  <a href="#projects">Projects</a>
+  <a href="#contact">Contact</a>
+</nav>
+
 <main>
-  <section>
+
+  <!-- About ---------------------------------------------------------------->
+  <section id="about" data-nav>
     <p class="lede">I model soil&ndash;vegetation&ndash;atmosphere interactions, with a focus on water and
     carbon fluxes. My work spans both ends of the modelling spectrum: process-based land surface models
     and data-driven deep learning. I am particularly interested in where the two can inform each
     other.</p>
   </section>
 
-  <section>
+  <!-- Experience ----------------------------------------------------------->
+  <section id="experience" data-nav>
     <h2>Work experience</h2>
 
     <!--
@@ -114,12 +124,214 @@
       </ul>
     </div>
   </section>
+
+  <!-- Education ------------------------------------------------------------>
+  <section id="education" data-nav>
+    <h2>Education</h2>
+
+    <div class="record">
+      <div class="record-head">
+        <h3>PhD, Geo-Information Science and Earth Observation</h3>
+        <span class="record-when">Feb 2023 &ndash; present</span>
+      </div>
+      <p class="record-where">University of Twente, the Netherlands</p>
+      <ul class="highlights">
+        <li>Modelling soil&ndash;vegetation&ndash;atmosphere interaction, working on both process-based land
+      surface modelling and deep learning approaches to water and carbon fluxes.</li>
+      </ul>
+    </div>
+
+    <div class="record">
+      <div class="record-head">
+        <h3>MSc, Environmental Engineering</h3>
+        <span class="record-when">Nov 2020 &ndash; Dec 2022</span>
+      </div>
+      <p class="record-where">Technical University of Munich, Germany</p>
+      <ul class="highlights">
+        <li>Graduated with 1.4/5.0 on the German scale, where 1.0 is the highest mark.</li>
+        <li>Thesis on the role of near-surface versus sub-surface soil moisture in vegetation
+        functioning, which became the 2024 <i>Biogeosciences</i> paper.</li>
+      </ul>
+    </div>
+
+    <div class="record">
+      <div class="record-head">
+        <h3>BE, Civil Engineering</h3>
+        <span class="record-when">Nov 2014 &ndash; Aug 2018</span>
+      </div>
+      <p class="record-where">Institute of Engineering (IOE), Tribhuvan University, Nepal</p>
+      <ul class="highlights">
+        <li>Ranked 20th of 192 with 77.7%.</li>
+        <li>Thesis on flood inundation mapping of the Babai River.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Awards --------------------------------------------------------------->
+  <section id="awards">
+    <h2>Awards</h2>
+
+    <div class="record">
+      <div class="record-head">
+        <h3>Second place, Hackathon on Machine Learning for Earth System Modelling</h3>
+        <span class="record-when">Aug 2026</span>
+      </div>
+      <ul class="highlights">
+        <li>Project on quantization in foundation models. Supported by CESOC, ECMWF, TRA Modelling at the
+      University of Bonn, Forschungszentrum J&uuml;lich and the University of Cologne.</li>
+      </ul>
+    </div>
+
+    <div class="record">
+      <div class="record-head">
+        <h3>Deutschlandstipendium</h3>
+        <span class="record-when">2021/22</span>
+      </div>
+      <ul class="highlights">
+        <li>National merit scholarship supporting master's study, awarded at TU Munich.</li>
+      </ul>
+    </div>
+
+    <div class="record">
+      <div class="record-head">
+        <h3>Institute of Engineering (IOE) Merit-Based Scholarship</h3>
+        <span class="record-when">2014 &ndash; 2018</span>
+      </div>
+      <ul class="highlights">
+        <li>Merit scholarship supporting bachelor's study at Tribhuvan University.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Teaching ------------------------------------------------------------->
+  <section id="teaching">
+    <h2>Teaching</h2>
+
+    <div class="record">
+      <div class="record-head">
+        <h3>Teaching assistant, Technical University of Munich</h3>
+        <span class="record-when">2021 &ndash; 2022</span>
+      </div>
+      <ul class="highlights">
+        <li>Hydrological and Environmental River Basin Modelling, Integrated Water Resources Management,
+      and Rapidly Varying Flow.</li>
+      </ul>
+    </div>
+
+    <div class="record">
+      <div class="record-head">
+        <h3>Assistant lecturer, Cosmos College of Management and Technology</h3>
+        <span class="record-when">Nov 2018 &ndash; Jan 2021</span>
+      </div>
+      <p class="record-where">Lalitpur, Nepal</p>
+      <ul class="highlights">
+        <li>Designed and taught an elective on Python and GIS for water resources, and ran tutorials for
+      Fluid Mechanics and Hydraulics.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Publications: the list itself is rendered from data/publications.json -->
+  <section id="publications-section" data-nav>
+    <h2>Publications</h2>
+    <div id="publications">
+      <p>Loading the publication list&hellip;</p>
+    </div>
+    <p class="pub-note">Also on
+      <a href="https://scholar.google.com/citations?user=UtzNqTwAAAAJ&amp;hl=en" rel="noopener">Google Scholar</a>.</p>
+  </section>
+
+  <!-- Projects ------------------------------------------------------------->
+  <section id="projects" data-nav>
+    <h2>Projects</h2>
+
+    <div class="record">
+      <div class="record-head">
+        <h3>WUNDER data viewer</h3>
+        <span class="record-when">2026</span>
+      </div>
+      <p class="record-where">Water Resources department, ITC, University of Twente</p>
+      <p>An interactive app for the WUNDER weather and soil moisture loggers, so that growers at
+      the food forests can follow drought as it develops.</p>
+      <p class="project-links">
+        <a href="https://wunder-project.streamlit.app" rel="noopener">Open the app</a> &middot;
+        <a href="https://github.com/prajzwal08/wunder-project" rel="noopener">Source on GitHub</a>
+      </p>
+    </div>
+
+    <!-- Write your projects here. Nothing below this line is shown on the page.
+
+    The pattern, if you want it. Paste it outside this comment and edit:
+
+    <div class="record">
+      <div class="record-head">
+        <h3>Project name</h3>
+        <span class="record-when">Year</span>
+      </div>
+      <p class="record-where">Affiliation</p>
+      <p>Description.</p>
+      <ul class="highlights">
+        <li>Result.</li>
+      </ul>
+    </div>
+
+    For a photo, put the file in images/ and add inside a record block:
+
+    <figure class="project-shot">
+      <img src="images/your-photo.jpg" alt="What the photo shows">
+      <figcaption>Caption.</figcaption>
+    </figure>
+
+    -->
+
+  </section>
+
+  <!-- Contact -------------------------------------------------------------->
+  <section id="contact" data-nav>
+    <h2>Contact</h2>
+    <p>The quickest way to reach me is by email. I am happy to hear about collaborations, data
+    requests, or questions about any of the papers.</p>
+
+    <ul class="contact-list">
+      <li>
+        <span class="contact-key">Email</span>
+        <span>ktm.prajwalkhanal [at] gmail.com</span>
+      </li>
+      <li>
+        <span class="contact-key">Institutional</span>
+        <span>p.khanal [at] utwente.nl</span>
+      </li>
+      <li>
+        <span class="contact-key">GitHub</span>
+        <span><a href="https://github.com/prajzwal08" rel="noopener">github.com/prajzwal08</a></span>
+      </li>
+      <li>
+        <span class="contact-key">Google Scholar</span>
+        <span><a href="https://scholar.google.com/citations?user=UtzNqTwAAAAJ&amp;hl=en" rel="noopener">Profile</a></span>
+      </li>
+      <li>
+        <span class="contact-key">CV</span>
+        <span><a href="Prajwal_Khanal_CV.pdf">Download (PDF)</a></span>
+      </li>
+      <li>
+        <span class="contact-key">From</span>
+        <span>Nepal</span>
+      </li>
+      <li>
+        <span class="contact-key">Where</span>
+        <span>ITC Faculty, University of Twente, Enschede, the Netherlands</span>
+      </li>
+    </ul>
+  </section>
+
 </main>
 
 <footer>
-  <p>Enschede, the Netherlands. Last updated September 2026.</p>
+  <p>Enschede, the Netherlands. Last updated September 2026.
+  <a class="to-top" href="#about">Back to top</a></p>
 </footer>
 
 </div>
+<script src="assets/site.js"></script>
 </body>
 </html>
