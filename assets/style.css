@@ -32,7 +32,7 @@ body {
   color: var(--ink);
   font-family: var(--type);
   font-size: 1.125rem;
-  line-height: 1.45;
+  line-height: 1.55;
 }
 
 /* Portrait: a column roughly the proportion of a sheet of paper, centred, with
@@ -42,7 +42,7 @@ body {
 .shell {
   max-width: 46rem;
   margin: 0 auto;
-  padding: 2rem 2rem 2.5rem;
+  padding: 2.5rem 2.25rem 3rem;
 }
 
 /* Masthead: portrait top left, name beside it, nav underneath ------------ */
@@ -50,7 +50,7 @@ body {
 .masthead-id {
   display: flex;
   align-items: center;
-  gap: 1.25rem;
+  gap: 1.4rem;
 }
 
 /* The nav is a sibling of the masthead, not a child, so that `position:
@@ -76,7 +76,7 @@ body {
 .masthead-id > div > p {
   font-size: 1.0625rem;
   color: var(--ink-soft);
-  margin: 0.25rem 0 0;
+  margin: 0.3rem 0 0;
 }
 
 .tabs {
@@ -85,8 +85,8 @@ body {
   z-index: 10;
   display: flex;
   gap: 0 1.75rem;
-  margin-top: 1rem;
-  padding-top: 0.5rem;
+  margin-top: 1.15rem;
+  padding-top: 0.6rem;
   border-top: 2px solid var(--accent);
   border-bottom: 1px solid var(--rule);
   background: var(--page);
@@ -117,32 +117,32 @@ body {
 }
 
 /* Anchor targets clear the sticky nav instead of hiding behind it. */
-main section[id] { scroll-margin-top: 3.6rem; }
+main section[id] { scroll-margin-top: 3.9rem; }
 
 /* Section titles: the top of the hierarchy ------------------------------- */
 
-main { margin-top: 1.5rem; }
+main { margin-top: 1.75rem; }
 
 /* On one long page this gap is the only thing telling the reader a new topic
    has started, so it stays the largest space on the page even when the rest
    of the rhythm is tight. */
-section + section { margin-top: 2rem; }
+section + section { margin-top: 2.6rem; }
 
 h2 {
   font-weight: 600;
   font-size: 1.3125rem;
   color: var(--accent);
-  margin: 0 0 0.6rem;
-  padding-bottom: 0.25rem;
+  margin: 0 0 0.8rem;
+  padding-bottom: 0.35rem;
   border-bottom: 1px solid var(--rule);
 }
 
-p { margin: 0 0 0.45rem; }
+p { margin: 0 0 0.6rem; }
 p:last-child { margin-bottom: 0; }
 
 .lede {
   font-size: 1.125rem;
-  line-height: 1.5;
+  line-height: 1.62;
 }
 
 a {
@@ -161,8 +161,8 @@ a:hover { border-bottom-color: var(--accent); }
   display: grid;
   grid-template-columns: 8.5rem 1fr;
   gap: 0 1.75rem;
-  padding-top: 0.5rem;
-  margin-top: 0.5rem;
+  padding-top: 0.65rem;
+  margin-top: 0.65rem;
   border-top: 1px solid var(--rule);
 }
 
@@ -199,7 +199,7 @@ a:hover { border-bottom-color: var(--accent); }
   font-style: italic;
   font-size: 1rem;
   color: var(--ink-soft);
-  margin: 0 0 0.2rem;
+  margin: 0 0 0.3rem;
 }
 
 .record > p,
@@ -211,16 +211,16 @@ a:hover { border-bottom-color: var(--accent); }
 /* Achievements under each entry. */
 .highlights {
   font-size: 1.0625rem;
-  line-height: 1.45;
-  margin: 0.1rem 0 0.25rem;
+  line-height: 1.58;
+  margin: 0.15rem 0 0.4rem;
   padding-left: 1.05rem;
 }
 
-.highlights li { margin-bottom: 0.15rem; }
+.highlights li { margin-bottom: 0.22rem; }
 
 /* Project photos ---------------------------------------------------------- */
 
-.project-shot { margin: 0.8rem 0; }
+.project-shot { margin: 1rem 0; }
 
 .project-shot img {
   display: block;
@@ -246,7 +246,7 @@ a:hover { border-bottom-color: var(--accent); }
   font-size: 1.0625rem;
   font-weight: 700;
   color: var(--ink);
-  margin: 1rem 0 0.4rem;
+  margin: 1.25rem 0 0.5rem;
 }
 
 .pub-group:first-child { margin-top: 0; }
@@ -258,8 +258,8 @@ a:hover { border-bottom-color: var(--accent); }
 }
 
 .pub-list li {
-  padding-top: 0.55rem;
-  margin-top: 0.55rem;
+  padding-top: 0.75rem;
+  margin-top: 0.75rem;
   border-top: 1px solid var(--rule);
 }
 
@@ -293,7 +293,7 @@ a:hover { border-bottom-color: var(--accent); }
   display: grid;
   grid-template-columns: 8.5rem 1fr;
   gap: 1.75rem;
-  padding: 0.3rem 0;
+  padding: 0.42rem 0;
   border-top: 1px solid var(--rule);
 }
 
@@ -307,8 +307,8 @@ a:hover { border-bottom-color: var(--accent); }
 /* Footer ------------------------------------------------------------------ */
 
 footer {
-  margin-top: 2rem;
-  padding-top: 0.7rem;
+  margin-top: 2.5rem;
+  padding-top: 0.8rem;
   border-top: 1px solid var(--rule);
   font-size: 0.9375rem;
   color: var(--ink-soft);
@@ -319,9 +319,9 @@ footer {
 /* Narrow screens: collapse the two columns -------------------------------- */
 
 @media (max-width: 48rem) {
-  .shell { padding: 1.5rem 1.25rem 2.25rem; }
+  .shell { padding: 1.75rem 1.35rem 2.75rem; }
 
-  main { margin-top: 1.4rem; }
+  main { margin-top: 1.6rem; }
 
   /* Six items do not fit across a phone, so the nav becomes a strip you
      swipe sideways. It stays one row, so the sticky bar keeps a fixed
@@ -337,7 +337,7 @@ footer {
 
   .tabs::-webkit-scrollbar { display: none; }
 
-  main section[id] { scroll-margin-top: 3.3rem; }
+  main section[id] { scroll-margin-top: 3.6rem; }
 
   .masthead-id {
     flex-direction: column;
