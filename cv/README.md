@@ -54,6 +54,31 @@ city, so a reader can see where he currently is. GitHub and Google Scholar are
 not in it — the website carries both. Add them back into the `center` block if
 a reader should not have to go via the site.
 
+## The left column
+
+Section labels are set in the CV blue, in small caps, inside a `\parbox` of
+`\cvlabelwidth` (0.95in). That width is chosen so the longest label,
+"Scholarships", stays on one line.
+
+Keep every label to one line. A label that wraps to two either stretches the
+first line of the content beside it, or — if it is smashed to zero height to
+stop that — prints on top of the next section's label. "Research Interests"
+did exactly that to "Education", which is why the section is now called
+"Interests".
+
+## It fits on one page, and only just
+
+The lengths holding it there are `\topsep` in `cvsection`, plus `\gap`, `\pub`
+and `\subhead`, plus `\linespread{0.94}` and the 0.45in margins. After any
+edit, check:
+
+    pdfinfo cv.pdf | grep Pages
+
+The slack is spent. Margins and linespread have no more give, so the next
+thing that needs room has to be paid for by cutting content rather than by
+tightening further. The obvious candidate is the 2019 conference abstract,
+the weakest entry on the page.
+
 ## Things to keep in step
 
 The **Skills** section was assembled from the work described elsewhere in the

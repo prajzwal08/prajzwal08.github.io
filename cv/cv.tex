@@ -45,7 +45,7 @@
 % Section: a small-caps label in the left margin, content to the right.
 % ---------------------------------------------------------------------------
 \newlength{\cvlabelwidth}
-\setlength{\cvlabelwidth}{0.85in}
+\setlength{\cvlabelwidth}{0.95in}
 
 \newenvironment{cvsection}[1]{%
   \begin{list}{}{%
@@ -58,11 +58,16 @@
     \setlength{\topsep}{0.02in}%
     \setlength{\parsep}{0pt}%
     \setlength{\itemsep}{0pt}%
-    % \smash zeroes the box. Without it a two-line label makes the item's
-    % first line box as deep as the label, which shows up as a gap between
-    % the first two lines of the content beside it.
+    % No \smash here. Smashing the label to zero height stops a two-line label
+    % from stretching the first line of the content beside it — but it also
+    % lets that second label line print on top of the next section's label,
+    % which is exactly what "Research Interests" did to "Education". Better to
+    % keep every label to one line: see \cvlabelwidth above.
+    % Blue, matching the website's section headings. The column is wide enough
+    % for the longest label, "Scholarships", to stay on one line — a label that
+    % wraps stretches the first line of the content beside it.
     \renewcommand{\makelabel}[1]{%
-      \smash{\parbox[t]{\cvlabelwidth}{\raggedright\textsc{##1}}}}%
+      \parbox[t]{\cvlabelwidth}{\raggedright\textcolor{cvblue}{\textsc{##1}}}}%
   }%
   \item[#1]%
 }{\end{list}}
@@ -107,7 +112,7 @@
 \vspace{-0.02in}
 \rule{\textwidth}{0.8pt}
 
-\begin{cvsection}{Research\\Interests}
+\begin{cvsection}{Interests}
   Remote sensing of vegetation and its water use; drought; hybrid process-based and
   machine-learning models.
 \end{cvsection}
