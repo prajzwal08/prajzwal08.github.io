@@ -307,15 +307,17 @@ a:hover { border-bottom-color: var(--accent); }
   margin-top: 0.9rem;
 }
 
-/* Contact ----------------------------------------------------------------- */
+/* Label-and-value lists: contact details, and the skills table ------------ */
 
-.contact-list {
+.contact-list,
+.keyed-list {
   list-style: none;
   margin: 0;
   padding: 0;
 }
 
-.contact-list li {
+.contact-list li,
+.keyed-list li {
   display: grid;
   grid-template-columns: 12rem 1fr;
   gap: 2.5rem;
@@ -323,7 +325,8 @@ a:hover { border-bottom-color: var(--accent); }
   border-top: 1px solid var(--rule);
 }
 
-.contact-list li:first-child { border-top: 0; padding-top: 0; }
+.contact-list li:first-child,
+.keyed-list li:first-child { border-top: 0; padding-top: 0; }
 
 .contact-key {
   font-size: 0.9375rem;
@@ -393,7 +396,8 @@ footer {
     margin-bottom: 0.2rem;
   }
 
-  .contact-list li {
+  .contact-list li,
+  .keyed-list li {
     grid-template-columns: 1fr;
     gap: 0.15rem;
   }
