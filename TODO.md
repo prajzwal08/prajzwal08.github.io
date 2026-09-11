@@ -47,6 +47,16 @@ Written 3 September 2026. Tick these off as you go.
           git config user.email "your-github-email"
 
       Past commits would need rewriting; ask me if you want that done.
+- [ ] **The old site URL is printed in the CV.** The header line of
+      `Prajwal_Khanal_resume.docx` reads
+      `github.com/prajzwal08 · Google Scholar · prajzwal08.github.io`. Change the
+      last item to `prajwalkhanal.earth` and re-export the PDF (deleting the phone
+      number first, as below). `github.com/prajzwal08` stays as it is — the
+      username has not changed.
+- [ ] **Update the URL elsewhere.** LinkedIn, ORCID, email signature, and
+      anywhere a paper or application already lists the site.
+      `prajzwal08.github.io` keeps working and redirects, but only while the
+      domain is registered and the repository stays in place.
 - [ ] **Footer date.** Every page ends with "Last updated September 2026".
       Update it when you make a real change, or delete the line.
 - [ ] **Emails in the CV PDF.** The contact page writes addresses as
@@ -86,10 +96,10 @@ Say the word if you want any of these after all.
         git commit -m "what you changed"
         git push
 
-4. Wait about a minute, then check <https://prajzwal08.github.io>.
+4. Wait about a minute, then check <https://prajwalkhanal.earth>.
 
 If the live site looks unchanged, it is almost always browser cache. Open it in
-a private window, or run `curl -s https://prajzwal08.github.io/assets/style.css`
+a private window, or run `curl -s https://prajwalkhanal.earth/assets/style.css`
 to see what the server is really sending.
 
 ## Updating the CV

@@ -1,16 +1,35 @@
-# prajzwal08.github.io
+# prajwalkhanal.earth
 
 Personal academic site. Plain HTML and CSS with one small script, no build step,
 no Jekyll. GitHub Pages serves it as-is.
 
+Live at <https://prajwalkhanal.earth>. The repository is
+`prajzwal08/prajzwal08.github.io`; the domain is what visitors see, so the
+repository name no longer matters.
+
 ## Getting it online
 
-1. Create a repository named exactly `prajzwal08.github.io` (your username, then
-   `.github.io`). The name is what makes Pages serve it at the root domain.
-2. Push this folder to `main`.
-3. In the repository: Settings, then Pages, then set Source to "Deploy from a
+1. Push this folder to `main`.
+2. In the repository: Settings, then Pages, then set Source to "Deploy from a
    branch", branch `main`, folder `/ (root)`.
-4. Wait a minute or two. The site appears at `https://prajzwal08.github.io`.
+3. Wait a minute or two.
+
+## The custom domain
+
+`CNAME` holds the domain, and GitHub reads it on every push — that file *is* the
+custom-domain setting, so do not delete it. If it goes missing the site falls
+back to `https://prajzwal08.github.io` and the domain stops working.
+
+DNS at the registrar points `prajwalkhanal.earth` at GitHub: four `A` records to
+`185.199.108-111.153`, four `AAAA` records to `2606:50c0:800{0,1,2,3}::153`, and
+a `CNAME` on `www` to `prajzwal08.github.io`.
+
+Renew the domain. If it lapses, the site goes down and the name can be taken by
+someone else — auto-renew should be on at the registrar.
+
+The GitHub username stays `prajzwal08`, so links to the profile and to other
+repositories are unchanged. `prajwalkhanal` on GitHub belongs to an unrelated
+account and cannot be claimed, which is why the site uses a domain instead.
 
 To preview locally, from inside the folder:
 
