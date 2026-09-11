@@ -152,8 +152,8 @@
   if (!words.length) return;
 
   // Long paragraphs stagger faster, so the whole line always lands in about
-  // a second and a half rather than crawling on for ten seconds.
-  var stagger = Math.min(0.04, 1.5 / words.length);
+  // two and a half seconds rather than crawling on for ten.
+  var stagger = Math.min(0.07, 2.5 / words.length);
 
   lede.className += ' is-typing';
   lede.textContent = '';

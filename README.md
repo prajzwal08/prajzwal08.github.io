@@ -144,23 +144,22 @@ edit the text. Newest first.
 
 ## Typography
 
-Rockwell, a slab serif that arrives with MS Office, so it reaches Apple and
-Windows machines alike rather than Apple alone. It is not a web font and is not
-downloaded, so the page renders immediately with no font flash. Anything
-without Office falls through to American Typewriter (Apple), then Bookman, then
-Georgia — so a plain Android phone sees a normal serif, not a slab.
+Times New Roman, matching the CV, so the site and the PDF read as one thing.
+Nothing is downloaded, so the page renders immediately with no font flash. To
+change it, edit `--type` in `assets/style.css` — it is the only place a font is
+named.
 
-If you want the slab on every device, the fix is a web font: add a Google Fonts
-link and put Bitter or Zilla Slab at the front of the stack. That costs a
-download and a possible flash of fallback text on the first visit, which is the
-trade you are making.
+## Page width
 
-To change any of this, edit `--type` in `assets/style.css` — it is the only
-place a font is named.
+The text runs the full width of the window with a one-inch margin either side,
+set as `padding` on `.shell`. There is no `max-width`, so on a very wide
+monitor the lines get long; capping it is two lines in that same rule:
 
-Note that the CV PDF is still set in Times New Roman. The site and the CV used
-to share a face deliberately; now only the blue ties them together. Either
-reset the CV in a typewriter face too, or accept that they differ.
+    max-width: 60rem;
+    margin: 0 auto;
+
+On a phone the inch becomes `1.35rem`, because an inch of margin on each side
+of a 375px screen would leave almost nothing for the text.
 
 Email addresses on the contact page are written as `name [at] domain` rather
 than as `mailto:` links, so that address-harvesting bots cannot lift them.

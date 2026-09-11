@@ -1,10 +1,9 @@
-/* Prajwal Khanal. Portrait column on a white ground: the text sits in a
-   page-shaped strip with clear margins either side, rather than stretching
-   across the screen.
-   Rockwell throughout, with the same blue as the CV. NOTE: the CV itself is
-   still set in Times New Roman, so the two no longer share a face the way
-   they did — only the blue still ties them together. Italics are reserved
-   for employer and institution lines, and for journal names. */
+/* Prajwal Khanal. A document on a white ground: the text runs the width of
+   the window with a one-inch margin either side, the way a printed page is
+   set.
+   Times New Roman throughout, and the same blue as the CV, so the site and
+   the PDF read as one thing. Italics are reserved for employer and
+   institution lines, and for journal names. */
 
 :root {
   --ink: #16231F;        /* headings and body text */
@@ -13,12 +12,7 @@
   --accent: #0070C0;     /* section titles, nav, links; matches the CV */
   --page: #ffffff;
 
-  /* Rockwell: a slab serif that arrives with MS Office, so it reaches Apple
-     and Windows alike rather than Apple alone. Nothing is downloaded, so
-     there is no font flash. Android and machines without Office fall through
-     to American Typewriter, then Bookman, then the serifs everyone has. */
-  --type: Rockwell, "Rockwell Nova", "American Typewriter", "Bookman Old Style",
-          Georgia, "Times New Roman", serif;
+  --type: "Times New Roman", Times, Georgia, serif;
 }
 
 * { box-sizing: border-box; }
@@ -41,14 +35,14 @@ body {
   line-height: 1.55;
 }
 
-/* Portrait: a column roughly the proportion of a sheet of paper, centred, with
-   the rest of the window left as margin. Two things set the side gaps — this
-   max-width, and the horizontal padding inside it, which holds the text off
-   the column's own edges the way a printed margin does. */
+/* One inch of margin either side, as on a printed page, with the text filling
+   whatever is left. There is no max-width, so on a very wide monitor the lines
+   get long — add `max-width: 60rem; margin: 0 auto;` here if that ever starts
+   to bother you. */
 .shell {
-  max-width: 42rem;
-  margin: 0 auto;
-  padding: 2.5rem 3.25rem 3rem;
+  max-width: none;
+  margin: 0;
+  padding: 2.5rem 1in 3rem;
 }
 
 /* Masthead: portrait top left, name beside it, nav underneath ------------ */
@@ -156,7 +150,7 @@ p:last-child { margin-bottom: 0; }
    is simply there. */
 .lede.is-typing .word {
   opacity: 0;
-  animation: word-in 0.45s ease forwards;
+  animation: word-in 0.6s ease forwards;
   animation-delay: var(--d, 0s);
 }
 
@@ -182,13 +176,10 @@ a:hover { border-bottom-color: var(--accent); }
 
 /* Entries: dates in a fixed left column, content filling the width -------- */
 
-/* The date gutter narrows with the page. Inside a 42rem column with wide
-   margins there is not much left to share, and the text column is the half
-   that has to stay readable. */
 .record {
   display: grid;
-  grid-template-columns: 7.25rem 1fr;
-  gap: 0 1.5rem;
+  grid-template-columns: 12rem 1fr;
+  gap: 0 2.5rem;
   padding-top: 0.65rem;
   margin-top: 0.65rem;
   border-top: 1px solid var(--rule);
@@ -341,8 +332,8 @@ a:hover { border-bottom-color: var(--accent); }
 
 .contact-list li {
   display: grid;
-  grid-template-columns: 8.5rem 1fr;
-  gap: 1.75rem;
+  grid-template-columns: 12rem 1fr;
+  gap: 2.5rem;
   padding: 0.42rem 0;
   border-top: 1px solid var(--rule);
 }
