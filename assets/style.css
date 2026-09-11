@@ -1,6 +1,6 @@
 /* Prajwal Khanal. A document on a white ground: the text runs the width of
-   the window with a two-inch margin either side, the way a printed page is
-   set.
+   the window with a one-and-a-half-inch margin either side, the way a
+   printed page is set.
    Times New Roman throughout, and the same blue as the CV, so the site and
    the PDF read as one thing. Italics are reserved for employer and
    institution lines, and for journal names. */
@@ -35,18 +35,18 @@ body {
   line-height: 1.55;
 }
 
-/* Two inches of margin either side, as on a printed page, with the text
-   filling whatever is left. There is no max-width, so the measure grows with
-   the window — add `max-width: 60rem; margin: 0 auto;` here to cap it. The
-   margin steps down twice below, because four inches of margin on a small
-   laptop would leave very little page. */
+/* An inch and a half of margin either side, as on a printed page, with the
+   text filling whatever is left. There is no max-width, so the measure grows
+   with the window — add `max-width: 60rem; margin: 0 auto;` here to cap it.
+   The margin steps down twice below, because three inches of margin on a
+   small laptop would leave very little page. */
 .shell {
   max-width: none;
   margin: 0;
-  padding: 2.5rem 2in 3rem;
+  padding: 2.5rem 1.5in 3rem;
 }
 
-/* Under about 1100px, two inches each side eats more than it leaves. */
+/* Under about 1100px, an inch and a half each side eats more than it leaves. */
 @media (max-width: 68rem) {
   .shell { padding: 2.5rem 1in 3rem; }
 }
