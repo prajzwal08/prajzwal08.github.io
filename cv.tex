@@ -40,7 +40,7 @@
     \setlength{\labelsep}{0.12in}%
     \setlength{\itemindent}{0pt}%
     \setlength{\listparindent}{0pt}%
-    \setlength{\topsep}{0.04in}%
+    \setlength{\topsep}{0.032in}%
     \setlength{\parsep}{0pt}%
     \setlength{\itemsep}{0pt}%
     % \smash zeroes the box. Without it a two-line label makes the item's
@@ -63,8 +63,12 @@
   \par
 }
 
-% An indented line under an entry.
-\newcommand{\detail}[1]{\hspace*{1.1em}\parbox[t]{\dimexpr\linewidth-1.1em}{\raggedright #1}\par}
+% One achievement under an entry, marked with a dash so that two of them read
+% as two rather than as one wrapped sentence. The hanging indent keeps a
+% wrapped line clear of the dash.
+\newcommand{\detail}[1]{%
+  \hspace*{0.55em}\textendash\hspace{0.4em}%
+  \parbox[t]{\dimexpr\linewidth-1.75em}{\raggedright #1}\par}
 
 % One publication. The title carries the link, so no "doi" is printed.
 \newcommand{\pub}[1]{\vspace{0.02in}#1\par}
@@ -72,7 +76,7 @@
 % A heading inside a section, e.g. "Peer-reviewed".
 \newcommand{\subhead}[1]{\vspace{0.035in}\textit{#1}\par}
 
-\newcommand{\gap}{\vspace{0.03in}}
+\newcommand{\gap}{\vspace{0.025in}}
 
 % ---------------------------------------------------------------------------
 
@@ -117,7 +121,8 @@
   \detail{Excel/VBA tool for greenhouse-gas accounting: combustion, refrigeration, transport.}
   \gap
   \entry{Civil Engineer (freelance), }{ECEP, Kathmandu, Nepal}{Dec 2018---Dec 2022}
-  \detail{Water supply business plans; Lumbini smart-city water master plan. Two ministries.}
+  \detail{Business plans for community water supply projects, Government of Nepal.}
+  \detail{Smart water supply master plan for Lumbini, Ministry of Urban Development.}
 \end{cvsection}
 
 \begin{cvsection}{Publications}
@@ -166,7 +171,9 @@
 \begin{cvsection}{Awards}
   \entry{Second place, Hackathon on Machine Learning for Earth System Modelling}{}{Aug 2026}
   \detail{Quantization in foundation models. CESOC, ECMWF, TRA Modelling, FZ Jülich, Cologne.}
-  \gap
+\end{cvsection}
+
+\begin{cvsection}{Scholarships}
   \entry{Deutschlandstipendium, national merit scholarship, }{TU Munich}{2021/22}
   \gap
   \entry{Merit-based scholarship, }{Institute of Engineering, Tribhuvan University}{2014---2018}
