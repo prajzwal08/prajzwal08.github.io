@@ -16,6 +16,7 @@
 \usepackage[margin=0.5in]{geometry}
 \linespread{0.95}
 \usepackage[dvipsnames]{xcolor}
+\usepackage[normalem]{ulem}   % normalem: leave \emph alone, we only want \uline
 \usepackage[hidelinks]{hyperref}
 
 % The same blue as the website and the .docx CV.
@@ -26,10 +27,15 @@
 % nine of them, a blue title each was most of the colour on the page.
 \hypersetup{hidelinks}
 
-% The exception. \link is for the handful of navigational links — the website,
-% the email addresses, the supervisors — where the blue is the signal that
-% there is something to click. Use it sparingly; that is the whole point.
+% \link is the header only: the website and the email addresses. It is the
+% only blue on the page.
 \newcommand{\link}[2]{\href{#1}{\textcolor{cvblue}{#2}}}
+
+% Everything in the body. Underlined rather than coloured, so a reader can see
+% there is something to click without the page turning blue. \uline comes from
+% ulem rather than \underline because a paper title is long and has to be able
+% to break across lines.
+\newcommand{\ulink}[2]{\href{#1}{\uline{#2}}}
 
 \pagestyle{empty}
 \setlength{\parindent}{0pt}
@@ -49,7 +55,7 @@
     \setlength{\labelsep}{0.12in}%
     \setlength{\itemindent}{0pt}%
     \setlength{\listparindent}{0pt}%
-    \setlength{\topsep}{0.032in}%
+    \setlength{\topsep}{0.028in}%
     \setlength{\parsep}{0pt}%
     \setlength{\itemsep}{0pt}%
     % \smash zeroes the box. Without it a two-line label makes the item's
@@ -95,21 +101,22 @@
   {\large\textbf{Prajwal Khanal}}\\[0.045in]
   \link{https://prajwalkhanal.earth}{prajwalkhanal.earth}\\[0.02in]
   \link{mailto:p.khanal@utwente.nl}{p.khanal@utwente.nl} $\cdot$
-  \link{mailto:ktm.prajwalkhanal@gmail.com}{ktm.prajwalkhanal@gmail.com}
+  \link{mailto:ktm.prajwalkhanal@gmail.com}{ktm.prajwalkhanal@gmail.com} $\cdot$
+  ITC, University of Twente, Enschede, the Netherlands
 \end{center}
 \vspace{-0.02in}
 \rule{\textwidth}{0.8pt}
 
 \begin{cvsection}{Research\\Interests}
-  Soil--vegetation--atmosphere interaction; water and carbon fluxes; land surface modelling
-  and deep learning.
+  Remote sensing of vegetation; soil--vegetation--atmosphere interaction; land surface
+  models and deep learning.
 \end{cvsection}
 
 \begin{cvsection}{Education}
   \entry{PhD, Geo-Information Science and Earth Observation, }{University of Twente}{Feb 2023---\ldots}
-  \detail{WUNDER. Process-based land surface modelling and deep learning for water and carbon fluxes.}
-  \detail{Supervisors: \link{https://people.utwente.nl/z.su}{Prof.\ dr.\ Bob Su} and
-          \link{https://people.utwente.nl/y.zeng}{dr.\ Yijian Zeng}.}
+  \detail{WUNDER: field-scale soil moisture and fluxes for agricultural drought monitoring.}
+  \detail{Supervisors: \ulink{https://people.utwente.nl/z.su}{Prof.\ dr.\ Bob Su} and
+          \ulink{https://people.utwente.nl/y.zeng}{dr.\ Yijian Zeng}.}
   \gap
   \entry{M.Sc., Environmental Engineering, }{Technical University of Munich}{Nov 2020---Dec 2022}
   \detail{Graduated 1.4/5.0. Thesis: soil moisture controls on vegetation, in \textit{Biogeosciences}.}
@@ -136,27 +143,27 @@
 \begin{cvsection}{Publications}
   \subhead{Peer-reviewed}
   \pub{Moutahir, H., Sulzer, M., Kiese, R., \ldots{} \textbf{Khanal, P.}, et al. (2026).
-  \href{https://doi.org/10.5194/bg-23-1719-2026}{Matching scales of eddy covariance
+  \ulink{https://doi.org/10.5194/bg-23-1719-2026}{Matching scales of eddy covariance
   measurements and process-based modelling: assessing spatiotemporal dynamics of carbon
   and water fluxes in a mixed forest in Southern Germany}. \textit{Biogeosciences}, 23, 1719--1738.}
 
   \pub{Zeng, Y., Alidoost, F., Schilperoort, B., \ldots{} \textbf{Khanal, P.}, et al. (2025).
-  \href{https://doi.org/10.1016/j.cageo.2025.106013}{Towards an open soil-plant digital twin
+  \ulink{https://doi.org/10.1016/j.cageo.2025.106013}{Towards an open soil-plant digital twin
   based on the STEMMUS-SCOPE model, following open science}.
   \textit{Computers \& Geosciences}, 205, 106013.}
 
   \pub{\textbf{Khanal, P.}, Hoek van Dijke, A. J., Schaffhauser, T., et al. (2024).
-  \href{https://doi.org/10.5194/bg-21-1533-2024}{Relevance of near-surface soil moisture vs.\
+  \ulink{https://doi.org/10.5194/bg-21-1533-2024}{Relevance of near-surface soil moisture vs.\
   terrestrial water storage for global vegetation functioning}.
   \textit{Biogeosciences}, 21(6), 1533--1547.}
 
   \pub{Bhattarai, P., \textbf{Khanal, P.}, Tiwari, P., et al. (2019).
-  \href{https://doi.org/10.3126/jie.v15i2.27639}{Flood inundation mapping of Babai basin
+  \ulink{https://doi.org/10.3126/jie.v15i2.27639}{Flood inundation mapping of Babai basin
   using HEC-RAS and GIS}. \textit{Journal of the Institute of Engineering}, 15(2), 32--44.}
 
   \subhead{Under review}
   \pub{\textbf{Khanal, P.}, Zeng, Y., Daoud, M. G., Beckers, J., Su, Z.
-  \href{https://papers.ssrn.com/sol3/papers.cfm?abstract_id=6389498}{Investigating the impact
+  \ulink{https://papers.ssrn.com/sol3/papers.cfm?abstract_id=6389498}{Investigating the impact
   of multilayer resistance schemes on simulating land surface temperature and turbulent
   fluxes: evaluation within the STEMMUS-SCOPE model}. Preprint on SSRN.}
 
@@ -169,7 +176,7 @@
   \textit{Workshop on Machine Learning for Land and Hydrology}, ECMWF, Reading, UK.}
 
   \pub{\textbf{Khanal, P.}, Hoek van Dijke, A., Zeng, Y., Orth, R. (2023).
-  \href{https://doi.org/10.5194/egusphere-egu23-7670}{Near-surface vs.\ sub-surface soil
+  \ulink{https://doi.org/10.5194/egusphere-egu23-7670}{Near-surface vs.\ sub-surface soil
   moisture impacts on vegetation functioning}. \textit{EGU General Assembly}, Vienna, EGU23-7670.}
 
   \pub{\textbf{Khanal, P.} (2019). Flood inundation mapping: an inference on the outbreak of
@@ -196,9 +203,9 @@
 \end{cvsection}
 
 \begin{cvsection}{Software}
-  \entry{\link{https://wunder-project.streamlit.app}{WUNDER data viewer}, }{ITC, University of Twente}{2026}
+  \entry{\ulink{https://wunder-project.streamlit.app}{WUNDER data viewer}, }{ITC, University of Twente}{2026}
   \detail{Weather and soil moisture loggers, read by growers at the food forests as drought develops.
-          \link{https://github.com/prajzwal08/wunder-project}{Source}.}
+          \ulink{https://github.com/prajzwal08/wunder-project}{Source}.}
 \end{cvsection}
 
 % CHECK THIS. Skills is assembled from the work described above rather than
