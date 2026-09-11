@@ -2,3 +2,8 @@
 Prajwal_Khanal_resume.docx
 
 .DS_Store
+
+# LaTeX build files
+cv/*.aux
+cv/*.log
+cv/*.out
