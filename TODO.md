@@ -49,22 +49,21 @@ Written 3 September 2026. Tick these off as you go.
           git config user.email "your-github-email"
 
       Past commits would need rewriting; ask me if you want that done.
-- [ ] **The old site URL is printed in the CV.** The header line of
-      `Prajwal_Khanal_resume.docx` reads
-      `github.com/prajzwal08 · Google Scholar · prajzwal08.github.io`. Change the
-      last item to `prajwalkhanal.earth` and re-export the PDF (deleting the phone
-      number first, as below). `github.com/prajzwal08` stays as it is — the
-      username has not changed.
+- [ ] **Decide what happens to the .docx CV.** `cv/cv.tex` is the CV now, and
+      it already carries `prajwalkhanal.earth`. `Prajwal_Khanal_resume.docx` is
+      gitignored and still on your machine, with the old `prajzwal08.github.io`
+      in its header. Keep it as an archive or delete it, but editing it will not
+      change anything that is published.
 - [ ] **Update the URL elsewhere.** LinkedIn, ORCID, email signature, and
       anywhere a paper or application already lists the site.
       `prajzwal08.github.io` keeps working and redirects, but only while the
       domain is registered and the repository stays in place.
 - [ ] **Footer date.** Every page ends with "Last updated September 2026".
       Update it when you make a real change, or delete the line.
-- [ ] **Emails in the CV PDF.** The contact page writes addresses as
-      `name [at] domain` so bots cannot harvest them. The PDF still has them as
-      plain, selectable text. The phone number is already stripped from the
-      published PDF; the emails are not.
+- [ ] **Emails in the CV PDF.** The contact section writes addresses as
+      `name [at] domain` so bots cannot harvest them. `cv/cv.pdf` has them as
+      plain, selectable text, and as `mailto:` links. There is no phone number
+      in it at all, which is one thing the .docx needed watching for.
 - [ ] **Register an ORCID.** Journals increasingly ask for one at submission.
       It also has a free API that sends CORS headers, so unlike Google Scholar
       the page could fetch it live with no key and no scraping. Tell me your ID
@@ -106,9 +105,14 @@ to see what the server is really sending.
 
 ## Updating the CV
 
-The source is `Prajwal_Khanal_resume.docx`, which is gitignored and stays on
-your machine. `Prajwal_Khanal_CV.pdf` is the published copy.
+Edit `cv/cv.tex`, then:
 
-After editing the .docx: delete the phone number from the header line, export to
-PDF as `Prajwal_Khanal_CV.pdf`, then put the phone number back in the .docx.
-Otherwise your phone number goes public.
+    cd cv
+    pdflatex cv.tex
+    pdfinfo cv.pdf | grep Pages
+
+It is meant to be one page and it fits with nothing to spare, so check the page
+count after every edit. `cv/README.md` explains which lengths to reach for when
+it spills.
+
+There is no phone number in it, so nothing has to be stripped before publishing.

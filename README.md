@@ -47,7 +47,8 @@ block that on `file://` URLs.
     assets/photo.jpg        Portrait shown on the About page
     data/publications.json  The publication list itself
     images/                 Project photos go here
-    Prajwal_Khanal_CV.pdf   CV, linked from the contact page
+    cv/cv.tex               The CV. cv/cv.pdf is built from it, and is what
+                            the contact section links to
 
 ## One page, not six
 
@@ -172,11 +173,15 @@ check, and how to publish an update.
 
 - The bullet points under each project in the Projects section, and the photos.
 
-`Prajwal_Khanal_CV.pdf` is the published CV, exported from the .docx with the
-phone number removed. The source `Prajwal_Khanal_resume.docx` is gitignored, so
-it stays local and is never published.
+## The CV
 
-When you update the CV: edit the .docx, then export a PDF **with the phone
-number deleted from the header line**, and overwrite `Prajwal_Khanal_CV.pdf`.
-The email addresses still appear in the PDF as plain text; the contact page
-obfuscates them, the PDF does not.
+There is one CV, and it is `cv/cv.tex`. Edit it, run `pdflatex cv.tex`, and the
+`cv/cv.pdf` the contact section links to is updated. See [cv/README.md](cv/README.md).
+
+`Prajwal_Khanal_resume.docx` and the `Prajwal_Khanal_CV.pdf` exported from it
+are no longer the CV. The .docx is gitignored and still on the machine; keep it
+as an archive or delete it, but do not edit it expecting the site to change.
+
+The email addresses appear in the PDF as plain text. The contact section
+obfuscates them as `name [at] domain`; the PDF does not. There is no phone
+number in `cv.tex`, so the export dance the .docx needed is gone.
