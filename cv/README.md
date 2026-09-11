@@ -28,6 +28,32 @@ publication, and `\subhead{...}` is a heading inside a section.
 Dates are written with abbreviated months (`Nov 2020---Dec 2022`). Full month
 names in a range are wider than the date column and wrap.
 
+## Two kinds of link
+
+`hyperref` is loaded with `hidelinks`, so it colours nothing by itself. Two
+macros decide how a link looks:
+
+`\ulink{url}{text}` is for the body — paper titles, supervisors, software. It
+underlines rather than colours, so a reader can see there is something to click
+without the page turning blue. The underline is `ulem`'s `\uline` rather than
+`\underline`, because a paper title is long and has to be able to break across
+lines; `\underline` cannot. `ulem` is loaded `[normalem]` so it leaves `\emph`
+alone — the CV uses italic heavily and does not want it underlined.
+
+`\link{url}{text}` is the CV blue, and is used **only in the header**: the
+website and the two email addresses. That is the only blue on the page.
+
+The DOI is wrapped around each paper's title rather than printed as a separate
+"doi" link. It saves a line every few entries, and the title is what a reader
+wants to click.
+
+## The header
+
+Four lines: the name, the website, the two emails, then the institution and
+city, so a reader can see where he currently is. GitHub and Google Scholar are
+not in it — the website carries both. Add them back into the `center` block if
+a reader should not have to go via the site.
+
 ## Things to keep in step
 
 The **Skills** section was assembled from the work described elsewhere in the

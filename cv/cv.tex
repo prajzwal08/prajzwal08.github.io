@@ -1,27 +1,41 @@
 % Prajwal Khanal — Curriculum Vitae
 %
-% Plain LaTeX, no CV class. The layout is the classic academic one-pager:
-% small-caps section labels in a left column, content in a right column,
-% dates set right-aligned in italic.
+% Plain LaTeX, no CV class. Small-caps section labels in a left column,
+% content in a right column, dates right-aligned in italic.
 %
-% Build:  pdflatex cv.tex     (run it once; there is no bibliography)
+% Build:  pdflatex cv.tex
 %
-% The face is Times, to match the website. Delete the mathptmx line below to
-% get Computer Modern, the default LaTeX look.
+% Fitted to a single page. The spacing lengths in the macros below are what
+% hold it there — loosen any of them and it spills onto a second page.
 
-\documentclass[11pt,letterpaper]{article}
+\documentclass[10pt,letterpaper]{article}
 
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage{mathptmx}                 % Times. Remove for Computer Modern.
-\usepackage[margin=0.7in]{geometry}
-\usepackage{enumitem}
+\usepackage[margin=0.5in]{geometry}
+\linespread{0.95}
 \usepackage[dvipsnames]{xcolor}
+\usepackage[normalem]{ulem}   % normalem: leave \emph alone, we only want \uline
 \usepackage[hidelinks]{hyperref}
 
-% The same blue as the website and the existing CV.
+% The same blue as the website and the .docx CV.
 \definecolor{cvblue}{RGB}{0,112,192}
-\hypersetup{colorlinks=true, urlcolor=cvblue, linkcolor=cvblue}
+
+% hidelinks, so hyperref colours nothing on its own and every link inherits
+% the colour of the text around it. Paper titles are therefore black: with
+% nine of them, a blue title each was most of the colour on the page.
+\hypersetup{hidelinks}
+
+% \link is the header only: the website and the email addresses. It is the
+% only blue on the page.
+\newcommand{\link}[2]{\href{#1}{\textcolor{cvblue}{#2}}}
+
+% Everything in the body. Underlined rather than coloured, so a reader can see
+% there is something to click without the page turning blue. \uline comes from
+% ulem rather than \underline because a paper title is long and has to be able
+% to break across lines.
+\newcommand{\ulink}[2]{\href{#1}{\uline{#2}}}
 
 \pagestyle{empty}
 \setlength{\parindent}{0pt}
@@ -31,215 +45,175 @@
 % Section: a small-caps label in the left margin, content to the right.
 % ---------------------------------------------------------------------------
 \newlength{\cvlabelwidth}
-\setlength{\cvlabelwidth}{1.05in}
+\setlength{\cvlabelwidth}{0.85in}
 
 \newenvironment{cvsection}[1]{%
   \begin{list}{}{%
     \setlength{\leftmargin}{\cvlabelwidth}%
-    \addtolength{\leftmargin}{0.15in}%
+    \addtolength{\leftmargin}{0.12in}%
     \setlength{\labelwidth}{\cvlabelwidth}%
-    \setlength{\labelsep}{0.15in}%
+    \setlength{\labelsep}{0.12in}%
     \setlength{\itemindent}{0pt}%
     \setlength{\listparindent}{0pt}%
-    \setlength{\topsep}{0.10in}%
+    \setlength{\topsep}{0.028in}%
     \setlength{\parsep}{0pt}%
     \setlength{\itemsep}{0pt}%
-    % A parbox, so a label written with \\ breaks over two lines instead of
-    % running together.
-    % \smash zeroes the box's height and depth. Without it a two-line label
-    % ("Contact \\ Information") makes the item's first line box as deep as
-    % the label, which shows up as a gap between the first and second lines
-    % of the content beside it.
+    % \smash zeroes the box. Without it a two-line label makes the item's
+    % first line box as deep as the label, which shows up as a gap between
+    % the first two lines of the content beside it.
     \renewcommand{\makelabel}[1]{%
       \smash{\parbox[t]{\cvlabelwidth}{\raggedright\textsc{##1}}}}%
   }%
   \item[#1]%
 }{\end{list}}
 
-% One entry: bold title and detail on the left, italic dates on the right.
-% Facing minipages rather than \hfill, so a long title wraps within its own
-% column instead of shoving the date onto the following line.
+% One entry: bold title, italic institution, italic dates flushed right.
+% Facing minipages rather than \hfill, so a long title wraps in its own
+% column instead of shoving the date onto the next line.
 \newcommand{\entry}[3]{%
   \noindent
-  \begin{minipage}[t]{0.70\linewidth}\raggedright\textbf{#1}#2\end{minipage}%
+  \begin{minipage}[t]{0.72\linewidth}\raggedright\textbf{#1}\textit{#2}\end{minipage}%
   \hfill
-  \begin{minipage}[t]{0.28\linewidth}\raggedleft\textit{#3}\end{minipage}%
+  \begin{minipage}[t]{0.26\linewidth}\raggedleft\textit{#3}\end{minipage}%
   \par
 }
 
-% Same, but with the title in roman: for awards and teaching, where there is
-% no institution to set apart.
-\newcommand{\plainentry}[2]{%
-  \noindent
-  \begin{minipage}[t]{0.70\linewidth}\raggedright #1\end{minipage}%
-  \hfill
-  \begin{minipage}[t]{0.28\linewidth}\raggedleft\textit{#2}\end{minipage}%
-  \par
-}
+% One achievement under an entry, marked with a dash so that two of them read
+% as two rather than as one wrapped sentence. The hanging indent keeps a
+% wrapped line clear of the dash.
+\newcommand{\detail}[1]{%
+  \hspace*{0.55em}\textendash\hspace{0.4em}%
+  \parbox[t]{\dimexpr\linewidth-1.75em}{\raggedright #1}\par}
 
-% A publication. The vertical space between them lives here, in one place.
-\newcommand{\pub}[1]{\vspace{0.045in}#1\par}
+% One publication. The title carries the link, so no "doi" is printed.
+\newcommand{\pub}[1]{\vspace{0.02in}#1\par}
 
 % A heading inside a section, e.g. "Peer-reviewed".
-\newcommand{\subhead}[1]{\vspace{0.07in}\textit{#1}\par\vspace{-0.02in}}
+\newcommand{\subhead}[1]{\vspace{0.035in}\textit{#1}\par}
 
-% A line of detail under an entry.
-\newcommand{\detail}[1]{%
-  \begin{list}{}{%
-    \setlength{\leftmargin}{1.1em}\setlength{\topsep}{0pt}%
-    \setlength{\parsep}{0pt}\setlength{\itemsep}{0pt}%
-    \setlength{\partopsep}{0pt}}%
-  \item #1
-  \end{list}%
-}
-
-% Space between entries inside a section.
-\newcommand{\gap}{\vspace{0.06in}}
+\newcommand{\gap}{\vspace{0.025in}}
 
 % ---------------------------------------------------------------------------
 
 \begin{document}
 
 \begin{center}
-  {\large\textbf{Prajwal Khanal \textemdash{} Curriculum Vitae}}
+  {\large\textbf{Prajwal Khanal}}\\[0.045in]
+  \link{https://prajwalkhanal.earth}{prajwalkhanal.earth}\\[0.02in]
+  \link{mailto:p.khanal@utwente.nl}{p.khanal@utwente.nl} $\cdot$
+  \link{mailto:ktm.prajwalkhanal@gmail.com}{ktm.prajwalkhanal@gmail.com}\\[0.02in]
+  ITC, University of Twente, Enschede, the Netherlands
 \end{center}
-\vspace{-0.08in}
+\vspace{-0.02in}
 \rule{\textwidth}{0.8pt}
 
-\begin{cvsection}{Contact\\Information}
-  ITC Faculty, University of Twente \hfill \href{mailto:p.khanal@utwente.nl}{p.khanal@utwente.nl}\par
-  Enschede, the Netherlands \hfill \href{mailto:ktm.prajwalkhanal@gmail.com}{ktm.prajwalkhanal@gmail.com}\par
-  \href{https://prajwalkhanal.earth}{prajwalkhanal.earth} \hfill
-  \href{https://github.com/prajzwal08}{github.com/prajzwal08} $\cdot$
-  \href{https://scholar.google.com/citations?user=UtzNqTwAAAAJ}{Google Scholar}\par
-\end{cvsection}
-
 \begin{cvsection}{Research\\Interests}
-  Soil--vegetation--atmosphere interaction; water and carbon fluxes; land surface
-  modelling and deep learning, and where the two can inform each other.
+  Remote sensing of vegetation; soil--vegetation--atmosphere interaction; land surface
+  models and deep learning.
 \end{cvsection}
 
 \begin{cvsection}{Education}
-  \entry{PhD, Geo-Information Science and Earth Observation}{}{Feb 2023---\ldots}
-  \detail{University of Twente, the Netherlands}
-  \detail{Modelling soil--vegetation--atmosphere interaction, in both process-based
-          land surface modelling and deep learning approaches to water and carbon fluxes.}
+  \entry{PhD, Geo-Information Science and Earth Observation, }{University of Twente}{Feb 2023---\ldots}
+  \detail{WUNDER: field-scale soil moisture and fluxes for agricultural drought monitoring.}
+  \detail{Supervisors: \ulink{https://people.utwente.nl/z.su}{Prof.\ dr.\ Bob Su} and
+          \ulink{https://people.utwente.nl/y.zeng}{dr.\ Yijian Zeng}.}
   \gap
-  \entry{M.Sc., Environmental Engineering,}{ Technical University of Munich}{Nov 2020---Dec 2022}
-  \detail{Graduated 1.4/5.0 on the German scale, where 1.0 is the highest mark.}
-  \detail{Thesis on near-surface versus sub-surface soil moisture in vegetation
-          functioning, published in \textit{Biogeosciences} (2024).}
+  \entry{M.Sc., Environmental Engineering, }{Technical University of Munich}{Nov 2020---Dec 2022}
+  \detail{Graduated 1.4/5.0. Thesis: soil moisture controls on vegetation, in \textit{Biogeosciences}.}
   \gap
-  \entry{B.E., Civil Engineering,}{ Institute of Engineering, Tribhuvan University, Nepal}{Nov 2014---Aug 2018}
-  \detail{Ranked 20th of 192, 77.7\%. Thesis on flood inundation mapping of the Babai River.}
+  \entry{B.E., Civil Engineering, }{Institute of Engineering, Tribhuvan University, Nepal}{Nov 2014---Aug 2018}
+  \detail{Ranked 20/192, 77.7\%. Thesis: flood inundation mapping, Babai River.}
 \end{cvsection}
 
 \begin{cvsection}{Employment}
-  \entry{PhD Researcher,}{ ITC, University of Twente}{Feb 2023---\ldots}
-  \detail{WUNDER: ecohydrological responses of agricultural and nature ecosystems
-          in the Netherlands to water use and drought.}
-  \detail{Producing field-scale soil moisture and fluxes for agricultural drought monitoring.}
+  \entry{Research Intern, }{Max Planck Institute for Biogeochemistry, Jena}{Nov 2020---Feb 2022}
+  \detail{Near-surface soil moisture vs.\ terrestrial water storage, controls on global vegetation.}
   \gap
-  \entry{Research Intern,}{ Max Planck Institute for Biogeochemistry, Jena}{Nov 2020---Feb 2022}
-  \detail{Quantified the relative control of near-surface soil moisture versus terrestrial
-          water storage on global vegetation functioning, from satellite observation alone.}
+  \entry{Student Research Assistant, }{Technical University of Munich}{Nov 2021---Mar 2022}
+  \detail{Flood inundation maps for the Ouémé (Benin) and Naryn (Kyrgyzstan) rivers, HEC-RAS.}
   \gap
-  \entry{Student Research Assistant,}{ Technical University of Munich}{Nov 2021---Mar 2022}
-  \detail{Flood inundation maps for the Ouémé River, Benin (FURIFLOOD) and the Naryn
-          River, Kyrgyzstan (ÖkoFlussPlan), using HEC-RAS 1D unsteady-flow models.}
+  \entry{Working Student, }{Jena-Geos Ingenieurbüro GmbH, Munich}{May 2021---Dec 2021}
+  \detail{Excel/VBA tool for greenhouse-gas accounting: combustion, refrigeration, transport.}
   \gap
-  \entry{Working Student,}{ Jena-Geos Ingenieurbüro GmbH, Munich}{May 2021---Dec 2021}
-  \detail{Excel and VBA tool for greenhouse-gas accounting across stationary combustion,
-          refrigeration and transport.}
-  \gap
-  \entry{Civil Engineer (freelance),}{ ECEP, Kathmandu, Nepal}{Dec 2018---Dec 2022}
-  \detail{Business plans for community-based water supply projects, for the Department
-          of Water Supply and Sanitation, Government of Nepal.}
-  \detail{Smart water supply master plan for the development of Lumbini as a smart city,
-          for the Department of Urban Development and Building Construction.}
+  \entry{Civil Engineer (freelance), }{ECEP, Kathmandu, Nepal}{Dec 2018---Dec 2022}
+  \detail{Business plans for community water supply projects, Government of Nepal.}
+  \detail{Smart water supply master plan for Lumbini, Ministry of Urban Development.}
 \end{cvsection}
 
 \begin{cvsection}{Publications}
   \subhead{Peer-reviewed}
   \pub{Moutahir, H., Sulzer, M., Kiese, R., \ldots{} \textbf{Khanal, P.}, et al. (2026).
-  Matching scales of eddy covariance measurements and process-based modelling:
-  assessing spatiotemporal dynamics of carbon and water fluxes in a mixed forest in
-  Southern Germany. \textit{Biogeosciences}, 23, 1719--1738.
-  \href{https://doi.org/10.5194/bg-23-1719-2026}{doi}}
+  \ulink{https://doi.org/10.5194/bg-23-1719-2026}{Matching scales of eddy covariance
+  measurements and process-based modelling: assessing spatiotemporal dynamics of carbon
+  and water fluxes in a mixed forest in Southern Germany}. \textit{Biogeosciences}, 23, 1719--1738.}
 
   \pub{Zeng, Y., Alidoost, F., Schilperoort, B., \ldots{} \textbf{Khanal, P.}, et al. (2025).
-  Towards an open soil-plant digital twin based on the STEMMUS-SCOPE model, following
-  open science. \textit{Computers \& Geosciences}, 205, 106013.
-  \href{https://doi.org/10.1016/j.cageo.2025.106013}{doi}}
+  \ulink{https://doi.org/10.1016/j.cageo.2025.106013}{Towards an open soil-plant digital twin
+  based on the STEMMUS-SCOPE model, following open science}.
+  \textit{Computers \& Geosciences}, 205, 106013.}
 
   \pub{\textbf{Khanal, P.}, Hoek van Dijke, A. J., Schaffhauser, T., et al. (2024).
-  Relevance of near-surface soil moisture vs.\ terrestrial water storage for global
-  vegetation functioning. \textit{Biogeosciences}, 21(6), 1533--1547.
-  \href{https://doi.org/10.5194/bg-21-1533-2024}{doi}}
+  \ulink{https://doi.org/10.5194/bg-21-1533-2024}{Relevance of near-surface soil moisture vs.\
+  terrestrial water storage for global vegetation functioning}.
+  \textit{Biogeosciences}, 21(6), 1533--1547.}
 
   \pub{Bhattarai, P., \textbf{Khanal, P.}, Tiwari, P., et al. (2019).
-  Flood inundation mapping of Babai basin using HEC-RAS and GIS.
-  \textit{Journal of the Institute of Engineering}, 15(2), 32--44.
-  \href{https://doi.org/10.3126/jie.v15i2.27639}{doi}}
+  \ulink{https://doi.org/10.3126/jie.v15i2.27639}{Flood inundation mapping of Babai basin
+  using HEC-RAS and GIS}. \textit{Journal of the Institute of Engineering}, 15(2), 32--44.}
 
   \subhead{Under review}
   \pub{\textbf{Khanal, P.}, Zeng, Y., Daoud, M. G., Beckers, J., Su, Z.
-  Investigating the impact of multilayer resistance schemes on simulating land surface
-  temperature and turbulent fluxes: evaluation within the STEMMUS-SCOPE model.
-  \href{https://papers.ssrn.com/sol3/papers.cfm?abstract_id=6389498}{Preprint on SSRN}.}
+  \ulink{https://papers.ssrn.com/sol3/papers.cfm?abstract_id=6389498}{Investigating the impact
+  of multilayer resistance schemes on simulating land surface temperature and turbulent
+  fluxes: evaluation within the STEMMUS-SCOPE model}. Preprint on SSRN.}
 
-  \pub{\textbf{Khanal, P.}, et al.
-  Deep learning soil moisture and fluxes with multimodal foundation-model embeddings.}
+  \pub{\textbf{Khanal, P.}, et al. Deep learning soil moisture and fluxes with multimodal
+  foundation-model embeddings.}
 
   \subhead{Conference contributions}
-  \pub{\textbf{Khanal, P.}, et al. (2026). Bridging the scale gap: daily 10-metre soil
-  moisture, evapotranspiration and carbon fluxes via multimodal deep learning.
+  \pub{\textbf{Khanal, P.}, et al. (2026). Bridging the scale gap: daily 10-metre soil moisture,
+  evapotranspiration and carbon fluxes via multimodal deep learning.
   \textit{Workshop on Machine Learning for Land and Hydrology}, ECMWF, Reading, UK.}
 
-  \pub{\textbf{Khanal, P.}, Hoek van Dijke, A., Zeng, Y., Orth, R. (2023). Near-surface vs.\
-  sub-surface soil moisture impacts on vegetation functioning.
-  \textit{EGU General Assembly}, Vienna, EGU23-7670.
-  \href{https://doi.org/10.5194/egusphere-egu23-7670}{doi}}
+  \pub{\textbf{Khanal, P.}, Hoek van Dijke, A., Zeng, Y., Orth, R. (2023).
+  \ulink{https://doi.org/10.5194/egusphere-egu23-7670}{Near-surface vs.\ sub-surface soil
+  moisture impacts on vegetation functioning}. \textit{EGU General Assembly}, Vienna, EGU23-7670.}
 
   \pub{\textbf{Khanal, P.} (2019). Flood inundation mapping: an inference on the outbreak of
   flood-borne diseases. \textit{International Conference on Health Engineering in Disaster}.}
 \end{cvsection}
 
 \begin{cvsection}{Awards}
-  \plainentry{Second place, Hackathon on Machine Learning for Earth System Modelling}{Aug 2026}
-  \detail{Quantization in foundation models. Supported by CESOC, ECMWF,
-          TRA Modelling (Bonn), FZ Jülich and the University of Cologne.}
+  \entry{Second place, Hackathon on Machine Learning for Earth System Modelling}{}{Aug 2026}
+  \detail{Quantization in foundation models. CESOC, ECMWF, TRA Modelling, FZ Jülich, Cologne.}
+\end{cvsection}
+
+\begin{cvsection}{Scholarships}
+  \entry{Deutschlandstipendium, national merit scholarship, }{TU Munich}{2021/22}
   \gap
-  \plainentry{Deutschlandstipendium, national merit scholarship, TU Munich}{2021/22}
-  \gap
-  \plainentry{Institute of Engineering merit-based scholarship, Tribhuvan University}{2014---2018}
+  \entry{Merit-based scholarship, }{Institute of Engineering, Tribhuvan University}{2014---2018}
 \end{cvsection}
 
 \begin{cvsection}{Teaching}
-  \plainentry{Teaching Assistant, Technical University of Munich}{2021---2022}
-  \detail{Hydrological and Environmental River Basin Modelling; Integrated Water
-          Resources Management; Rapidly Varying Flow.}
+  \entry{Teaching Assistant, }{Technical University of Munich}{2021---2022}
+  \detail{River Basin Modelling; Integrated Water Resources Management; Rapidly Varying Flow.}
   \gap
-  \plainentry{Assistant Lecturer, Cosmos College of Management and Technology, Nepal}{Nov 2018---Jan 2021}
-  \detail{Designed and taught an elective on Python and GIS for water resources;
-          tutorials in Fluid Mechanics and Hydraulics.}
+  \entry{Assistant Lecturer, }{Cosmos College of Management and Technology, Nepal}{Nov 2018---Jan 2021}
+  \detail{Elective: Python and GIS for water resources.}
 \end{cvsection}
 
 \begin{cvsection}{Software}
-  \entry{WUNDER data viewer}{, ITC, University of Twente}{2026}
-  \detail{Interactive app for the WUNDER weather and soil moisture loggers, so growers
-          at the food forests can follow drought as it develops.
-          \href{https://wunder-project.streamlit.app}{App} $\cdot$
-          \href{https://github.com/prajzwal08/wunder-project}{Source}}
+  \entry{\ulink{https://wunder-project.streamlit.app}{WUNDER data viewer}, }{ITC, University of Twente}{2026}
+  \detail{Weather and soil moisture loggers, read by growers at the food forests as drought develops.
+          \ulink{https://github.com/prajzwal08/wunder-project}{Source}.}
 \end{cvsection}
 
-% CHECK THIS SECTION. It is assembled from the work described above rather than
-% from a list you wrote, so the groupings are a guess. Correct it before sending.
+% CHECK THIS. Skills is assembled from the work described above rather than
+% from a list you wrote. The languages are yours.
 \begin{cvsection}{Skills}
-  \textit{Modelling:} STEMMUS-SCOPE, land surface modelling, HEC-RAS 1D unsteady flow\par
-  \textit{Programming:} Python, deep learning frameworks, GIS, Excel/VBA\par
-  \textit{Data:} eddy covariance and flux-tower data, satellite soil moisture, ICOS\par
-  \textit{Languages:} English, Nepali\par
+  \textit{Modelling:} STEMMUS-SCOPE, land surface models, HEC-RAS, SWAT\par
+  \textit{Programming:} Python, PyTorch, R, GIS, Excel/VBA\par
+  \textit{Languages:} English (C2), German (A1), Dutch (A2), Hindi, Nepali\par
 \end{cvsection}
 
 \end{document}

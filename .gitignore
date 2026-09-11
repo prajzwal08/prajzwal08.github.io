@@ -7,3 +7,5 @@ Prajwal_Khanal_resume.docx
 cv/*.aux
 cv/*.log
 cv/*.out
+cv/*.fdb_latexmk
+cv/*.fls
