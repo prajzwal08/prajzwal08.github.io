@@ -1,6 +1,26 @@
 # Things to change later
 
-Written 3 September 2026. Tick these off as you go.
+Written 3 September 2026, revised 11 September. Tick these off as you go.
+[LOG.md](LOG.md) records what has already been done and why.
+
+## Next session
+
+- [ ] **Make the site more visual.** It is all type at the moment: no project
+      images, no figures from the papers, no map or flux plot. The layout has
+      room for them — `.project-shot` is already styled and unused. Worth
+      deciding first whether the images are project photos, figures from the
+      published papers, or something generated from the WUNDER data.
+
+## Yours to do now
+
+- [ ] **Tick "Enforce HTTPS"** in the repository's Settings, then Pages. Until
+      then `http://prajwalkhanal.earth` serves without redirecting to https.
+- [ ] **Open the site on your phone.** The sticky nav and the swipeable section
+      strip have never been looked at on a real screen.
+- [ ] **Check 9048.** The CV says "Ranked 8th out of 9048 in the IOE entrance
+      examination". The published results file lists 6,048 candidates. If 9,048
+      is the number who sat the exam rather than the number listed, it is
+      right — but it is a checkable number on a CV.
 
 ## Content you said you would write yourself
 
@@ -31,11 +51,8 @@ Written 3 September 2026. Tick these off as you go.
       Engineering and Planner (ECEP)". If it is really "Engineers and Planners",
       change it in `index.html` and in the CV.
 - [ ] **ECEP location differs between site and CV.** The website says
-      "Lazimpat, Kathmandu, Nepal"; the CV says "Kathmandu, Nepal" because the
-      full version overflowed the line and collided with the date. Pick one and
-      make them match.
-- [ ] **ECEP dates differ too.** Website: "Dec 2018 – Dec 2022". CV:
-      "2018 – 2022", shortened for the same line-length reason.
+      "Lazimpat, Kathmandu, Nepal"; the CV says "Kathmandu, Nepal", because the
+      CV has one page and no room for the longer form. Fine if deliberate.
 - [ ] **Work experience order.** Max Planck is first because you asked for it,
       but it is not strictly newest-first: the TUM position ran to Mar 2022 and
       ECEP to Dec 2022. Fine if you are ordering by importance — just be aware.
@@ -62,8 +79,11 @@ Written 3 September 2026. Tick these off as you go.
       Update it when you make a real change, or delete the line.
 - [ ] **Emails in the CV PDF.** The contact section writes addresses as
       `name [at] domain` so bots cannot harvest them. `cv/cv.pdf` has them as
-      plain, selectable text, and as `mailto:` links. There is no phone number
+      plain, selectable text and as `mailto:` links. There is no phone number
       in it at all, which is one thing the .docx needed watching for.
+- [ ] **Skills on the CV.** The Modelling and Programming lines started as an
+      inference from the work described elsewhere on the page. You have since
+      corrected most of it; read it once more and decide it is yours.
 - [ ] **Register an ORCID.** Journals increasingly ask for one at submission.
       It also has a free API that sends CORS headers, so unlike Google Scholar
       the page could fetch it live with no key and no scraping. Tell me your ID

@@ -42,6 +42,7 @@ block that on `file://` URLs.
 ## Files
 
     index.html              The whole site: every section, one page
+    cv/                     The CV: cv.tex, and the cv.pdf built from it
     assets/style.css        All styling
     assets/site.js          Publication list, and the nav highlighting
     assets/photo.jpg        Portrait shown on the About page
@@ -167,7 +168,9 @@ Email addresses on the contact page are written as `name [at] domain` rather
 than as `mailto:` links, so that address-harvesting bots cannot lift them.
 
 See [TODO.md](TODO.md) for the running list of things to change, decisions to
-check, and how to publish an update.
+check, and how to publish an update. [LOG.md](LOG.md) records what has already
+been changed and why — read it before undoing anything that looks odd, because
+several of the odd-looking things are load-bearing.
 
 ## Still to fill in
 
