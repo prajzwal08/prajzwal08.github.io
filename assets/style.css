@@ -1,4 +1,6 @@
-/* Prajwal Khanal. Wide two-column layout, white ground.
+/* Prajwal Khanal. Portrait column on a white ground: the text sits in a
+   page-shaped strip with clear margins either side, rather than stretching
+   across the screen.
    Times New Roman throughout, and the same blue as the CV, so the site and
    the PDF read as one thing. Italics are reserved for employer and
    institution lines, and for journal names. */
@@ -30,14 +32,17 @@ body {
   color: var(--ink);
   font-family: var(--type);
   font-size: 1.125rem;
-  line-height: 1.6;
+  line-height: 1.45;
 }
 
-/* Wide: the page uses the screen instead of sitting in a narrow strip. */
+/* Portrait: a column roughly the proportion of a sheet of paper, centred, with
+   the rest of the window left as margin. 46rem keeps running text near 65
+   characters — the width the eye tracks most comfortably. Widen this one
+   number and the whole page widens with it. */
 .shell {
-  max-width: 68rem;
+  max-width: 46rem;
   margin: 0 auto;
-  padding: 2.25rem 2.5rem 2.5rem;
+  padding: 2rem 2rem 2.5rem;
 }
 
 /* Masthead: portrait top left, name beside it, nav underneath ------------ */
@@ -45,7 +50,7 @@ body {
 .masthead-id {
   display: flex;
   align-items: center;
-  gap: 1.5rem;
+  gap: 1.25rem;
 }
 
 /* The nav is a sibling of the masthead, not a child, so that `position:
@@ -71,7 +76,7 @@ body {
 .masthead-id > div > p {
   font-size: 1.0625rem;
   color: var(--ink-soft);
-  margin: 0.35rem 0 0;
+  margin: 0.25rem 0 0;
 }
 
 .tabs {
@@ -79,9 +84,9 @@ body {
   top: 0;
   z-index: 10;
   display: flex;
-  gap: 0 2rem;
-  margin-top: 1.25rem;
-  padding-top: 0.7rem;
+  gap: 0 1.75rem;
+  margin-top: 1rem;
+  padding-top: 0.5rem;
   border-top: 2px solid var(--accent);
   border-bottom: 1px solid var(--rule);
   background: var(--page);
@@ -93,8 +98,9 @@ body {
   text-decoration: none;
   border-bottom: 3px solid transparent;
   white-space: nowrap;
-  /* Tall enough to be a comfortable thumb target on a phone. */
-  padding: 0.55rem 0;
+  /* Still a usable thumb target once the padding tightens: 0.45rem either
+     side of a 1.5rem line box clears 40px. */
+  padding: 0.45rem 0;
 }
 
 .tabs a:hover { color: var(--ink); }
@@ -111,31 +117,32 @@ body {
 }
 
 /* Anchor targets clear the sticky nav instead of hiding behind it. */
-main section[id] { scroll-margin-top: 4.25rem; }
+main section[id] { scroll-margin-top: 3.6rem; }
 
 /* Section titles: the top of the hierarchy ------------------------------- */
 
-main { margin-top: 2rem; }
+main { margin-top: 1.5rem; }
 
-/* Wider than it was as separate pages: on one long page the gap between
-   sections is the only thing telling the reader a new topic has started. */
-section + section { margin-top: 3.25rem; }
+/* On one long page this gap is the only thing telling the reader a new topic
+   has started, so it stays the largest space on the page even when the rest
+   of the rhythm is tight. */
+section + section { margin-top: 2rem; }
 
 h2 {
   font-weight: 600;
-  font-size: 1.375rem;
+  font-size: 1.3125rem;
   color: var(--accent);
-  margin: 0 0 1rem;
-  padding-bottom: 0.4rem;
+  margin: 0 0 0.6rem;
+  padding-bottom: 0.25rem;
   border-bottom: 1px solid var(--rule);
 }
 
-p { margin: 0 0 0.7rem; }
+p { margin: 0 0 0.45rem; }
 p:last-child { margin-bottom: 0; }
 
 .lede {
   font-size: 1.125rem;
-  line-height: 1.6;
+  line-height: 1.5;
 }
 
 a {
@@ -148,12 +155,14 @@ a:hover { border-bottom-color: var(--accent); }
 
 /* Entries: dates in a fixed left column, content filling the width -------- */
 
+/* The date gutter narrows with the page: 12rem of it inside a 46rem column
+   would leave the text itself too thin to read well. */
 .record {
   display: grid;
-  grid-template-columns: 12rem 1fr;
-  gap: 0 2.5rem;
-  padding-top: 0.75rem;
-  margin-top: 0.75rem;
+  grid-template-columns: 8.5rem 1fr;
+  gap: 0 1.75rem;
+  padding-top: 0.5rem;
+  margin-top: 0.5rem;
   border-top: 1px solid var(--rule);
 }
 
@@ -190,7 +199,7 @@ a:hover { border-bottom-color: var(--accent); }
   font-style: italic;
   font-size: 1rem;
   color: var(--ink-soft);
-  margin: 0 0 0.4rem;
+  margin: 0 0 0.2rem;
 }
 
 .record > p,
@@ -202,16 +211,16 @@ a:hover { border-bottom-color: var(--accent); }
 /* Achievements under each entry. */
 .highlights {
   font-size: 1.0625rem;
-  line-height: 1.65;
-  margin: 0.15rem 0 0.5rem;
-  padding-left: 1.1rem;
+  line-height: 1.45;
+  margin: 0.1rem 0 0.25rem;
+  padding-left: 1.05rem;
 }
 
-.highlights li { margin-bottom: 0.25rem; }
+.highlights li { margin-bottom: 0.15rem; }
 
 /* Project photos ---------------------------------------------------------- */
 
-.project-shot { margin: 1.25rem 0; }
+.project-shot { margin: 0.8rem 0; }
 
 .project-shot img {
   display: block;
@@ -237,7 +246,7 @@ a:hover { border-bottom-color: var(--accent); }
   font-size: 1.0625rem;
   font-weight: 700;
   color: var(--ink);
-  margin: 1.5rem 0 0.6rem;
+  margin: 1rem 0 0.4rem;
 }
 
 .pub-group:first-child { margin-top: 0; }
@@ -249,8 +258,8 @@ a:hover { border-bottom-color: var(--accent); }
 }
 
 .pub-list li {
-  padding-top: 1rem;
-  margin-top: 1rem;
+  padding-top: 0.55rem;
+  margin-top: 0.55rem;
   border-top: 1px solid var(--rule);
 }
 
@@ -282,9 +291,9 @@ a:hover { border-bottom-color: var(--accent); }
 
 .contact-list li {
   display: grid;
-  grid-template-columns: 12rem 1fr;
-  gap: 2.5rem;
-  padding: 0.5rem 0;
+  grid-template-columns: 8.5rem 1fr;
+  gap: 1.75rem;
+  padding: 0.3rem 0;
   border-top: 1px solid var(--rule);
 }
 
@@ -298,8 +307,8 @@ a:hover { border-bottom-color: var(--accent); }
 /* Footer ------------------------------------------------------------------ */
 
 footer {
-  margin-top: 3.25rem;
-  padding-top: 0.9rem;
+  margin-top: 2rem;
+  padding-top: 0.7rem;
   border-top: 1px solid var(--rule);
   font-size: 0.9375rem;
   color: var(--ink-soft);
@@ -310,9 +319,9 @@ footer {
 /* Narrow screens: collapse the two columns -------------------------------- */
 
 @media (max-width: 48rem) {
-  .shell { padding: 2rem 1.25rem 3rem; }
+  .shell { padding: 1.5rem 1.25rem 2.25rem; }
 
-  main { margin-top: 2.25rem; }
+  main { margin-top: 1.4rem; }
 
   /* Six items do not fit across a phone, so the nav becomes a strip you
      swipe sideways. It stays one row, so the sticky bar keeps a fixed
@@ -328,7 +337,7 @@ footer {
 
   .tabs::-webkit-scrollbar { display: none; }
 
-  main section[id] { scroll-margin-top: 3.75rem; }
+  main section[id] { scroll-margin-top: 3.3rem; }
 
   .masthead-id {
     flex-direction: column;
