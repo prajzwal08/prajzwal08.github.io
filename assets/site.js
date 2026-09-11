@@ -21,57 +21,76 @@
     return node;
   }
 
-  // Bold every occurrence of the author's own name, leaving the rest as text.
-  // Built with text nodes rather than innerHTML so the JSON can never inject markup.
-  function authorLine(authors) {
-    var frag = document.createDocumentFragment();
-    var rest = authors;
-    var at = rest.indexOf(ME);
-
-    while (at !== -1) {
-      if (at > 0) frag.appendChild(document.createTextNode(rest.slice(0, at)));
-      var strong = el('strong');
-      strong.textContent = ME;
-      frag.appendChild(strong);
-      rest = rest.slice(at + ME.length);
-      at = rest.indexOf(ME);
-    }
-    if (rest) frag.appendChild(document.createTextNode(rest));
-    return frag;
+  // The full author list is the longest part of a citation and the least
+  // useful on a personal page, so it collapses to the lead author. The DOI
+  // link carries anyone who wants the complete list.
+  function leadAuthor(authors) {
+    if (!authors) return '';
+    var surname = authors.split(',')[0].trim();
+    var initials = authors.match(/[A-Z]\./g) || [];
+    var more = /et al\./.test(authors) || initials.length > 1;
+    return more ? surname + ' et al.' : surname;
   }
 
+  // "Biogeosciences, 23, 1719-1738" -> "Biogeosciences". Volume and pages are
+  // one click away behind the DOI and would not fit on the line.
+  function shortVenue(venue) {
+    return venue ? venue.split(',')[0].trim() : '';
+  }
+
+  function sep(parent) {
+    var dot = el('span', 'pub-sep');
+    dot.textContent = '·';
+    parent.appendChild(dot);
+  }
+
+  // One row per paper: year in the gutter, everything else on one line.
+  // Text nodes rather than innerHTML, so the JSON can never inject markup.
   function entry(pub) {
     var li = el('li');
 
-    li.appendChild(authorLine(pub.authors || ''));
-    if (pub.year) li.appendChild(document.createTextNode(' (' + pub.year + ').'));
-    li.appendChild(document.createTextNode(' '));
+    var year = el('span', 'pub-year');
+    year.textContent = pub.year || '—';
+    li.appendChild(year);
+
+    var body = el('span', 'pub-body');
+
+    var who = el('span', 'pub-who');
+    who.textContent = leadAuthor(pub.authors || '');
+    // Marked when the lead author is him, so first-author work reads as his
+    // at a glance and middle-author work is not implied to be.
+    if ((pub.authors || '').indexOf(ME) === 0) who.className = 'pub-who pub-me';
+    if (who.textContent) { body.appendChild(who); sep(body); }
 
     var title = el('span', 'pub-title');
     title.textContent = pub.title || '';
-    li.appendChild(title);
-    li.appendChild(document.createTextNode('. '));
+    body.appendChild(title);
 
-    if (pub.venue) {
-      var venue = el('span', 'pub-venue');
-      venue.textContent = pub.venue + '. ';
-      li.appendChild(venue);
+    var venue = shortVenue(pub.venue);
+    if (venue) {
+      sep(body);
+      var venueNode = el('span', 'pub-venue');
+      venueNode.textContent = venue;
+      body.appendChild(venueNode);
     }
 
     if (pub.doi) {
+      sep(body);
       var link = el('a');
       link.href = pub.doi;
       link.rel = 'noopener';
       link.textContent = pub.doi.indexOf('doi.org') !== -1 ? 'DOI' : 'Link';
-      li.appendChild(link);
+      body.appendChild(link);
     }
 
     if (pub.note) {
-      var note = el('span', 'pub-note');
+      sep(body);
+      var note = el('span', 'pub-status');
       note.textContent = pub.note;
-      li.appendChild(note);
+      body.appendChild(note);
     }
 
+    li.appendChild(body);
     return li;
   }
 

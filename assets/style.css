@@ -1,9 +1,10 @@
 /* Prajwal Khanal. Portrait column on a white ground: the text sits in a
    page-shaped strip with clear margins either side, rather than stretching
    across the screen.
-   Times New Roman throughout, and the same blue as the CV, so the site and
-   the PDF read as one thing. Italics are reserved for employer and
-   institution lines, and for journal names. */
+   American Typewriter throughout, with the same blue as the CV. NOTE: the CV
+   itself is still set in Times New Roman, so the two no longer share a face
+   the way they did — only the blue still ties them together. Italics are
+   reserved for employer and institution lines, and for journal names. */
 
 :root {
   --ink: #16231F;        /* headings and body text */
@@ -12,7 +13,13 @@
   --accent: #0070C0;     /* section titles, nav, links; matches the CV */
   --page: #ffffff;
 
-  --type: "Times New Roman", Times, Georgia, serif;
+  /* American Typewriter ships with macOS and iOS but exists nowhere else, so
+     the stack falls back to Rockwell (installed with MS Office on Windows),
+     then to the serifs every platform has. Nothing is downloaded, so there is
+     still no font flash — but visitors on Windows and Android will not see
+     the typewriter face. */
+  --type: "American Typewriter", Rockwell, "Rockwell Nova", "Bookman Old Style",
+          Georgia, "Times New Roman", serif;
 }
 
 * { box-sizing: border-box; }
@@ -36,13 +43,13 @@ body {
 }
 
 /* Portrait: a column roughly the proportion of a sheet of paper, centred, with
-   the rest of the window left as margin. 46rem keeps running text near 65
-   characters — the width the eye tracks most comfortably. Widen this one
-   number and the whole page widens with it. */
+   the rest of the window left as margin. Two things set the side gaps — this
+   max-width, and the horizontal padding inside it, which holds the text off
+   the column's own edges the way a printed margin does. */
 .shell {
-  max-width: 46rem;
+  max-width: 42rem;
   margin: 0 auto;
-  padding: 2.5rem 2.25rem 3rem;
+  padding: 2.5rem 3.25rem 3rem;
 }
 
 /* Masthead: portrait top left, name beside it, nav underneath ------------ */
@@ -155,12 +162,13 @@ a:hover { border-bottom-color: var(--accent); }
 
 /* Entries: dates in a fixed left column, content filling the width -------- */
 
-/* The date gutter narrows with the page: 12rem of it inside a 46rem column
-   would leave the text itself too thin to read well. */
+/* The date gutter narrows with the page. Inside a 42rem column with wide
+   margins there is not much left to share, and the text column is the half
+   that has to stay readable. */
 .record {
   display: grid;
-  grid-template-columns: 8.5rem 1fr;
-  gap: 0 1.75rem;
+  grid-template-columns: 7.25rem 1fr;
+  gap: 0 1.5rem;
   padding-top: 0.65rem;
   margin-top: 0.65rem;
   border-top: 1px solid var(--rule);
@@ -257,29 +265,51 @@ a:hover { border-bottom-color: var(--accent); }
   padding: 0;
 }
 
+/* One row per paper, year in the gutter, the citation on one line. The
+   hairlines between entries are gone: with nine of them they added more
+   height than they added clarity. */
 .pub-list li {
-  padding-top: 0.75rem;
-  margin-top: 0.75rem;
-  border-top: 1px solid var(--rule);
-}
-
-.pub-list li:first-child {
-  padding-top: 0;
-  margin-top: 0;
-  border-top: 0;
-}
-
-.pub-title {
-  font-style: italic;
-}
-
-.pub-venue,
-.pub-note {
+  display: grid;
+  grid-template-columns: 2.75rem 1fr;
+  gap: 0 0.85rem;
+  padding: 0.24rem 0;
   font-size: 0.9375rem;
+  line-height: 1.45;
+}
+
+.pub-year {
+  color: var(--ink-soft);
+  font-variant-numeric: tabular-nums;
+}
+
+.pub-who { color: var(--ink-soft); }
+
+/* His own first-author work, so middle-author papers are not implied to be. */
+.pub-me {
+  color: var(--ink);
+  font-weight: 700;
+}
+
+.pub-title { color: var(--ink); }
+
+.pub-venue {
+  font-style: italic;
   color: var(--ink-soft);
 }
 
-.pub-note { display: block; margin-top: 0.3rem; }
+.pub-status { color: var(--ink-soft); }
+
+.pub-sep {
+  color: var(--ink-soft);
+  margin: 0 0.35em;
+}
+
+/* The "Also on Google Scholar" line under the list, not a citation. */
+.pub-note {
+  font-size: 0.9375rem;
+  color: var(--ink-soft);
+  margin-top: 0.9rem;
+}
 
 /* Contact ----------------------------------------------------------------- */
 

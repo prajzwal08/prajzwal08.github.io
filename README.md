@@ -36,8 +36,8 @@ To preview locally, from inside the folder:
     python3 -m http.server 8000
 
 then open `http://localhost:8000`. Use a server rather than opening the file
-directly, because the publications page fetches a JSON file and browsers block
-that on `file://` URLs.
+directly, because the publications section fetches a JSON file and browsers
+block that on `file://` URLs.
 
 ## Files
 
@@ -100,8 +100,14 @@ Edit `data/publications.json` and push. Each entry looks like this:
 
 `status` is `published`, `review`, or `conference`, and decides which heading
 the entry appears under. For work under review, leave `year` and `venue` empty
-and add a `"note"` field to get the small label. Write your own name exactly as
-`Khanal, P.` so the page bolds it.
+and add a `"note"` field to get the small label.
+
+Each paper is one line, so only the lead author is shown: the first surname in
+`authors`, plus "et al." when there are more. It is set in bold when that lead
+author is you, which is how first-author work is distinguished from papers you
+appear in the middle of. Write your own name exactly as `Khanal, P.` for that
+to work. The `venue` string is cut at its first comma, so keep the journal or
+conference name first and the volume and pages after it.
 
 The current list was reconciled against your Google Scholar profile
 (`UtzNqTwAAAAJ`) in September 2026, taking Scholar's metadata where it differed
@@ -138,10 +144,22 @@ edit the text. Newest first.
 
 ## Typography
 
-The standard system UI font on whatever device is viewing: San Francisco on
-Apple, Segoe UI on Windows, Roboto on Android. Nothing is downloaded, so the
-page renders immediately with no font flash. To change it, edit `--type` in
-`assets/style.css` — it is the only place a font is named.
+American Typewriter, which ships with macOS and iOS. It is not a web font and
+is not downloaded, so the page still renders immediately with no font flash —
+but it also means only Apple devices see it. The stack falls back to Rockwell
+(which arrives with MS Office on Windows), then Bookman, then Georgia.
+
+If you want the typewriter face on every device, the fix is a web font: add a
+Google Fonts link and put something like Zilla Slab or Arvo at the front of
+the stack. That costs a download and a possible flash of fallback text on the
+first visit, which is the trade you are making.
+
+To change any of this, edit `--type` in `assets/style.css` — it is the only
+place a font is named.
+
+Note that the CV PDF is still set in Times New Roman. The site and the CV used
+to share a face deliberately; now only the blue ties them together. Either
+reset the CV in a typewriter face too, or accept that they differ.
 
 Email addresses on the contact page are written as `name [at] domain` rather
 than as `mailto:` links, so that address-harvesting bots cannot lift them.
