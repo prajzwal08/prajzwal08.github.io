@@ -85,6 +85,13 @@ body {
   margin: 0.3rem 0 0;
 }
 
+/* The CV is the thing most visitors are after, so it is offered under the
+   name rather than only in the contact list at the foot of the page. */
+.masthead-cv {
+  font-size: 1rem;
+  margin: 0.35rem 0 0;
+}
+
 .tabs {
   position: sticky;
   top: 0;
