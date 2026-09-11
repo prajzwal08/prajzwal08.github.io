@@ -144,15 +144,16 @@ edit the text. Newest first.
 
 ## Typography
 
-American Typewriter, which ships with macOS and iOS. It is not a web font and
-is not downloaded, so the page still renders immediately with no font flash —
-but it also means only Apple devices see it. The stack falls back to Rockwell
-(which arrives with MS Office on Windows), then Bookman, then Georgia.
+Rockwell, a slab serif that arrives with MS Office, so it reaches Apple and
+Windows machines alike rather than Apple alone. It is not a web font and is not
+downloaded, so the page renders immediately with no font flash. Anything
+without Office falls through to American Typewriter (Apple), then Bookman, then
+Georgia — so a plain Android phone sees a normal serif, not a slab.
 
-If you want the typewriter face on every device, the fix is a web font: add a
-Google Fonts link and put something like Zilla Slab or Arvo at the front of
-the stack. That costs a download and a possible flash of fallback text on the
-first visit, which is the trade you are making.
+If you want the slab on every device, the fix is a web font: add a Google Fonts
+link and put Bitter or Zilla Slab at the front of the stack. That costs a
+download and a possible flash of fallback text on the first visit, which is the
+trade you are making.
 
 To change any of this, edit `--type` in `assets/style.css` — it is the only
 place a font is named.
