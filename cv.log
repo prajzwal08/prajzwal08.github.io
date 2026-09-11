@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.10.6)  11 SEP 2026 09:41
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.10.6)  11 SEP 2026 09:46
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -297,15 +297,15 @@ LaTeX Font Info:    ... okay on input line 83.
 * layout: <same size as paper>
 * layoutoffset:(h,v)=(0.0pt,0.0pt)
 * modes: 
-* h-part:(L,W,R)=(39.74872pt, 534.79756pt, 39.74872pt)
-* v-part:(T,H,B)=(39.74872pt, 715.47255pt, 39.74872pt)
+* h-part:(L,W,R)=(36.135pt, 542.02501pt, 36.135pt)
+* v-part:(T,H,B)=(36.135pt, 722.7pt, 36.135pt)
 * \paperwidth=614.295pt
 * \paperheight=794.96999pt
-* \textwidth=534.79756pt
-* \textheight=715.47255pt
-* \oddsidemargin=-32.52127pt
-* \evensidemargin=-32.52127pt
-* \topmargin=-69.52127pt
+* \textwidth=542.02501pt
+* \textheight=722.7pt
+* \oddsidemargin=-36.135pt
+* \evensidemargin=-36.135pt
+* \topmargin=-73.135pt
 * \headheight=12.0pt
 * \headsep=25.0pt
 * \topskip=10.0pt
@@ -343,48 +343,48 @@ Package hyperref Info: Link coloring ON on input line 83.
 \openout3 = `cv.out'.
 
 LaTeX Font Info:    Trying to load font information for OT1+ztmcm on input line
- 87.
+ 88.
 
 (/usr/local/texlive/2025/texmf-dist/tex/latex/psnfss/ot1ztmcm.fd
 File: ot1ztmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OT1/ztmcm.
 )
 LaTeX Font Info:    Trying to load font information for OML+ztmcm on input line
- 87.
+ 88.
 
 (/usr/local/texlive/2025/texmf-dist/tex/latex/psnfss/omlztmcm.fd
 File: omlztmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OML/ztmcm.
 )
 LaTeX Font Info:    Trying to load font information for OMS+ztmcm on input line
- 87.
+ 88.
 
 (/usr/local/texlive/2025/texmf-dist/tex/latex/psnfss/omsztmcm.fd
 File: omsztmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OMS/ztmcm.
 )
 LaTeX Font Info:    Trying to load font information for OMX+ztmcm on input line
- 87.
+ 88.
 
 (/usr/local/texlive/2025/texmf-dist/tex/latex/psnfss/omxztmcm.fd
 File: omxztmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OMX/ztmcm.
 )
 LaTeX Font Info:    Trying to load font information for OT1+ptm on input line 8
-7.
+8.
 
 (/usr/local/texlive/2025/texmf-dist/tex/latex/psnfss/ot1ptm.fd
 File: ot1ptm.fd 2001/06/04 font definitions for OT1/ptm.
 )
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 87.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 88.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <7.4> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 87.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 88.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <6> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 87.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 88.
 
-Overfull \hbox (2.49908pt too wide) in paragraph at lines 128--128
+Overfull \hbox (2.49908pt too wide) in paragraph at lines 125--125
 []\T1/ptm/m/sc/10 Publications  
  []
 
 
-Overfull \hbox (4.72906pt too wide) in paragraph at lines 176--176
+Overfull \hbox (4.72906pt too wide) in paragraph at lines 173--173
 []\T1/ptm/m/sc/10 Scholarships  
  []
 
@@ -404,7 +404,7 @@ Package rerunfilecheck Info: File `cv.out' has not changed.
 Here is how much of TeX's memory you used:
  9537 strings out of 473190
  146433 string characters out of 5715800
- 582015 words of memory out of 5000000
+ 581970 words of memory out of 5000000
  32685 multiletter control sequences out of 15000+600000
  586261 words of font info for 68 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -413,10 +413,10 @@ Here is how much of TeX's memory you used:
 ></usr/local/texlive/2025/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/loc
 al/texlive/2025/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/local/texlive
 /2025/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on cv.pdf (1 page, 65462 bytes).
+Output written on cv.pdf (1 page, 65279 bytes).
 PDF statistics:
- 54 PDF objects out of 1000 (max. 8388607)
- 42 compressed objects within 1 object stream
+ 51 PDF objects out of 1000 (max. 8388607)
+ 39 compressed objects within 1 object stream
  2 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 
