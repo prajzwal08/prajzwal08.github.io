@@ -136,38 +136,6 @@
     });
 })();
 
-/* The opening line fades in a word at a time on load. Everything here is
-   additive: the markup holds the plain paragraph, and if this never runs, or
-   the reader asks for reduced motion, the text is just there. */
-(function () {
-  'use strict';
-
-  var lede = document.querySelector('.lede');
-  if (!lede) return;
-
-  if (window.matchMedia &&
-      window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-
-  var words = lede.textContent.split(/\s+/).filter(Boolean);
-  if (!words.length) return;
-
-  // Long paragraphs stagger faster, so the whole line always lands in about
-  // two and a half seconds rather than crawling on for ten.
-  var stagger = Math.min(0.07, 2.5 / words.length);
-
-  lede.className += ' is-typing';
-  lede.textContent = '';
-
-  words.forEach(function (word, i) {
-    var span = document.createElement('span');
-    span.className = 'word';
-    span.textContent = word;
-    span.style.setProperty('--d', (i * stagger).toFixed(3) + 's');
-    lede.appendChild(span);
-    if (i < words.length - 1) lede.appendChild(document.createTextNode(' '));
-  });
-})();
-
 /* Marks the nav link for whichever section is currently on screen. Sections
    without a data-nav attribute (Awards, Teaching) deliberately have no link of
    their own, so scrolling through them leaves Education marked. */

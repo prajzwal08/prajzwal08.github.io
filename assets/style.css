@@ -1,5 +1,5 @@
 /* Prajwal Khanal. A document on a white ground: the text runs the width of
-   the window with a one-inch margin either side, the way a printed page is
+   the window with a two-inch margin either side, the way a printed page is
    set.
    Times New Roman throughout, and the same blue as the CV, so the site and
    the PDF read as one thing. Italics are reserved for employer and
@@ -35,14 +35,20 @@ body {
   line-height: 1.55;
 }
 
-/* One inch of margin either side, as on a printed page, with the text filling
-   whatever is left. There is no max-width, so on a very wide monitor the lines
-   get long — add `max-width: 60rem; margin: 0 auto;` here if that ever starts
-   to bother you. */
+/* Two inches of margin either side, as on a printed page, with the text
+   filling whatever is left. There is no max-width, so the measure grows with
+   the window — add `max-width: 60rem; margin: 0 auto;` here to cap it. The
+   margin steps down twice below, because four inches of margin on a small
+   laptop would leave very little page. */
 .shell {
   max-width: none;
   margin: 0;
-  padding: 2.5rem 1in 3rem;
+  padding: 2.5rem 2in 3rem;
+}
+
+/* Under about 1100px, two inches each side eats more than it leaves. */
+@media (max-width: 68rem) {
+  .shell { padding: 2.5rem 1in 3rem; }
 }
 
 /* Masthead: portrait top left, name beside it, nav underneath ------------ */
@@ -143,27 +149,6 @@ p:last-child { margin-bottom: 0; }
 .lede {
   font-size: 1.125rem;
   line-height: 1.62;
-}
-
-/* The opening line arrives a word at a time. The class that hides the words is
-   added by site.js, never by the markup, so with JavaScript off the paragraph
-   is simply there. */
-.lede.is-typing .word {
-  opacity: 0;
-  animation: word-in 0.6s ease forwards;
-  animation-delay: var(--d, 0s);
-}
-
-@keyframes word-in {
-  from { opacity: 0; }
-  to   { opacity: 1; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .lede.is-typing .word {
-    opacity: 1;
-    animation: none;
-  }
 }
 
 a {

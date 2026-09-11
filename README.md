@@ -151,15 +151,16 @@ named.
 
 ## Page width
 
-The text runs the full width of the window with a one-inch margin either side,
-set as `padding` on `.shell`. There is no `max-width`, so on a very wide
-monitor the lines get long; capping it is two lines in that same rule:
+The text runs the full width of the window with a two-inch margin either side,
+set as `padding` on `.shell`. There is no `max-width`, so the measure grows
+with the window; capping it is two lines in that same rule:
 
     max-width: 60rem;
     margin: 0 auto;
 
-On a phone the inch becomes `1.35rem`, because an inch of margin on each side
-of a 375px screen would leave almost nothing for the text.
+The margin steps down as the screen shrinks: two inches, then one inch under
+about 1100px, then `1.35rem` on a phone. Four inches of margin on a small
+laptop, or two on a 375px phone, would leave almost nothing for the text.
 
 Email addresses on the contact page are written as `name [at] domain` rather
 than as `mailto:` links, so that address-harvesting bots cannot lift them.
