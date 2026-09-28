@@ -36,6 +36,25 @@ Written 3 September 2026, revised 11 September. Tick these off as you go.
 
 ## Decisions I made that you should check
 
+- [ ] **The 2019 conference abstract is off the CV.** Adding the second Cosmos
+      College teaching line pushed the page count to two, and `cv/README.md`
+      named that abstract as the first thing to cut, so it went. It is still on
+      the website and in `data/publications.json`. If you would rather keep it
+      on the CV, something else has to come off — `cv/README.md` now lists the
+      next candidates.
+
+- [ ] **Skills no longer claims the modelling or the deep learning.** On your
+      instruction the two technical lines are now exactly `HEC-RAS, SWAT,
+      HEC-HMS, GIS` and `Python, R, Google Earth Engine (GEE), HPC (SLURM)`.
+      `STEMMUS-SCOPE`, `land
+      surface models`, `PyTorch` and `Excel/VBA` came out. The page still
+      carries a STEMMUS-SCOPE paper, a deep-learning paper in review, a
+      deep-learning talk at ECMWF and a machine-learning hackathon placing, and
+      Excel/VBA is described in the Jena-Geos bullet — so a reader who skims
+      Skills first will read you as a hydraulic modeller and then meet four
+      entries that say otherwise. Fine if deliberate; add the terms back to
+      `cv/cv.tex` and `index.html` if not.
+
 - [ ] **Co-authored papers on the Publications page.** Google Scholar lists
       three papers where you are a middle author (Moutahir et al. 2026,
       Zeng et al. 2025 in *Computers & Geosciences*, and Bhattarai et al. 2019).
@@ -53,10 +72,6 @@ Written 3 September 2026, revised 11 September. Tick these off as you go.
 - [ ] **ECEP location differs between site and CV.** The website says
       "Lazimpat, Kathmandu, Nepal"; the CV says "Kathmandu, Nepal", because the
       CV has one page and no room for the longer form. Fine if deliberate.
-- [ ] **Work experience order.** Max Planck is first. With the corrected dates
-      that is newest-first by start date (Mar 2022, then Nov 2021, May 2021,
-      Dec 2018), though ECEP ran to Dec 2022 and so ends later than two of the
-      entries above it. Fine either way — just be aware.
 
 ## Loose ends
 
@@ -82,9 +97,10 @@ Written 3 September 2026, revised 11 September. Tick these off as you go.
       `name [at] domain` so bots cannot harvest them. `cv/cv.pdf` has them as
       plain, selectable text and as `mailto:` links. There is no phone number
       in it at all, which is one thing the .docx needed watching for.
-- [ ] **Skills on the CV.** The Modelling and Programming lines started as an
-      inference from the work described elsewhere on the page. You have since
-      corrected most of it; read it once more and decide it is yours.
+- [x] **Skills on the CV.** Done, 27 September 2026 — the Modelling and
+      Programming lines are now the list you dictated, and the `% CHECK THIS`
+      comment is gone. See the item under *Decisions I made that you should
+      check* about what came out of them.
 - [ ] **Register an ORCID.** Journals increasingly ask for one at submission.
       It also has a free API that sends CORS headers, so unlike Google Scholar
       the page could fetch it live with no key and no scraping. Tell me your ID

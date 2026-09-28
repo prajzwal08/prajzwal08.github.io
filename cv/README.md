@@ -76,8 +76,21 @@ edit, check:
 
 The slack is spent. Margins and linespread have no more give, so the next
 thing that needs room has to be paid for by cutting content rather than by
-tightening further. The obvious candidate is the 2019 conference abstract,
-the weakest entry on the page.
+tightening further.
+
+**The 2019 conference abstract has already been spent** — it paid for the
+second Cosmos College teaching line on 27 September 2026 and is no longer on
+the page. It is still on the website and in `data/publications.json`, so the
+CV is now a subset of the site's publication list rather than a match for it.
+
+The next candidates, in the order to reach for them:
+
+1. The **`Interests` section** (three lines of prose at the top). It says
+   little that Education and Publications do not say more concretely.
+2. The **second supervisor line** under the PhD, or the two
+   `Ranked Nth out of N` details, which are the least load-bearing of the
+   `\detail` lines.
+3. The **2023 EGU abstract**, now the weakest publication entry.
 
 ## Things to keep in step
 
