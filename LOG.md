@@ -22,6 +22,20 @@ and `TODO.md`; `git log` has the same story in more detail.
   are snapshots of the apps taken 11 October 2026 (embeds/).
 - **ORCID** added; Bermbrand and Noordwijk added; the ubRMSE caption removed.
 
+Later the same day, after seeing it live:
+
+- **Project visuals full width at 16:9**: the Bermbrand map and the WUNDER chart now
+  span the text column (4:3 on phones). Square and side-by-side versions looked
+  compressed next to the originals in the apps.
+- **Times New Roman** for the WUNDER chart (it had been Georgia; the app uses Times)
+  and for the whole altimeter reading, not only its digits.
+- **Altimeter** reads larger, and on phones it now shows as a small pill bottom
+  left that counts down as you scroll; it used to be hidden on narrow screens.
+
+Not published, on purpose: the ADBYPP, WorldBankYPP and AmericanForestFoundation
+folders and the original slides (prajwal_khanal_uTwente_ITC.pdf) stay untracked.
+Still open: the title slide of the published slides reads "at 20 m (?)".
+
 ## 28 September 2026 — Volunteering, freelance and lecturer dates, impact numbers
 
 - **WUNDER** now reads "Prediction of field-scale soil moisture, water and carbon
