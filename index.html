@@ -613,6 +613,9 @@ canvas.lungta{opacity:.95}
 .nw{white-space:nowrap}
 .name .coord,.journey{font-size:.8rem!important;text-shadow:0 0 8px #fff,0 0 3px #fff,0 0 1px #fff;color:#5e3f0c!important}
 .name .role{text-shadow:0 0 10px #fff,0 0 3px #fff}
+/* the place line sits on the herd in the photo: give it a white pill, like the footer */
+.name .coord{display:inline-block;background:#ffffffe0;padding:.3rem .8rem;border-radius:999px;text-shadow:none;margin-left:-.8rem}
+@media(max-width:52rem){.name .coord{border-radius:10px;font-size:.72rem!important;letter-spacing:.12em}.name .coord .sep{display:none}.name .coord .nw{display:block}}
 #publications ol{list-style:none;padding:0;margin:0}
 .pub-body{min-width:0;overflow-wrap:anywhere}
 .lens figcaption{position:static;display:block;margin:.4rem .8rem .6rem;font-size:.8rem;color:#55504a;background:none}
@@ -725,7 +728,7 @@ h2.kicker{margin-top:0}
     </svg>
     <div class="shade"></div>
     <div class="name">
-      <div class="coord">Maqu · Eastern Tibetan Plateau &nbsp;·&nbsp; <span class="nw">33.99° N, 102.08° E · 3 464 m</span></div>
+      <div class="coord">Maqu · Eastern Tibetan Plateau<span class="sep"> &nbsp;·&nbsp; </span><span class="nw">33.99° N, 102.08° E · 3 464 m</span></div>
       <span class="deva" aria-hidden="true">प्रज्वल खनाल</span>
       <h1>Prajwal<br>Khanal</h1>
       <p class="role">PhD researcher, Faculty of Geo-Information Science and Earth Observation (ITC), University of Twente</p>
