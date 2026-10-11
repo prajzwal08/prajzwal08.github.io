@@ -4,66 +4,813 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Prajwal Khanal</title>
-<meta name="description" content="PhD researcher modelling soil-vegetation-atmosphere interactions, with a focus on water and carbon fluxes.">
-<link rel="stylesheet" href="assets/style.css">
+<meta name="description" content="PhD researcher at ITC, University of Twente: soil moisture, water and carbon fluxes, from land surface models to deep learning. Also picture logs from the Himalaya.">
+<link href="https://fonts.googleapis.com/css2?family=Special+Elite&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Work+Sans:wght@400;500&family=Noto+Serif+Devanagari:wght@300;500;700&display=swap" rel="stylesheet">
+<style>
+/* Nightfall: the page opens on the Maqu landscape in daylight. As you scroll,
+   the light goes, stars come out over the ridge, and a satellite crosses the
+   sky. Everything below is set at night. */
+:root{
+  --night:0;                       /* 0 at the top of the page, 1 once the hero has scrolled away; set by script */
+  --bg:#040509; --ink:#ece8df; --soft:#8d8a84; --line:#ffffff14;
+  --gold:#e7b46a; --ice:#9cc7ff;
+  --serif:"Times New Roman",Times,serif;
+  --type:"American Typewriter","Special Elite","Courier New",serif;
+  --face:var(--serif);
+}
+body.f-tw{--face:var(--type)}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:1.15rem/1.6 var(--face);overflow-x:hidden}
+a{color:inherit}
+::selection{background:var(--gold);color:#000}
+
+/* film grain over everything */
+body::after{content:"";position:fixed;inset:-50%;pointer-events:none;z-index:50;opacity:.07;
+  background:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  animation:grain 1.2s steps(6) infinite}
+@keyframes grain{0%{transform:translate(0,0)}33%{transform:translate(-3%,2%)}66%{transform:translate(2%,-3%)}100%{transform:translate(0,0)}}
+
+/* ---------- hero ---------- */
+.hero{position:relative;height:200vh}
+.stage{position:sticky;top:0;height:100vh;overflow:hidden}
+.stage .photo{position:absolute;inset:-4% 0 0;width:100%;height:104%;object-fit:cover;
+  transform:scale(calc(1.08 - var(--night)*.08)) translateY(calc(var(--night)*3%));
+  filter:brightness(calc(1 - var(--night)*.82)) saturate(calc(1 - var(--night)*.6)) hue-rotate(calc(var(--night)*-12deg))}
+.stage .shade{position:absolute;inset:0;background:linear-gradient(#04050900 45%,#040509 100%)}
+#sky{position:absolute;inset:0;width:100%;height:62%;opacity:calc(var(--night)*1.4);
+  -webkit-mask:linear-gradient(#000 60%,#0000);mask:linear-gradient(#000 60%,#0000)}
+.orbit{position:absolute;inset:0;width:100%;height:100%;opacity:calc(var(--night)*1.6 - .3);pointer-events:none}
+.orbit ellipse{fill:none;stroke:#9cc7ff55;stroke-width:1;stroke-dasharray:2 6}
+
+.name{position:absolute;left:0;right:0;top:50%;transform:translateY(calc(-50% - var(--night)*14vh));text-align:center;z-index:3;padding:0 1rem}
+.name h1{margin:0;font:400 clamp(3.2rem,12vw,11rem)/.85 var(--face);letter-spacing:-.02em;color:#fff;mix-blend-mode:difference}
+.name .role{max-width:40rem;margin:1.4rem auto 0;font-size:clamp(.85rem,1.6vw,1.05rem);color:#f4efe4;opacity:calc(1 - var(--night)*.2);text-shadow:0 1px 12px #0008}
+.coord{position:absolute;bottom:1.6rem;left:1.6rem;z-index:3;font:.78rem var(--type);letter-spacing:.18em;text-transform:uppercase;color:var(--gold)}
+.cue{position:absolute;bottom:1.6rem;right:1.6rem;z-index:3;font:.78rem var(--type);letter-spacing:.18em;text-transform:uppercase;opacity:calc(1 - var(--night)*3)}
+.cue::after{content:"";display:block;width:1px;height:2.5rem;background:#fff8;margin:.6rem 0 0 auto;animation:drip 1.8s ease-in-out infinite}
+@keyframes drip{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+
+/* ---------- constellation nav ---------- */
+.constellation{position:fixed;right:1.4rem;top:50%;transform:translateY(-50%);z-index:20;opacity:var(--night);transition:opacity .3s}
+.constellation svg{position:absolute;inset:0;overflow:visible;pointer-events:none}
+.constellation polyline{fill:none;stroke:#ffffff30;stroke-width:1}
+.constellation a{position:relative;display:flex;align-items:center;justify-content:flex-end;gap:.7rem;height:2.2rem;text-decoration:none;font:.75rem var(--type);letter-spacing:.14em;text-transform:uppercase;color:var(--soft)}
+.constellation a span{opacity:0;transform:translateX(6px);transition:.25s}
+.constellation a i{width:6px;height:6px;border-radius:50%;background:#fff9;box-shadow:0 0 6px #fff6;transition:.25s}
+.constellation a:hover span,.constellation a.on span{opacity:1;transform:none}
+.constellation a.on{color:var(--gold)}
+.constellation a.on i{background:var(--gold);box-shadow:0 0 12px var(--gold);transform:scale(1.6)}
+.topbar{position:fixed;top:0;left:0;right:0;z-index:20;display:flex;justify-content:space-between;align-items:center;padding:1.1rem 1.6rem;font:.8rem var(--type);letter-spacing:.16em;text-transform:uppercase}
+.topbar a{text-decoration:none;color:#fff;opacity:.9}
+.topbar .mono{opacity:calc(var(--night)*1.5)}
+
+/* ---------- shared ---------- */
+.chapter{position:relative;max-width:74rem;margin:0 auto;padding:9rem 1.6rem 4rem}
+.kicker{font:.78rem var(--type);letter-spacing:.22em;text-transform:uppercase;color:var(--gold);display:flex;align-items:center;gap:1rem}
+.kicker::before{content:"";width:3rem;height:1px;background:var(--gold)}
+.reveal{opacity:0;transform:translateY(40px);transition:opacity 1.1s ease,transform 1.1s cubic-bezier(.2,.7,.2,1)}
+.reveal.in{opacity:1;transform:none}
+
+/* about */
+.lede{font:400 clamp(1.6rem,3.4vw,2.7rem)/1.28 var(--face);max-width:56rem;margin:2rem 0 0;letter-spacing:-.005em}
+.lede em{color:var(--gold);font-style:italic}
+
+/* recent */
+.talk{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:end;margin-top:2rem}
+.talk h2{font:400 clamp(1.8rem,3.4vw,3rem)/1.08 var(--face);margin:0}
+.talk .venue{color:var(--soft);margin:1.2rem 0 0}
+.btn{display:inline-flex;align-items:center;gap:.6rem;margin-top:1.6rem;padding:.8rem 1.3rem;border:1px solid var(--gold);color:var(--gold);text-decoration:none;font:.8rem var(--type);letter-spacing:.16em;text-transform:uppercase;transition:.25s}
+.btn:hover{background:var(--gold);color:#000}
+.stat{font:400 clamp(3.4rem,9vw,8rem)/.9 var(--face);letter-spacing:-.03em;
+  background:linear-gradient(180deg,#fff,#9cc7ff 70%,#3b5f8f);-webkit-background-clip:text;background-clip:text;color:transparent}
+.stat small{display:block;font-size:.22em;letter-spacing:.02em;margin-top:.6rem;-webkit-text-fill-color:var(--soft)}
+
+.lens{position:relative;margin-top:4rem;background:#f4f2ec;border-radius:3px;cursor:zoom-in;overflow:hidden;
+  box-shadow:0 0 0 1px #fff1,0 30px 120px -20px #9cc7ff40}
+.lens img{display:block;width:100%}
+.lens .glass{position:absolute;width:15rem;height:15rem;border-radius:50%;pointer-events:none;opacity:0;transition:opacity .2s;
+  border:2px solid #fff;box-shadow:0 0 0 1px #0003,0 12px 40px #0006;background-repeat:no-repeat;background-color:#f4f2ec}
+.lens:hover .glass{opacity:1}
+.lens figcaption{position:absolute;left:1rem;bottom:.8rem;font:.75rem var(--type);letter-spacing:.14em;text-transform:uppercase;color:#555}
+.duo{display:grid;grid-template-columns:1.4fr 1fr;gap:2rem;margin-top:2rem}
+.duo .lens{margin-top:0}
+
+/* plog */
+.plog{display:grid;grid-template-columns:repeat(12,1fr);grid-auto-rows:7vw;gap:12px;margin-top:3rem}
+.plog figure{margin:0;overflow:hidden;position:relative}
+.plog img{width:100%;height:100%;object-fit:cover;display:block;transition:transform 1.4s cubic-bezier(.2,.7,.2,1),filter .6s;filter:grayscale(.25) brightness(.85)}
+.plog figure:hover img{transform:scale(1.06);filter:none}
+.p1{grid-column:1/8;grid-row:1/6}.p2{grid-column:8/13;grid-row:1/4}.p3{grid-column:8/13;grid-row:4/8}
+.p4{grid-column:1/5;grid-row:6/9}.p5{grid-column:5/8;grid-row:6/9}.p6{grid-column:8/13;grid-row:8/10}
+.plog .q{grid-column:1/8;grid-row:9/11;align-self:center;font:italic 400 clamp(1.4rem,2.6vw,2.2rem)/1.25 var(--face);margin:0}
+.plog .q b{display:block;font:normal .78rem var(--type);letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-top:1rem}
+
+/* existing sections, content unchanged */
+.sections{max-width:74rem;margin:0 auto;padding:4rem 1.6rem 8rem}
+.sections section{padding:6rem 0 1rem;border-top:1px solid var(--line)}
+.sections h2{font:400 clamp(2rem,4vw,3.2rem)/1 var(--face);margin:0 0 2.5rem;letter-spacing:-.01em}
+.sections h2::before{content:none;display:block;font:.75rem var(--type);letter-spacing:.22em;color:var(--gold);margin-bottom:1rem}
+.sections a{color:var(--gold)}
+.record{display:grid;grid-template-columns:12rem 1fr;column-gap:3rem;margin-bottom:2.4rem;padding-left:0;transition:.3s}
+.record:hover{transform:translateX(6px)}
+.record-head{display:contents}
+.record-when{grid-column:1;grid-row:1;color:var(--soft);font:.85rem/1.8 var(--type);letter-spacing:.06em}
+.record-head h3{grid-column:2;margin:0;font:400 1.35rem/1.3 var(--face)}
+.record-where{grid-column:2;font-style:italic;color:var(--soft);margin:.15rem 0 .4rem}
+.record>p,.record>ul,.record>figure{grid-column:2}
+.highlights{margin:.2rem 0;padding-left:1.1rem;color:#cfcac0}
+.highlights li::marker{color:var(--gold)}
+#publications h3{font:.78rem var(--type);letter-spacing:.2em;text-transform:uppercase;color:var(--ice);margin:2rem 0 1rem}
+#publications ul{list-style:none;padding:0;margin:0}
+#publications li{display:grid;grid-template-columns:5rem 1fr;gap:1.5rem;padding:.9rem 0;border-bottom:1px solid var(--line)}
+.pub-year{color:var(--soft);font-family:var(--type)}.pub-sep{margin:0 .45rem;color:var(--soft)}.pub-venue{font-style:italic;color:var(--soft)}.pub-me{color:var(--gold)}
+.pub-note{color:var(--soft)}
+.contact-list{list-style:none;padding:0}
+.contact-list li{display:grid;grid-template-columns:12rem 1fr;gap:3rem;padding:.8rem 0;border-bottom:1px solid var(--line)}
+.contact-key{color:var(--soft);font:.85rem/1.9 var(--type);letter-spacing:.06em}
+.project-links{font-size:1rem}
+.project-shot{display:none}
+
+footer{position:relative;height:60vh;display:grid;place-items:end center;padding-bottom:3rem;overflow:hidden}
+footer img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:brightness(.35) saturate(.7);
+  -webkit-mask:linear-gradient(#0000,#000 60%);mask:linear-gradient(#0000,#000 60%)}
+footer p{position:relative;font:.8rem var(--type);letter-spacing:.2em;text-transform:uppercase;color:var(--soft)}
+
+/* font switch */
+.fontswitch{position:fixed;bottom:1rem;left:50%;transform:translateX(-50%);z-index:60;display:flex;gap:2px;background:#000b;backdrop-filter:blur(8px);padding:3px;border-radius:999px;font:500 .78rem system-ui;border:1px solid #fff2}
+.fontswitch button{border:0;background:transparent;color:#fff;padding:.5rem .9rem;border-radius:999px;cursor:pointer;font:inherit}
+.fontswitch button[aria-pressed=true]{background:#fff;color:#000}
+.label{position:fixed;top:4rem;left:1.6rem;z-index:60;background:#fff;color:#000;font:600 .75rem system-ui;padding:.35rem .6rem;border-radius:3px}
+
+@media(max-width:52rem){
+  .talk,.duo{grid-template-columns:1fr;gap:2rem}
+  .constellation{display:none}
+  .plog{grid-template-columns:repeat(2,1fr);grid-auto-rows:40vw}
+  .plog>*{grid-column:auto!important;grid-row:auto!important}
+  .p1{grid-column:1/3!important}.plog .q{grid-column:1/3!important}
+  .record,.contact-list li,#publications li{grid-template-columns:1fr;gap:.2rem}
+  .record-when,.record-head h3,.record-where,.record>p,.record>ul{grid-column:1;grid-row:auto}
+  .lens .glass{display:none}
+}
+@media(prefers-reduced-motion:reduce){body::after{animation:none}.reveal{opacity:1;transform:none;transition:none}html{scroll-behavior:auto}}
+
+/* ===== Snowfall: the light version. The snowy opening fades into the page
+   itself, white or cream, instead of into night. ===== */
+body{--bg:#ffffff;--ink:#1d1b18;--soft:#78726a;--line:#1d1b1814;--gold:#9a6a24;--ice:#2c5b93}
+body.bg-cream{--bg:#f4ede0}
+body::after{opacity:.035;mix-blend-mode:multiply}
+#sky{display:none}
+.stage .photo{filter:none;opacity:calc(1 - var(--night)*.85);transform:scale(calc(1.06 - var(--night)*.06))}
+.stage .shade{background:linear-gradient(color-mix(in srgb,var(--bg) 0%,transparent) 40%,var(--bg) 100%)}
+.orbit{opacity:calc(.25 + var(--night)*.75)}
+.orbit ellipse{stroke:#2c5b9366}
+.orbit circle{fill:#2c5b93}
+.name h1{color:var(--ink);mix-blend-mode:normal}
+.name .role{color:var(--ink);text-shadow:0 0 18px #fff,0 0 2px #fff}
+.coord{color:var(--gold);text-shadow:0 0 8px #fff}
+.cue{color:var(--ink)}.cue::after{background:#1d1b1888}
+.topbar a{color:var(--ink)}
+.constellation polyline{stroke:#1d1b1826}
+.constellation a i{background:#1d1b18aa;box-shadow:none}
+.constellation a.on i{background:var(--gold);box-shadow:0 0 10px #9a6a2466}
+.stat{background:linear-gradient(180deg,#1d1b18,#2c5b93 80%);-webkit-background-clip:text;background-clip:text}
+.lens{background:#fff;box-shadow:0 0 0 1px #1d1b1812,0 30px 80px -30px #2c5b9333}
+.btn:hover{color:#fff}
+.highlights{color:#3b3731}
+.plog img{filter:none}
+footer img{filter:none;-webkit-mask:linear-gradient(#0000,#000 55%);mask:linear-gradient(#0000,#000 55%)}
+footer p{color:var(--ink);text-shadow:0 0 10px #fff}
+.label{background:#1d1b18;color:#fff}
+.switches{position:fixed;bottom:1rem;left:50%;transform:translateX(-50%);z-index:60;display:flex;gap:.5rem;flex-wrap:wrap;justify-content:center}
+.switches .fontswitch{position:static;transform:none}
+
+/* ===== Minimal: cream only, smaller type, quieter motion, tabs on top ===== */
+body{font-size:1.02rem;line-height:1.6}
+body::after{opacity:.03}
+.topbar{position:fixed;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line);padding:.75rem 1.6rem;font:.8rem var(--face);letter-spacing:.02em;text-transform:none;gap:1.5rem;flex-wrap:wrap}
+.topbar .mono{opacity:1;font-size:.95rem}
+.tabs{display:flex;gap:1.3rem;flex-wrap:wrap}
+.tabs a{text-decoration:none;color:var(--soft);padding:.15rem 0;border-bottom:1px solid transparent;transition:.2s}
+.tabs a:hover,.tabs a.on{color:var(--ink);border-bottom-color:var(--gold)}
+.hero{height:150vh}
+.name h1{font-size:clamp(2rem,5vw,3.6rem);line-height:1;letter-spacing:0}
+.name .role{font-size:.9rem;margin-top:.8rem}
+.coord,.cue{font-size:.7rem}
+.chapter{max-width:58rem;padding:5rem 1.6rem 2rem}
+.kicker{font-size:.7rem;letter-spacing:.18em}
+.kicker::before{width:1.5rem}
+.lede{font-size:1.2rem;line-height:1.55;max-width:42rem;margin-top:1.2rem}
+.lede em{color:inherit;font-style:normal}
+.talk{gap:2.5rem;align-items:start;margin-top:1.2rem}
+.talk h2{font-size:1.3rem;line-height:1.3}
+.talk .venue{font-size:.95rem;margin-top:.6rem}
+.btn{margin-top:1rem;padding:.5rem .9rem;font-size:.72rem}
+.stat{font-size:2.2rem;letter-spacing:-.01em;background:none;color:var(--ink);-webkit-text-fill-color:var(--ink)}
+.stat small{font-size:.8rem;margin-top:.4rem}
+.duo{gap:1.2rem;margin-top:1.8rem}
+.lens{box-shadow:0 0 0 1px var(--line)}
+.lens .glass{width:11rem;height:11rem}
+.plog{grid-auto-rows:5vw;gap:8px;margin-top:1.6rem}
+.plog .q{font-size:1.15rem}
+.sections{max-width:58rem;padding:2rem 1.6rem 5rem}
+.sections section{padding:4rem 0 .5rem}
+.sections h2{font-size:1.35rem;margin-bottom:1.5rem}
+.sections h2::before{font-size:.68rem;margin-bottom:.5rem}
+.record{grid-template-columns:9.5rem 1fr;column-gap:2rem;margin-bottom:1.6rem}
+.record-head h3{font-size:1.05rem}
+.record-when,.contact-key{font-size:.78rem}
+.record-where{font-size:.95rem}
+.highlights{font-size:.95rem}
+#publications li{grid-template-columns:4rem 1fr;gap:1rem;padding:.6rem 0;font-size:.95rem}
+.contact-list li{grid-template-columns:9.5rem 1fr;gap:2rem;padding:.55rem 0}
+footer{height:40vh}
+.label{top:auto;bottom:4.2rem;left:1rem}
+@media(max-width:52rem){.topbar{padding:.6rem 1rem}.tabs{gap:.9rem;overflow-x:auto;flex-wrap:nowrap;width:100%}.plog{grid-auto-rows:40vw}}
+
+/* ===== Text set as in sample C (Landscape) ===== */
+:root{--display:var(--face);--text:var(--face)}
+body.f-land{--display:"Cormorant Garamond",Georgia,serif;--text:"Work Sans",system-ui,sans-serif;--type:"Work Sans",system-ui,sans-serif}
+body.f-tw{--display:var(--type);--text:var(--type)}
+body{font-family:var(--text);font-size:1.02rem;line-height:1.65}
+.name{left:0;right:0;top:auto;bottom:3rem;transform:translateY(calc(var(--night)*-6vh));text-align:left;max-width:64rem;margin:0 auto;padding:0 1.6rem}
+.name .coord{position:static;margin-bottom:.4rem;font:.72rem var(--type);letter-spacing:.2em;text-transform:uppercase;color:var(--gold);text-shadow:0 0 10px #fff}
+.name h1{font:400 clamp(2.6rem,7vw,5.5rem)/.95 var(--display)}
+.name .role{max-width:34rem;margin:1rem 0 0;font:.98rem/1.5 var(--text)}
+.topbar,.topbar .mono{font-family:var(--text)}
+.topbar .mono{font-family:var(--display);font-size:1.15rem}
+.kicker{font:.72rem var(--type);letter-spacing:.2em;text-transform:uppercase}
+.lede{font:400 1.3rem/1.5 var(--display)}
+body.f-land .lede{font-size:1.45rem}
+.talk h2{font:400 clamp(1.6rem,3vw,2.3rem)/1.12 var(--display)}
+.stat{font-family:var(--display);font-size:2.6rem}
+.plog .q{font:italic 400 1.5rem/1.35 var(--display)}
+.sections h2{font:400 2rem/1.1 var(--display)}
+.record-head h3{font:500 1.25rem/1.3 var(--display)}
+body.f-tnr .record-head h3,body.f-tw .record-head h3{font-size:1.05rem}
+.record-when,.contact-key,.pub-year{font-family:var(--text)}
+.btn,.lens figcaption,.plog .q b,.cue{font-family:var(--type)}
+footer p{font-family:var(--type)}
+
+/* Kathmandu to Enschede, coordinates only */
+.journey{margin:.9rem 0 0;font:.72rem var(--type);letter-spacing:.2em;color:var(--gold);text-shadow:0 0 10px #fff}
+
+/* ===== Himalaya ===== */
+:root{--flag-b:#2b5fa8;--flag-w:#f7f4ee;--flag-r:#b8322a;--flag-g:#3f7d3a;--flag-y:#e2b33b}
+/* faint topographic contours behind everything */
+body::before{content:none}
+html::before{content:none}
+body{background:transparent}
+html{background:var(--bg)}
+body.bg-cream{background:transparent}
+html{background:#fff}
+
+/* ridgelines between parts, three layers that drift at different speeds */
+.ridge{position:relative;height:clamp(70px,11vw,150px);margin-top:-1px;overflow:hidden}
+.ridge svg{position:absolute;left:-4%;width:108%;height:100%}
+.ridge .r1{fill:#d9c7a2;transform:translateX(calc(var(--scroll,0)*-14px))}
+.ridge .r2{fill:#b39466;transform:translateX(calc(var(--scroll,0)*-28px))}
+.ridge .r3{fill:#6b5538;transform:translateX(calc(var(--scroll,0)*-44px))}
+.ridge.first{margin-top:-8vh;position:relative;z-index:2}
+.ridge.first + .chapter{background:#6b5538;color:#f4ede0;max-width:none;margin:0;padding-left:max(1.6rem,calc((100vw - 58rem)/2));padding-right:max(1.6rem,calc((100vw - 58rem)/2))}
+.ridge.first + .chapter .kicker{color:var(--flag-y)}.ridge.first + .chapter .kicker::before{background:var(--flag-y)}
+.footridge .ridge{height:clamp(90px,14vw,190px);transform:scaleY(-1);margin-bottom:-2px}
+.footridge .ridge .r1{fill:#6b5538}.footridge .ridge .r3{fill:#d9c7a2}
+
+/* section numbers become summit markers */
+.sections h2::before{content:none}
+
+/* prayer flags: tab underline cycles through the five colours */
+.tabs a:nth-child(5n+1).on,.tabs a:nth-child(5n+1):hover{border-bottom-color:var(--flag-b)}
+.tabs a:nth-child(5n+2).on,.tabs a:nth-child(5n+2):hover{border-bottom-color:#bdb4a4}
+.tabs a:nth-child(5n+3).on,.tabs a:nth-child(5n+3):hover{border-bottom-color:var(--flag-r)}
+.tabs a:nth-child(5n+4).on,.tabs a:nth-child(5n+4):hover{border-bottom-color:var(--flag-g)}
+.tabs a:nth-child(5n+5).on,.tabs a:nth-child(5n+5):hover{border-bottom-color:var(--flag-y)}
+.tabs a{border-bottom-width:2px}
+
+/* climbing progress along the bottom of the tab bar */
+.topbar{padding-bottom:1.2rem}
+.climb{position:absolute;left:0;right:0;bottom:0;width:100%;height:14px}
+.climb-line{fill:none;stroke:#1d1b1826;stroke-width:1;vector-effect:non-scaling-stroke}
+.climb-fill{fill:#9a6a2455}
+
+/* footer: flags strung across the snow */
+footer{height:55vh}
+.flags{position:absolute;left:0;top:6%;width:100%;height:38%;z-index:1}
+.flags .flag{transform-box:fill-box;transform-origin:top center;animation:flutter 3.2s ease-in-out infinite;animation-delay:calc(var(--i)*-.37s)}
+@keyframes flutter{0%,100%{transform:skewX(0) scaleY(1)}50%{transform:skewX(-9deg) scaleY(.94)}}
+@media(prefers-reduced-motion:reduce){.flags .flag{animation:none}}
+
+/* ===== Coordinate timeline: places as numbers, dates as days since birth ===== */
+.latlon{font:.72rem var(--type);letter-spacing:.08em;color:var(--gold);white-space:nowrap;margin-left:.4rem;font-style:normal}
+.tl{margin-top:3rem}
+.tl-map{display:block;width:100%;height:auto;overflow:visible}
+.grat line{stroke:#f4ede01a;stroke-width:1;vector-effect:non-scaling-stroke}
+.glab text{fill:#f4ede055;font:9px var(--type);letter-spacing:.08em}
+.leg{fill:none;stroke:var(--flag-y);stroke-width:1.4;vector-effect:non-scaling-stroke;stroke-dasharray:1;stroke-dashoffset:1}
+.leg.trip{stroke:#f4ede0aa;stroke-width:1}
+.tl.in .leg{animation:draw 1.6s cubic-bezier(.6,.1,.3,1) forwards;animation-delay:calc(var(--i)*.75s)}
+@keyframes draw{to{stroke-dashoffset:0}}
+.tl.in .leg.trip{animation-name:drawdash}
+@keyframes drawdash{0%{stroke-dashoffset:1}99%{stroke-dashoffset:0;stroke-dasharray:1}100%{stroke-dashoffset:0;stroke-dasharray:.008 .012}}
+.pt circle{fill:#f4ede0;transition:.25s}
+.pt .halo{fill:var(--flag-y);opacity:0;transform-box:fill-box;transform-origin:center}
+.pt{opacity:0}
+.tl.in .pt{animation:pop .5s ease forwards;animation-delay:calc(var(--i)*.75s + .2s)}
+@keyframes pop{from{opacity:0}to{opacity:1}}
+.pt.on circle:not(.halo){fill:var(--flag-y)}
+.pt.on .halo{opacity:.35;animation:pulse 1.6s ease-out infinite}
+@keyframes pulse{from{transform:scale(.4);opacity:.6}to{transform:scale(1.8);opacity:0}}
+.tl-list{list-style:none;padding:0;margin:1.6rem 0 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(9.5rem,1fr));gap:.4rem 1.2rem;counter-reset:t}
+.tl-list li{padding:.6rem 0 .5rem;border-top:1px solid #f4ede026;cursor:default;transition:.25s}
+.tl-list li:hover,.tl-list li.on{border-top-color:var(--flag-y)}
+.tl-day{display:block;font:400 1.35rem/1.1 var(--display);color:#f4ede0}
+.tl-ll{display:block;font:.68rem var(--type);letter-spacing:.1em;color:var(--flag-y);margin-top:.25rem}
+.tl-list li.trip .tl-day{opacity:.75}
+@media(prefers-reduced-motion:reduce){.leg{stroke-dashoffset:0;animation:none!important}.pt{opacity:1;animation:none!important}}
+
+/* ===== Summit ===== */
+/* prayer-flag tabs, strung on a line across the top */
+.topbar{background:transparent;backdrop-filter:none;-webkit-backdrop-filter:none;border:0;padding:.6rem 1.6rem 1.4rem;align-items:flex-start}
+.topbar::before{content:"";position:absolute;left:0;right:0;top:0;height:5.2rem;background:linear-gradient(var(--bg),color-mix(in srgb,var(--bg) 0%,transparent));opacity:calc(var(--night)*1.2);pointer-events:none;z-index:-1}
+.flagline{position:relative;gap:.35rem;padding-top:.55rem;flex-wrap:wrap}
+.flagline::before{content:"";position:absolute;left:-.6rem;right:-.6rem;top:.5rem;height:1px;background:#6b5538}
+.pflag{position:relative;display:block;padding:.45rem .6rem .55rem;font:.72rem/1 var(--text);letter-spacing:.06em;text-decoration:none;border:0!important;
+  transform-origin:top center;animation:wave 3.4s ease-in-out infinite;animation-delay:calc(var(--i)*-.45s);transition:padding .25s,transform .25s;
+  clip-path:polygon(0 0,100% 0,100% 100%,0 100%)}
+.pflag::before{content:"";position:absolute;left:50%;top:-.25rem;width:1px;height:.3rem;background:#6b5538}
+.pflag.f-b{background:#2b5fa8;color:#fff}.pflag.f-w{background:#fbf8f2;color:#1d1b18;box-shadow:inset 0 0 0 1px #1d1b1822}
+.pflag.f-r{background:#b8322a;color:#fff}.pflag.f-g{background:#3f7d3a;color:#fff}.pflag.f-y{background:#e2b33b;color:#1d1b18}
+.pflag:hover,.pflag.on{padding-bottom:1.05rem;animation-duration:1.4s}
+@keyframes wave{0%,100%{transform:skewX(0) rotate(0)}30%{transform:skewX(-5deg) rotate(-1.5deg)}70%{transform:skewX(4deg) rotate(1deg)}}
+.climb{display:none}
+
+/* name in Devanagari, faint, behind the Latin */
+.deva{display:block;font:300 clamp(2.4rem,8vw,6.6rem)/1 "Noto Serif Devanagari",serif;color:var(--ink);opacity:.13;margin:0 0 -.35em -.04em;white-space:nowrap;pointer-events:none}
+
+/* snow over the opening */
+#snow{position:absolute;inset:0;width:100%;height:100%;z-index:2;pointer-events:none}
+
+/* altimeter: 8 848 m at the top of the page, down to the valley at the bottom */
+.alti{position:fixed;left:1.1rem;top:22vh;bottom:22vh;z-index:20;display:flex;flex-direction:column;align-items:center;gap:.6rem;opacity:calc(.35 + var(--night)*.65)}
+.alti-track{position:relative;flex:1;width:1px;background:repeating-linear-gradient(#1d1b1840 0 1px,transparent 1px 12px)}
+.alti-track i{position:absolute;left:-3px;width:7px;height:7px;border-radius:50%;background:var(--flag-r);top:calc(var(--alt,0)*100%);transform:translateY(-50%);box-shadow:0 0 0 3px #b8322a22}
+#alti-n{font:.66rem var(--type);letter-spacing:.12em;color:var(--ink);writing-mode:vertical-rl;transform:rotate(180deg);white-space:nowrap}
+
+/* prayer wheel: back to top, spins as you scroll */
+.wheel{position:fixed;right:1.2rem;bottom:4.6rem;z-index:30;width:2.1rem;opacity:calc(var(--night)*1.4);filter:drop-shadow(0 4px 8px #0002)}
+.wheel svg{display:block;width:100%}
+.wheel:hover{transform:translateY(-2px)}
+
+/* the coordinate path, without its grid */
+.tl-map{max-height:16rem}
+@media(max-width:52rem){.alti{display:none}.pflag{font-size:.66rem;padding:.4rem .45rem .5rem}.deva{font-size:2.2rem}}
+@media(prefers-reduced-motion:reduce){.pflag{animation:none}}
+.summit{font:400 2.2rem/1 var(--display);letter-spacing:0;color:var(--ink)}
+.talk{grid-template-columns:1fr}
+.talk h2{font:400 clamp(1.25rem,2.2vw,1.65rem)/1.4 var(--display);max-width:44rem}
+.talk h2 .ttl{font-style:italic}
+
+/* Lungta: cotton flags printed with lines of mantra and a central wind-horse
+   medallion, folded, frayed at the bottom, tied to a sagging cord. */
+.flagline::before{display:none}
+.flagline{padding-top:.2rem}
+.flagline::after{content:"";position:absolute;left:-1rem;right:-1rem;top:.15rem;height:1.6rem;pointer-events:none;
+  background:radial-gradient(120% 60% at 50% -30%,transparent 69.6%,#5b4630 70%,#5b4630 71.2%,transparent 71.6%)}
+.pflag{--c:#2b5fa8;--t:#fff;margin-top:var(--y);padding:.5rem .65rem .8rem;color:var(--t);font:500 .7rem/1 var(--text);letter-spacing:.07em;
+  background:
+    radial-gradient(circle at 50% 46%,transparent 0 .62rem,color-mix(in srgb,var(--t) 22%,transparent) .64rem .7rem,transparent .72rem),
+    repeating-linear-gradient(0deg,transparent 0 3px,color-mix(in srgb,#000 13%,transparent) 3px 4px),
+    linear-gradient(90deg,#0000 0,#ffffff1f 18%,#0000 32%,#00000014 55%,#ffffff17 72%,#0000 86%,#00000012 100%),
+    linear-gradient(#ffffff14,#00000020),
+    var(--c);
+  background-size:auto,100% 100%,220% 100%,auto,auto;
+  clip-path:polygon(0 0,100% 0,100% 88%,94% 100%,86% 91%,78% 100%,70% 92%,61% 100%,52% 90%,44% 100%,35% 92%,27% 100%,18% 91%,10% 100%,4% 92%,0 100%);
+  text-shadow:0 1px 0 color-mix(in srgb,#000 25%,transparent);
+  animation:wave 3.6s ease-in-out infinite,sheen 3.6s ease-in-out infinite;animation-delay:calc(var(--i)*-.5s),calc(var(--i)*-.5s);
+  box-shadow:none}
+.pflag::before{content:"";position:absolute;left:12%;right:12%;top:-.2rem;height:.3rem;border-left:1px solid #5b4630;border-right:1px solid #5b4630}
+.pflag.f-b{--c:#2459a6;--t:#fff}.pflag.f-w{--c:#f7f2e7;--t:#3a3026;box-shadow:none}
+.pflag.f-r{--c:#b3302a;--t:#fff}.pflag.f-g{--c:#3b7a3a;--t:#fff}.pflag.f-y{--c:#e1b13a;--t:#3a3026}
+@keyframes sheen{0%,100%{background-position:0 0,0 0,0% 0,0 0,0 0}50%{background-position:0 0,0 0,100% 0,0 0,0 0}}
+@keyframes wave{0%,100%{transform:skewX(0) rotate(0) scaleY(1)}30%{transform:skewX(-6deg) rotate(-1.6deg) scaleY(.97)}70%{transform:skewX(4deg) rotate(1.1deg) scaleY(1.01)}}
+.pflag:hover,.pflag.on{padding-bottom:1.25rem}
+
+/* timeline stops on cream, now that the dark band has gone */
+.tl-list li{border-top-color:var(--line)}
+.tl-day{color:var(--ink)}
+.tl-ll{color:var(--gold)}
+
+/* decorative flag string across the top; no printing on the cloth */
+.topbar{padding-top:2.9rem;background:color-mix(in srgb,var(--bg) 86%,transparent);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.topbar::before{display:none}
+.topflags{position:absolute;left:0;top:0;width:100%;height:2.6rem;pointer-events:none}
+.topflags .flag{transform-box:fill-box;transform-origin:top center;animation:flutter 3.2s ease-in-out infinite;animation-delay:calc(var(--i)*-.31s)}
+.tabs a{font:.82rem var(--text);letter-spacing:.02em}
+@media(prefers-reduced-motion:reduce){.topflags .flag{animation:none}}
+
+/* ===== One column for everything =====
+   --col is the width of the text column; --pad is the margin either side,
+   never less than the gutter. The top bar, the opening text, each section
+   and the footer all use the same --pad, so their left edges line up. */
+:root{--col:60rem;--gut:clamp(1.25rem,5vw,3.5rem);--pad:max(var(--gut),calc((100vw - var(--col)) / 2))}
+.topbar{padding-left:var(--pad);padding-right:var(--pad)}
+.name{max-width:none;margin:0;padding-left:var(--pad);padding-right:var(--pad)}
+.cue{right:var(--pad)}
+.chapter,.sections{max-width:none;margin:0;padding-left:var(--pad);padding-right:var(--pad)}
+.chapter{padding-top:5rem;padding-bottom:2rem}
+.sections{padding-top:1rem}
+.sections section{padding-top:4rem}
+.lede,.talk h2{max-width:44rem}
+footer p{padding:0 var(--pad);text-align:center}
+.alti{left:max(.6rem,calc(var(--pad) / 2 - .4rem))}
+.wheel{right:max(.6rem,calc(var(--pad) / 2 - 1.05rem))}
+
+/* prayer wheel: turn it for sound; it keeps rolling while the sound plays */
+.wheel{border:0;background:none;padding:0;cursor:pointer;width:2.6rem;opacity:1;right:max(.6rem,calc(var(--pad) / 2 - 1.3rem));bottom:4.4rem}
+.wheel .weight{transform-origin:44px 24px;transition:transform .6s}
+.wheel.on .weight{animation:swing 1.6s linear infinite}
+@keyframes swing{0%{transform:rotate(0)}25%{transform:rotate(14deg)}50%{transform:rotate(0)}75%{transform:rotate(-10deg)}100%{transform:rotate(0)}}
+.wheel:focus-visible{outline:2px solid var(--gold);outline-offset:4px;border-radius:4px}
+.wheel::after{content:"";position:absolute;inset:-6px;border-radius:50%;box-shadow:0 0 0 0 #e1b13a66;pointer-events:none}
+.wheel.on::after{animation:ring 2.4s ease-out infinite}
+@keyframes ring{from{box-shadow:0 0 0 0 #e1b13a55}to{box-shadow:0 0 0 18px #e1b13a00}}
+/* sunny white: warm light from the top right, like sun on snow */
+html{background:#fff}
+
+/* ===== Readability: plain white page, darker secondary text ===== */
+html,body{background:#fff}
+body,body.bg-cream{--bg:#ffffff;--ink:#151412;--soft:#55504a;--line:#15141222;--gold:#7a5214}
+.lens,.lens .glass{background-color:#fff}
+.record-where,.talk .venue,.pub-venue{color:var(--soft)}
+.highlights{color:#2a2723}
+.latlon,.tl-ll{font-size:.78rem;letter-spacing:.05em}
+.kicker{color:var(--gold)}
+.reveal{transition:opacity .7s ease,transform .7s cubic-bezier(.2,.7,.2,1)}
+
+/* Recent: the whole sentence on one line; script below sizes it to the column */
+.talk h2.oneline{max-width:none;white-space:nowrap;font-size:1.3rem;line-height:1.3}
+@media(max-width:52rem){.talk h2.oneline{white-space:normal;font-size:1.2rem!important}}
+
+.talk h2.twoline{max-width:none;white-space:normal;font:400 1rem/1.55 var(--text);letter-spacing:0}
+.talk h2.twoline b{font-weight:600}
+@media(max-width:52rem){.talk h2.twoline br{display:none}}
+
+/* ===== Prayer wheels, as along the walls of Boudha and Swayambhu ===== */
+.wheels{position:relative;margin-top:3rem;padding:0 0 0;background:linear-gradient(#fff,#f6f3ee)}
+.beam{height:14px;background:linear-gradient(#7a4a24,#4a2a12);box-shadow:inset 0 2px 0 #9a6232,inset 0 -2px 0 #2e1808}
+.beam.top{height:18px;background:linear-gradient(#a12a20,#6e1610 70%,#4a2a12 70%,#4a2a12);box-shadow:inset 0 2px 0 #c74a3a}
+.pwrow{display:flex;justify-content:center;gap:clamp(4px,.9vw,12px);padding:0 var(--pad);overflow:hidden;height:clamp(110px,13vw,170px);
+  background:repeating-linear-gradient(90deg,#3a200e 0 2px,transparent 2px 100%) 0 0/calc(clamp(44px,4.6vw,64px) + clamp(4px,.9vw,12px)) 100%,linear-gradient(#2a160a,#3d2210)}
+.pw{flex:none;width:clamp(44px,4.6vw,64px);height:100%;padding:0;border:0;background:none;cursor:grab}
+.pw:active{cursor:grabbing}
+.pw svg{display:block;width:100%;height:100%;filter:drop-shadow(0 3px 4px #0007)}
+.sound{position:absolute;right:var(--pad);top:-2.6rem;width:2rem;height:2rem;border:1px solid var(--line);border-radius:50%;background:#fff;color:var(--ink);cursor:pointer;padding:.35rem}
+.sound svg{display:block;width:100%;height:100%}
+.sound .x{display:inline}.sound .w1,.sound .w2{display:none}
+.sound[aria-pressed=true] .x{display:none}.sound[aria-pressed=true] .w1,.sound[aria-pressed=true] .w2{display:inline}
+.sound[aria-pressed=true]{border-color:var(--gold);color:var(--gold)}
+footer{margin-top:0}
+
+/* ===== Prayer wheels along the bottom of the screen ===== */
+:root{--pwh:clamp(78px,7.4vw,104px);--pww:clamp(36px,3.3vw,48px)}
+body{padding-bottom:var(--pwh)}
+.pwbar{position:fixed;left:0;right:0;bottom:0;height:var(--pwh);z-index:40;pointer-events:none;
+  background:linear-gradient(#ffffff00,#ffffffd9 22%,#f4f0ea)}
+.pwrow{position:absolute;left:0;right:0;bottom:9px;height:calc(var(--pwh) - 12px);display:flex;justify-content:center;align-items:flex-end;gap:2px;overflow:hidden}
+.pw{flex:none;width:var(--pww);height:100%;display:flex;flex-direction:column;align-items:center;filter:drop-shadow(0 3px 3px #0005)}
+.pw .cap{width:86%;height:auto;display:block;margin-bottom:-1px}
+.pw canvas{display:block;width:100%;flex:1;min-height:0}
+.pw .foot{width:64%;height:auto;display:block;margin-top:-1px}
+.pwrail{position:absolute;left:0;right:0;bottom:0;height:10px;background:linear-gradient(#6b4322,#3e2410);box-shadow:inset 0 2px 0 #8a5a30,0 -1px 0 #2a1608}
+.sound{position:fixed;right:var(--pad);bottom:calc(var(--pwh) + 10px);z-index:41;width:2.1rem;height:2.1rem;border:1px solid var(--line);border-radius:50%;background:#fff;color:var(--ink);cursor:pointer;padding:.38rem}
+.sound svg{display:block;width:100%;height:100%}
+.sound .x{display:inline}.sound .w1,.sound .w2{display:none}
+.sound[aria-pressed=true] .x{display:none}.sound[aria-pressed=true] .w1,.sound[aria-pressed=true] .w2{display:inline}
+.sound[aria-pressed=true]{border-color:var(--gold);color:var(--gold)}
+.switches{bottom:calc(var(--pwh) + 10px)}
+.label{bottom:calc(var(--pwh) + 3.4rem)}
+.name{bottom:calc(var(--pwh) + 1.5rem)}
+.cue{bottom:calc(var(--pwh) + 1rem)}
+.credit{font:.7rem/1.5 var(--text);letter-spacing:0;text-transform:none;color:var(--soft);margin-top:.8rem}
+.credit a{color:inherit}
+.plogtitle{display:block;font:500 1.6rem/1.2 var(--display);font-style:normal;margin-bottom:.6rem}
+
+/* ===== Scene along the bottom: Himalaya, prayer flags, prayer wheels ===== */
+:root{--scene:clamp(150px,15vw,210px);--pwh:clamp(70px,6.6vw,92px);--pww:clamp(34px,3vw,44px)}
+body{padding-bottom:var(--scene)}
+.pwbar{height:var(--scene);background:none}
+.pwbar .mtn,.pwbar .flg{position:absolute;left:0;top:0;width:100%;height:100%;display:block}
+.pwbar .mtn{-webkit-mask:linear-gradient(transparent,#000 22%);mask:linear-gradient(transparent,#000 22%)}
+.pwrow{height:var(--pwh)}
+.pwrail{height:9px}
+.sound{bottom:calc(var(--scene) + 10px)}
+.switches{bottom:calc(var(--scene) + 10px)}
+.label{bottom:calc(var(--scene) + 3.4rem)}
+.name{bottom:calc(var(--scene) + 1rem)}
+.cue{bottom:calc(var(--scene) + .6rem)}
+.sound-hint{position:fixed;right:calc(var(--pad) + 2.7rem);bottom:calc(var(--scene) + 16px);z-index:41;margin:0;font:.74rem var(--text);color:var(--ink);
+  background:#fffffff0;padding:.35rem .7rem;border-radius:999px;border:1px solid var(--line);box-shadow:0 4px 14px #0001;animation:hint 2.4s ease-in-out infinite;transition:opacity .6s}
+.sound-hint.gone{opacity:0;pointer-events:none}
+@keyframes hint{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
+.pwbar .pwrow{background:none}
+
+/* backdrop: Prajwal's own photo of the snowy range at Maqu, fading in from the top */
+.pwbar .mtn{display:none}
+.pwbar .mtnphoto{position:absolute;inset:0;background:url(images/site/maqu-range.jpg) center 38%/cover no-repeat;
+  -webkit-mask:linear-gradient(transparent 0,#000 30%);mask:linear-gradient(transparent 0,#000 30%);
+  background-position-x:calc(50% + var(--alt,0)*40px)}
+.tl-ll,.latlon{white-space:nowrap}
+.tl-list{grid-template-columns:repeat(auto-fit,minmax(13.5rem,1fr))}
+.cvnote{margin:0 0 1.2rem;font:.85rem var(--text)}
+
+/* ===== One prayer wheel, bottom right ===== */
+body{padding-bottom:0}
+.pwbar.single{left:auto;right:max(.8rem,calc(var(--pad) / 2 - 1.9rem));bottom:1.2rem;width:3.8rem;height:7.4rem;background:none;pointer-events:auto;cursor:pointer;z-index:45}
+.pwbar.single .mtnphoto,.pwbar.single .mtn,.pwbar.single .flg,.pwbar.single .pwrail{display:none}
+.pwbar.single .pwrow{position:static;height:100%;justify-content:center;overflow:visible}
+.pwbar.single .pw{width:100%;filter:drop-shadow(0 6px 8px #0004)}
+.pwbar.single:focus-visible{outline:2px solid var(--gold);outline-offset:4px;border-radius:6px}
+.pwbar.single::after{content:"";position:absolute;left:50%;top:55%;width:4.6rem;height:4.6rem;margin:-2.3rem 0 0 -2.3rem;border-radius:50%;pointer-events:none}
+.pwbar.single.playing::after{animation:ring 2.6s ease-out infinite}
+@keyframes ring{from{box-shadow:0 0 0 0 #e1b13a66}to{box-shadow:0 0 0 22px #e1b13a00}}
+.sound{display:none}
+.sound-hint{right:calc(max(.8rem,calc(var(--pad) / 2 - 1.9rem)) + 4.4rem);bottom:4.2rem}
+.switches{bottom:1rem}
+.label{bottom:4.2rem}
+.name{bottom:3rem}
+.cue{bottom:1.6rem}
+
+/* Every digit on the page in Times New Roman, whatever font the letters use */
+@font-face{font-family:"TNR Digits";src:local("Times New Roman"),local("TimesNewRomanPSMT"),local("Times-Roman"),local("Liberation Serif");unicode-range:U+0030-0039;font-weight:100 500}
+@font-face{font-family:"TNR Digits";src:local("Times New Roman Bold"),local("TimesNewRomanPS-BoldMT"),local("Times-Bold"),local("Liberation Serif Bold");unicode-range:U+0030-0039;font-weight:600 900}
+body.f-land{--display:"TNR Digits","Cormorant Garamond",Georgia,serif;--text:"TNR Digits","Work Sans",system-ui,sans-serif;--type:"TNR Digits","Work Sans",system-ui,sans-serif}
+body.f-tw{--display:"TNR Digits","American Typewriter","Special Elite",serif;--text:"TNR Digits","American Typewriter","Special Elite",serif;--type:"TNR Digits","American Typewriter","Special Elite",serif}
+.pwbar.single .pwrow{display:flex;width:3.8rem;height:7.4rem;position:static}
+.pwbar.single .pw{flex:none;width:3.8rem;height:7.4rem}
+.pwbar.single .pwrow{padding:0;margin:0;gap:0;justify-content:center;overflow:visible;background:none}
+.plog-h{font:400 clamp(1.5rem,2.6vw,2rem)/1.2 var(--display);margin:.9rem 0 0}
+
+/* tighter leading */
+body{line-height:1.45}
+.lede{line-height:1.32!important}
+.talk h2.twoline{line-height:1.4}
+.highlights li{margin-bottom:.1rem}
+.record{margin-bottom:1.2rem}
+.record-where{margin:.05rem 0 .25rem}
+.essay p,.plog .q{line-height:1.3}
+#publications li{padding:.45rem 0;line-height:1.35}
+.contact-list li{padding:.4rem 0}
+.tl-list li{padding:.45rem 0 .35rem}
+
+/* lungta canvases */
+canvas.topflags{position:absolute;left:0;top:0;width:100%;height:2.7rem;pointer-events:none;display:block}
+canvas.flags{position:absolute;left:0;top:4%;width:100%;height:46%;z-index:1;display:block;pointer-events:none}
+
+/* Recent: each item is a subheading with a date and place above it */
+.recent-item{margin-top:1.6rem;padding-top:1.4rem;border-top:1px solid var(--line)}
+.recent-item .meta{margin:0 0 .45rem;font:500 .8rem var(--type);letter-spacing:.08em;color:var(--gold)}
+.recent-item .meta .latlon{margin:0;font-size:inherit}
+.recent-item h3.sub{margin:0;max-width:52rem;font:500 1.35rem/1.32 var(--display);color:var(--ink)}
+.recent-item h3.sub b{font-weight:700}
+.recent-item .btn{margin-top:1rem}
+.recent-item .duo{margin-top:1.4rem}
+/* small labels, readable */
+.kicker{font:600 .82rem var(--type)!important;letter-spacing:.16em!important;color:#5e3f0c!important}
+.kicker::before{background:#5e3f0c!important}
+.latlon,.tl-ll{color:#6b4810}
+/* the music credit sits on plain white, below the footer photo */
+.credit-bar{margin:0;padding:.9rem var(--pad) 1.2rem;font:.78rem/1.5 var(--text);color:var(--soft);background:#fff;text-align:center}
+.credit-bar a{color:var(--ink)}
+canvas.lungta{opacity:.95}
+.topbar{padding-top:.75rem}
+.recent-item .plog{margin-top:1.4rem}
+
+/* ===== Tight layout ===== */
+.chapter{padding-top:3.2rem;padding-bottom:.6rem}
+.sections{padding-top:0;padding-bottom:3rem}
+.sections section{padding-top:3.2rem;border-top:0}
+.sections h2{margin-bottom:.9rem}
+.kicker{margin-bottom:.2rem}
+.lede{margin-top:.7rem}
+.tl{margin-top:1.4rem}
+.tl-list{margin-top:.6rem;gap:.2rem 1.2rem}
+.recent-item{margin-top:.9rem;padding-top:.9rem}
+.recent-item .meta{margin-bottom:.25rem}
+.recent-item h3.sub{font-size:1.25rem;line-height:1.3}
+.recent-item .line{margin:.35rem 0 0;max-width:46rem;line-height:1.45}
+.recent-item .links{margin:.4rem 0 0;font:500 .85rem var(--text)}
+.recent-item .links a{color:var(--gold);text-decoration:none;border-bottom:1px solid currentColor}
+.recent-item .btn{margin-top:.7rem;padding:.42rem .85rem}
+.recent-item .duo,.recent-item .plog{margin-top:1rem}
+#publications h3{margin:1.1rem 0 .4rem}
+#publications li{padding:.35rem 0}
+.contact-list li{padding:.32rem 0}
+.cvnote{margin-bottom:.6rem}
+
+/* ===== Audit fixes ===== */
+.nw{white-space:nowrap}
+.name .coord,.journey{font-size:.8rem!important;text-shadow:0 0 8px #fff,0 0 3px #fff,0 0 1px #fff;color:#5e3f0c!important}
+.name .role{text-shadow:0 0 10px #fff,0 0 3px #fff}
+#publications ol{list-style:none;padding:0;margin:0}
+.pub-body{min-width:0;overflow-wrap:anywhere}
+.lens figcaption{position:static;display:block;margin:.4rem .8rem .6rem;font-size:.8rem;color:#55504a;background:none}
+.cue,.btn,.sound-hint{font-size:.8rem!important}
+.record-where .latlon:first-child{margin-left:0}
+footer p{background:#ffffffd9;padding:.3rem .8rem!important;border-radius:999px;color:var(--ink)!important;display:inline-block}
+footer img{left:-1%;width:102%}
+@media(max-width:68rem){
+  .pwbar.single,.pwbar.single .pwrow,.pwbar.single .pw{width:2.9rem;height:5.6rem}
+  .pwbar.single{right:.5rem;bottom:.8rem}
+  .chapter,.sections{padding-right:calc(var(--pad) + 2.6rem)}
+}
+@media(max-width:52rem){
+  .record,.contact-list li,#publications li{grid-template-columns:1fr!important;gap:.15rem!important}
+  .record-when,.record-head h3,.record-where,.record>p,.record>ul{grid-column:1!important;grid-row:auto!important}
+  .tabs{-webkit-mask:linear-gradient(90deg,#000 82%,transparent);mask:linear-gradient(90deg,#000 82%,transparent);padding-right:2rem}
+  .chapter,.sections{padding-right:calc(var(--gut) + 2.4rem)}
+  body{padding-bottom:5rem}
+  .sound-hint{display:none}
+}
+h2.kicker{margin-top:0}
+
+/* chant from YouTube: a small card above the wheel, visible while it plays */
+.ytcard{position:fixed;right:max(.8rem,calc(var(--pad) / 2 - 1.9rem));bottom:9.4rem;z-index:46;width:15rem;background:#fff;border:1px solid var(--line);border-radius:10px;box-shadow:0 10px 30px #0002;padding:.4rem;
+  opacity:0;transform:translateY(8px);pointer-events:none;transition:.35s}
+.ytcard.open{opacity:1;transform:none;pointer-events:auto}
+.ytcard iframe{display:block;width:100%;aspect-ratio:16/9;height:auto;border:0;border-radius:6px}
+.ytsrc{margin:.35rem .2rem .1rem;font:.72rem/1.3 var(--text);color:var(--soft)}
+.ytsrc a{color:var(--ink)}
+@media(max-width:68rem){.ytcard{bottom:7rem;right:.5rem;width:13rem}}
+
+/* Projects: text on the left, a visual from the app on the right */
+.recent-item.proj{display:grid;grid-template-columns:1fr minmax(14rem,24rem);gap:1.6rem;align-items:start}
+.recent-item.proj .proj-fig{margin:0}
+.recent-item.proj .proj-fig img{max-height:22rem;width:100%;object-fit:contain;background:#fff}
+@media(max-width:52rem){.recent-item.proj{grid-template-columns:1fr}}
+.recent-item.proj .proj-fig img[src*="bermbrand"]{max-height:13rem}
+.recent-item.proj .proj-fig figcaption{text-transform:none;letter-spacing:.02em}
+
+/* Bermbrand: the live map, full width; a cover keeps page scrolling from zooming it */
+.recent-item.proj-wide{grid-template-columns:1fr}
+.livemap{position:relative;margin-top:1rem;height:clamp(28rem,62vh,42rem);border:1px solid var(--line);border-radius:6px;overflow:hidden;background:#f4f2ee}
+.livemap iframe{display:block;width:100%;height:100%;border:0}
+.livemap-cover{position:absolute;inset:0;width:100%;border:0;background:linear-gradient(transparent 55%,#0006);color:#fff;font:600 .95rem var(--text);
+  display:flex;align-items:flex-end;justify-content:center;padding-bottom:1.6rem;cursor:pointer;transition:opacity .3s}
+.livemap.active .livemap-cover{opacity:0;pointer-events:none}
+.livemap-note{margin:.45rem 0 0;font:.82rem var(--text);color:var(--soft)}
+.livemap-note a{color:var(--gold)}
+
+/* both projects: text left, an equal interactive box right */
+.recent-item.proj{grid-template-columns:1fr 26rem}
+.proj-vis .livemap{height:17rem;margin-top:0}
+.proj-vis .livemap-cover{font-size:.8rem;padding-bottom:.9rem}
+.proj-vis .livemap-note{font-size:.78rem}
+@media(max-width:68rem){.recent-item.proj{grid-template-columns:1fr 20rem}}
+@media(max-width:52rem){.recent-item.proj{grid-template-columns:1fr}.proj-vis .livemap{height:15rem}}
+
+/* projects: the visual sits below the text, at a modest size */
+.recent-item.proj{grid-template-columns:1fr!important;gap:.8rem}
+.proj-vis{max-width:40rem}
+.proj-vis .livemap{height:18rem}
+@media(max-width:52rem){.proj-vis .livemap{height:15rem}}
+
+/* project visuals: square */
+.proj-vis{max-width:26rem}
+.proj-vis .livemap{height:auto!important;aspect-ratio:1/1}
+@media(max-width:52rem){.proj-vis{max-width:100%}}
+</style>
 </head>
 <body>
-<div class="shell">
+<svg width="0" height="0" style="position:absolute"><defs><linearGradient id="fold" x1="0" x2="1"><stop offset="0" stop-color="#000" stop-opacity=".12"/><stop offset=".2" stop-color="#fff" stop-opacity=".16"/><stop offset=".45" stop-color="#000" stop-opacity=".08"/><stop offset=".7" stop-color="#fff" stop-opacity=".12"/><stop offset="1" stop-color="#000" stop-opacity=".14"/></linearGradient><linearGradient id="cap" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="0" y2="120"><stop offset="0" stop-color="#fff"/><stop offset=".36" stop-color="#fff"/><stop offset=".40" stop-color="#fff" stop-opacity="0"/></linearGradient><linearGradient id="cap2" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="0" y2="120"><stop offset="0" stop-color="#fbf8f2"/><stop offset=".52" stop-color="#fbf8f2"/><stop offset=".56" stop-color="#fbf8f2" stop-opacity="0"/></linearGradient></defs></svg>
 
-<header class="masthead">
-  <div class="masthead-id">
-    <img class="masthead-photo" src="assets/photo.jpg" alt="Prajwal Khanal">
-    <div>
-      <h1>Prajwal Khanal</h1>
-      <p>PhD researcher, Faculty of Geo-Information Science and Earth Observation (ITC), University of Twente</p>
-    </div>
-  </div>
+<header class="topbar">
+  <a href="#top" class="mono">Prajwal Khanal</a>
+  <nav class="tabs"><a href="#about">About</a><a href="#recent">Recent</a><a href="#plogs">Plogs</a><a href="#projects">Projects</a><a href="#experience">Experience</a><a href="#education">Education</a><a href="#publications-section">Publications</a><a href="#contact">Contact</a><a href="cv/cv.pdf">CV</a></nav>
+  <svg class="climb" viewBox="0 0 1000 14" preserveAspectRatio="none" aria-hidden="true">
+    <defs><clipPath id="climbed"><rect id="climbrect" x="0" y="0" width="0" height="14"/></clipPath></defs>
+    <polyline class="climb-line" points="0,13.00 6,12.98 13,12.96 19,12.95 25,12.89 31,12.85 38,12.86 44,12.89 50,12.79 57,12.66 63,12.63 69,12.58 75,12.57 82,12.44 88,12.39 94,12.35 101,12.29 107,12.24 113,12.20 119,12.19 126,12.22 132,12.21 138,12.23 145,12.27 151,12.23 157,12.11 164,12.18 170,12.10 176,12.04 182,11.89 189,11.76 195,11.59 201,11.46 208,11.36 214,11.32 220,11.33 226,11.41 233,11.56 239,11.69 245,11.89 252,11.89 258,11.84 264,11.97 270,11.82 277,11.70 283,11.44 289,11.15 296,10.92 302,10.66 308,10.46 314,10.36 321,10.35 327,10.43 333,10.61 340,10.83 346,11.09 352,11.18 358,11.24 365,11.05 371,10.91 377,10.69 384,10.42 390,10.22 396,9.96 403,9.69 409,9.51 415,9.37 421,9.30 428,9.30 434,9.35 440,9.44 447,9.54 453,9.63 459,9.77 465,9.72 472,9.80 478,9.80 484,9.71 491,9.39 497,9.14 503,8.88 509,8.63 516,8.40 522,8.27 528,8.23 535,8.29 541,8.46 547,8.68 553,8.92 560,9.16 566,9.31 572,9.25 579,9.24 585,9.18 591,9.03 597,8.66 604,8.26 610,7.84 616,7.50 623,7.26 629,7.13 635,7.15 642,7.30 648,7.57 654,7.88 660,8.08 667,8.29 673,8.56 679,8.44 686,8.31 692,8.16 698,7.76 704,7.36 711,6.97 717,6.60 723,6.28 730,6.06 736,5.99 742,6.05 748,6.21 755,6.41 761,6.73 767,6.97 774,7.20 780,7.39 786,7.46 792,7.31 799,6.98 805,6.63 811,6.18 818,5.71 824,5.32 830,5.02 836,4.86 843,4.83 849,4.90 855,5.05 862,5.25 868,5.44 874,5.69 881,5.86 887,5.83 893,5.71 899,5.41 906,5.17 912,4.94 918,4.52 925,4.19 931,3.95 937,3.75 943,3.65 950,3.64 956,3.72 962,3.88 969,4.01 975,4.22 981,4.38 987,4.49 994,4.52 1000,4.49"/>
+    <polygon class="climb-fill" clip-path="url(#climbed)" points="0,14 0,13.00 6,12.98 13,12.96 19,12.95 25,12.89 31,12.85 38,12.86 44,12.89 50,12.79 57,12.66 63,12.63 69,12.58 75,12.57 82,12.44 88,12.39 94,12.35 101,12.29 107,12.24 113,12.20 119,12.19 126,12.22 132,12.21 138,12.23 145,12.27 151,12.23 157,12.11 164,12.18 170,12.10 176,12.04 182,11.89 189,11.76 195,11.59 201,11.46 208,11.36 214,11.32 220,11.33 226,11.41 233,11.56 239,11.69 245,11.89 252,11.89 258,11.84 264,11.97 270,11.82 277,11.70 283,11.44 289,11.15 296,10.92 302,10.66 308,10.46 314,10.36 321,10.35 327,10.43 333,10.61 340,10.83 346,11.09 352,11.18 358,11.24 365,11.05 371,10.91 377,10.69 384,10.42 390,10.22 396,9.96 403,9.69 409,9.51 415,9.37 421,9.30 428,9.30 434,9.35 440,9.44 447,9.54 453,9.63 459,9.77 465,9.72 472,9.80 478,9.80 484,9.71 491,9.39 497,9.14 503,8.88 509,8.63 516,8.40 522,8.27 528,8.23 535,8.29 541,8.46 547,8.68 553,8.92 560,9.16 566,9.31 572,9.25 579,9.24 585,9.18 591,9.03 597,8.66 604,8.26 610,7.84 616,7.50 623,7.26 629,7.13 635,7.15 642,7.30 648,7.57 654,7.88 660,8.08 667,8.29 673,8.56 679,8.44 686,8.31 692,8.16 698,7.76 704,7.36 711,6.97 717,6.60 723,6.28 730,6.06 736,5.99 742,6.05 748,6.21 755,6.41 761,6.73 767,6.97 774,7.20 780,7.39 786,7.46 792,7.31 799,6.98 805,6.63 811,6.18 818,5.71 824,5.32 830,5.02 836,4.86 843,4.83 849,4.90 855,5.05 862,5.25 868,5.44 874,5.69 881,5.86 887,5.83 893,5.71 899,5.41 906,5.17 912,4.94 918,4.52 925,4.19 931,3.95 937,3.75 943,3.65 950,3.64 956,3.72 962,3.88 969,4.01 975,4.22 981,4.38 987,4.49 994,4.52 1000,4.49 1000,14"/>
+  </svg>
 </header>
 
-<!--
-  The nav scrolls the page rather than loading a new one: every href is an
-  anchor to a section below. Adding a section means adding an id here and a
-  matching <section id="..." data-nav> in main.
--->
-<nav class="tabs" aria-label="Sections">
-  <a href="#about" aria-current="true">About</a>
-  <a href="#experience">Experience</a>
-  <a href="#education">Education</a>
-  <a href="#publications-section">Publications</a>
-  <a href="#projects">Projects</a>
-  <a href="#contact">Contact</a>
-</nav>
 
-<main>
+<section class="hero" id="top">
+  <div class="stage">
+    <img class="photo" src="images/site/hero0465.jpg" alt="Snow-covered range above the grassland at Maqu, Eastern Tibetan Plateau">
+    <canvas id="sky"></canvas>
+    <canvas id="snow" aria-hidden="true"></canvas>
+    <svg class="orbit" viewBox="0 0 1000 600" preserveAspectRatio="none" aria-hidden="true">
+      <ellipse id="track" cx="520" cy="250" rx="620" ry="150" transform="rotate(-9 520 250)"/>
+      <circle r="3" fill="#fff"><animateMotion dur="26s" repeatCount="indefinite"><mpath href="#track"/></animateMotion></circle>
+    </svg>
+    <div class="shade"></div>
+    <div class="name">
+      <div class="coord">Maqu · Eastern Tibetan Plateau &nbsp;·&nbsp; <span class="nw">33.99° N, 102.08° E · 3 464 m</span></div>
+      <span class="deva" aria-hidden="true">प्रज्वल खनाल</span>
+      <h1>Prajwal<br>Khanal</h1>
+      <p class="role">PhD researcher, Faculty of Geo-Information Science and Earth Observation (ITC), University of Twente</p>
+      <p class="journey"><span class="nw">27.72° N, 85.32° E · 1 312 m</span> &nbsp;→&nbsp; <span class="nw">52.22° N, 6.89° E · 44 m</span></p>
+    </div>
+    <div class="cue">Scroll</div>
+  </div>
+</section>
 
-  <!-- About ---------------------------------------------------------------->
-  <section id="about" data-nav>
-    <p class="lede">I model soil&ndash;vegetation&ndash;atmosphere interactions, with a focus on water and
-    carbon fluxes. My work spans both ends of the modelling spectrum: process-based land surface models
-    and data-driven deep learning. I am particularly interested in where the two can inform each
-    other.</p>
+<section class="chapter" id="about" data-nav>
+  <div class="kicker reveal">About</div>
+  <p class="lede reveal">I model soil&ndash;vegetation&ndash;atmosphere interactions, with a focus on <em>water and carbon fluxes</em>. My work spans both ends of the modelling spectrum: process-based land surface models and data-driven deep learning.</p>
+  <div class="tl reveal">
+    <ol class="tl-list"><li data-i="0" class="home"><span class="tl-day" data-date="2014-11-01">2014</span><span class="tl-ll">27.68° N, 85.32° E · 1 307 m</span></li><li data-i="1" class="move"><span class="tl-day" data-date="2020-11-01">2020</span><span class="tl-ll">48.15° N, 11.57° E · 523 m</span></li><li data-i="2" class="move"><span class="tl-day" data-date="2022-03-01">2022</span><span class="tl-ll">50.91° N, 11.57° E · 210 m</span></li><li data-i="3" class="move"><span class="tl-day" data-date="2023-02-01">2023</span><span class="tl-ll">52.22° N, 6.89° E · 44 m</span></li><li data-i="4" class="trip"><span class="tl-day" data-date="2025-10-22">2025</span><span class="tl-ll">33.99° N, 102.08° E · 3 464 m</span></li><li data-i="5" class="trip"><span class="tl-day" data-date="2026-10-08">2026</span><span class="tl-ll">52.37° N, 4.90° E · 11 m</span></li></ol>
+  </div>
+</section>
+
+<section class="chapter" id="recent" data-nav>
+  <h2 class="kicker reveal">Recent</h2>
+
+  <!-- One <article class="recent-item"> per item, newest first. -->
+  <article class="recent-item reveal">
+    <p class="meta"><span class="day" data-date="2026-10-08">8 October 2026</span> · <span class="latlon">52.37° N, 4.90° E · 11 m</span></p>
+    <h3 class="sub">Presented <b>Daily root-zone soil moisture with multimodal drivers and geospatial foundation model embeddings</b> at the <b>Boussinesq Lecture, KNAW</b>.</h3>
+    <a class="btn" href="files/khanal-boussinesq-lecture-2026.pdf">Slides · PDF &nbsp;↗</a>
+  <div class="duo">
+    <a class="lens reveal" href="images/site/talk-architecture.png" data-zoom="3"><img src="images/site/talk-architecture.png" alt="Model architecture"><span class="glass"></span><figcaption>Model architecture</figcaption></a>
+    <a class="lens reveal" href="images/site/talk-oos-oost.png" data-zoom="2.2"><img src="images/site/talk-oos-oost.png" alt="Results by depth"><span class="glass"></span></a>
+  </div>
+  </article>
+</section>
+
+<section class="chapter" id="plogs" data-nav>
+  <h2 class="kicker reveal">Plogs</h2>
+
+  <!-- One <article class="recent-item"> per plog, newest first; same pattern as Recent. -->
+  <article class="recent-item reveal">
+    <p class="meta"><span class="day" data-date="2025-10-22">October 2025</span> · <span class="latlon">33.99° N, 102.08° E · 3 464 m</span></p>
+    <h3 class="sub"><b>Walking with the wind</b>, Maqu, Eastern Tibetan Plateau.</h3>
+    <a class="btn" href="plogs/maqu.html">27 photographs &nbsp;↗</a>
+    <div class="plog">
+    <figure class="p1 reveal"><img src="images/site/t0480.jpg" srcset="images/site/t0480.jpg 800w, images/site/m0480.jpg 1600w" sizes="(max-width: 52rem) 50vw, 40vw" alt="Horses grazing in fresh snow"></figure>
+    <figure class="p2 reveal"><img src="images/site/t0464.jpg" srcset="images/site/t0464.jpg 800w, images/site/m0464.jpg 1600w" sizes="(max-width: 52rem) 50vw, 40vw" alt="Birds over a frozen lake below snowy hills"></figure>
+    <figure class="p3 reveal"><img src="images/site/t0469.jpg" srcset="images/site/t0469.jpg 800w, images/site/m0469.jpg 1600w" sizes="(max-width: 52rem) 50vw, 40vw" alt="A snow-dusted slope"></figure>
+    <figure class="p4 reveal"><img src="images/site/t0470.jpg" srcset="images/site/t0470.jpg 800w, images/site/m0470.jpg 1600w" sizes="(max-width: 52rem) 50vw, 40vw" alt="Two people walking a snowy road"></figure>
+    <figure class="p5 reveal"><img src="images/site/t0481.jpg" srcset="images/site/t0481.jpg 800w, images/site/m0481.jpg 1600w" sizes="(max-width: 52rem) 50vw, 40vw" alt="Snowy hills under low cloud"></figure>
+    <figure class="p6 reveal"><img src="images/site/t0466.jpg" srcset="images/site/t0466.jpg 800w, images/site/m0466.jpg 1600w" sizes="(max-width: 52rem) 50vw, 40vw" alt="Two yaks grazing on the grassland"></figure>
+    </div>
+  </article>
+</section>
+
+<div class="sections">
+
+  
+
+  
+  <section id="projects" data-nav>
+    <h2 class="kicker reveal">Projects</h2>
+
+    <!-- One <article class="recent-item"> per project, newest first; same pattern as Recent. -->
+    <article class="recent-item reveal proj">
+      <div class="proj-text">
+      <p class="meta"><span class="day" data-date="2026-10-01">October 2026</span> · <span class="latlon">52.23° N, 4.44° E · 3 m</span></p>
+      <h3 class="sub"><b>Roadside wildfire risks</b>, Bermbrand site signals.</h3>
+      <p class="line">Streamlit app showing satellite and weather signals before roadside verge fires (bermbrand) at 10 sites along Dutch national roads.</p>
+      <p class="links"><a href="https://bembrand-signals.streamlit.app" rel="noopener">bembrand-signals.streamlit.app ↗</a></p>
+      </div>
+      <div class="proj-vis">
+        <div class="livemap">
+          <iframe src="embeds/bermbrand-map.html" title="Bermbrand fire vulnerability map, site S01 on the A28 near Harderwijk and Nunspeet" loading="lazy"></iframe>
+          <button class="livemap-cover" type="button">Click to explore</button>
+        </div>
+        <p class="livemap-note">Fire vulnerability, site S01 on the A28 near Harderwijk · <a href="https://bembrand-signals.streamlit.app" rel="noopener">all 10 sites ↗</a></p>
+      </div>
+    </article>
+
+    <article class="recent-item reveal proj">
+      <div class="proj-text">
+      <p class="meta"><span class="day" data-date="2026-01-01">2026</span> · <span class="latlon">52.22° N, 6.89° E · 44 m</span></p>
+      <h3 class="sub"><b>WUNDER data viewer</b>, Water Resources department, ITC, University of Twente.</h3>
+      <p class="line">A drought-stress dashboard that four food-forest farms (73 ha) have used since early 2026. It reads the WUNDER weather and soil moisture loggers so that the farmers can follow drought as it develops.</p>
+      <p class="links"><a href="https://wunder-project.streamlit.app" rel="noopener">Open the app ↗</a> &nbsp;·&nbsp; <a href="https://github.com/prajzwal08/wunder-project" rel="noopener">Source on GitHub ↗</a></p>
+      </div>
+      <div class="proj-vis">
+        <div class="livemap">
+          <iframe src="embeds/wunder-chart.html" title="Root-zone soil moisture at WUNDER field 1, 2026 against 2024 and 2025, with the level where stress begins" loading="lazy"></iframe>
+          <button class="livemap-cover" type="button">Click to explore</button>
+        </div>
+        <p class="livemap-note">Root-zone soil moisture and where stress begins, field 1 · <a href="https://wunder-project.streamlit.app" rel="noopener">open the app ↗</a></p>
+      </div>
+    </article>
   </section>
-
-  <!-- Experience ----------------------------------------------------------->
   <section id="experience" data-nav>
     <h2>Work experience</h2>
 
-    <!--
-      ============================================================
-      TO ADD A POSITION: copy one <div class="record"> block below,
-      paste it, and edit the text. Newest first.
-
-      The <ul class="highlights"> list is for achievements.
-      Delete any part of a block you do not need.
-      ============================================================
-    -->
+    
 
     <div class="record">
       <div class="record-head">
         <h3>PhD researcher</h3>
         <span class="record-when">Feb 2023 &ndash; present</span>
       </div>
-      <p class="record-where">Faculty of Geo-Information Science and Earth Observation (ITC), University of Twente, and Planet Labs, Haarlem, the Netherlands</p>
+      <p class="record-where">Faculty of Geo-Information Science and Earth Observation (ITC), University of Twente, and Planet Labs, Haarlem, the Netherlands <span class="latlon">52.22° N, 6.89° E · 44 m &nbsp;/&nbsp; 52.38° N, 4.64° E · 8 m</span></p>
       <p><a href="https://www.utwente.nl/en/itc/about-itc/scientific-departments/old-water-resources/wunder-project/" rel="noopener">Water
       Use and Drought: Ecohydrological Responses of Agricultural and Nature Ecosystems in
       the Netherlands (WUNDER)</a></p>
@@ -78,7 +825,7 @@
         <h3>Research intern</h3>
         <span class="record-when">Mar 2022 &ndash; Feb 2023</span>
       </div>
-      <p class="record-where">Max Planck Institute for Biogeochemistry, Jena, Germany</p>
+      <p class="record-where">Max Planck Institute for Biogeochemistry, Jena, Germany <span class="latlon">50.91° N, 11.57° E · 210 m</span></p>
       <ul class="highlights">
         <li>Published a study on the control of near-surface soil moisture vs. terrestrial water storage on
         vegetation globally, using satellite observation only
@@ -92,7 +839,7 @@
         <h3>Student research assistant</h3>
         <span class="record-when">Nov 2021 &ndash; Feb 2023</span>
       </div>
-      <p class="record-where">Chair of Hydrology and River Basin Management, Technical University of Munich</p>
+      <p class="record-where">Chair of Hydrology and River Basin Management, Technical University of Munich <span class="latlon">48.15° N, 11.57° E · 523 m</span></p>
       <ul class="highlights">
         <li>Prepared flood inundation maps for the Ou&eacute;m&eacute; River, Benin (FURIFLOOD) and the
         Naryn River, Kyrgyzstan (&Ouml;koFlussPlan), using HEC-RAS unsteady-flow models.</li>
@@ -104,7 +851,7 @@
         <h3>Working student</h3>
         <span class="record-when">May 2021 &ndash; Dec 2021</span>
       </div>
-      <p class="record-where">Jena-Geos Ingenieurb&uuml;ro GmbH, Munich, Germany</p>
+      <p class="record-where">Jena-Geos Ingenieurb&uuml;ro GmbH, Munich, Germany <span class="latlon">48.14° N, 11.58° E · 524 m</span></p>
       <ul class="highlights">
         <li>Developed an Excel and VBA tool for greenhouse-gas accounting across stationary combustion,
         refrigeration and transport, for small-scale enterprises.</li>
@@ -116,7 +863,7 @@
         <h3>Freelance Civil Engineer</h3>
         <span class="record-when">Apr 2020 &ndash; Dec 2020</span>
       </div>
-      <p class="record-where">Executive Consulting Engineering and Planner (ECEP), Lazimpat, Kathmandu, Nepal</p>
+      <p class="record-where">Executive Consulting Engineering and Planner (ECEP), Lazimpat, Kathmandu, Nepal <span class="latlon">27.72° N, 85.32° E · 1 312 m</span></p>
       <p><i>Client: Department of Water Supply and Sanitation, Government of Nepal.</i></p>
       <ul class="highlights">
         <li>Proposed a multi-source redesign (treated river and spring water) with decentralised
@@ -126,7 +873,6 @@
     </div>
   </section>
 
-  <!-- Education ------------------------------------------------------------>
   <section id="education" data-nav>
     <h2>Education</h2>
 
@@ -135,7 +881,7 @@
         <h3>PhD, Geo-Information Science and Earth Observation</h3>
         <span class="record-when">Feb 2023 &ndash; present</span>
       </div>
-      <p class="record-where">University of Twente and Planet Labs, the Netherlands</p>
+      <p class="record-where">University of Twente and Planet Labs, the Netherlands <span class="latlon">52.22° N, 6.89° E · 44 m &nbsp;/&nbsp; 52.38° N, 4.64° E · 8 m</span></p>
       <ul class="highlights">
         <li>Modelling soil&ndash;vegetation&ndash;atmosphere interaction, working on both process-based land
       surface modelling and deep learning approaches to water and carbon fluxes.</li>
@@ -150,7 +896,7 @@
         <h3>MSc, Environmental Engineering</h3>
         <span class="record-when">Nov 2020 &ndash; Dec 2022</span>
       </div>
-      <p class="record-where">Technical University of Munich, Germany</p>
+      <p class="record-where">Technical University of Munich, Germany <span class="latlon">48.15° N, 11.57° E · 523 m</span></p>
       <ul class="highlights">
         <li>Graduated with 1.4/5.0 on the German scale, where 1.0 is the highest mark.</li>
         <li>Thesis: <a href="https://hdl.handle.net/21.11116/0000-000B-6895-8" rel="noopener">Role of
@@ -164,7 +910,7 @@
         <h3>BE, Civil Engineering</h3>
         <span class="record-when">Nov 2014 &ndash; Aug 2018</span>
       </div>
-      <p class="record-where">Institute of Engineering (IOE), Tribhuvan University, Nepal</p>
+      <p class="record-where">Institute of Engineering (IOE), Tribhuvan University, Nepal <span class="latlon">27.68° N, 85.32° E · 1 307 m</span></p>
       <ul class="highlights">
         <li>Ranked 20th out of 192, with 77.7%.</li>
         <li>Thesis: Flood inundation mapping of the Babai River.</li>
@@ -172,7 +918,17 @@
     </div>
   </section>
 
-  <!-- Awards --------------------------------------------------------------->
+  <section id="publications-section" data-nav>
+    <h2>Publications</h2>
+    <div id="publications">
+      <p>Loading the publication list&hellip;</p>
+    </div>
+    <p class="pub-note">Also on
+      <a href="https://scholar.google.com/citations?user=UtzNqTwAAAAJ&amp;hl=en" rel="noopener">Google Scholar</a>
+      and <a href="https://orcid.org/0009-0000-8086-5503" rel="noopener">ORCID</a>.</p>
+  </section>
+
+  
   <section id="awards">
     <h2>Awards</h2>
 
@@ -190,7 +946,6 @@
 
   </section>
 
-  <!-- Scholarships ---------------------------------------------------------->
   <section id="scholarships">
     <h2>Scholarships</h2>
 
@@ -199,6 +954,7 @@
         <h3>Deutschlandstipendium</h3>
         <span class="record-when">2021 &ndash; 2022</span>
       </div>
+      <p class="record-where"><span class="latlon">48.15° N, 11.57° E · 523 m</span></p>
       <ul class="highlights">
         <li>National merit scholarship supporting master's study, awarded at the Technical University
       of Munich.</li>
@@ -210,6 +966,7 @@
         <h3>Institute of Engineering (IOE) merit-based scholarship</h3>
         <span class="record-when">2014 &ndash; 2018</span>
       </div>
+      <p class="record-where"><span class="latlon">27.68° N, 85.32° E · 1 307 m</span></p>
       <ul class="highlights">
         <li>Merit scholarship supporting bachelor's study at Tribhuvan University.</li>
         <li>Ranked 8th out of 9048 in the IOE entrance examination.</li>
@@ -217,7 +974,6 @@
     </div>
   </section>
 
-  <!-- Teaching ------------------------------------------------------------->
   <section id="teaching">
     <h2>Teaching</h2>
 
@@ -226,6 +982,7 @@
         <h3>Teaching assistant, Technical University of Munich</h3>
         <span class="record-when">2021 &ndash; 2022</span>
       </div>
+      <p class="record-where"><span class="latlon">48.15° N, 11.57° E · 523 m</span></p>
       <ul class="highlights">
         <li>Hydrological and Environmental River Basin Modelling, Integrated Water Resources Management,
       and Rapidly Varying Flow.</li>
@@ -237,7 +994,7 @@
         <h3>Assistant lecturer, Cosmos College of Management and Technology</h3>
         <span class="record-when">Apr 2020 &ndash; Dec 2020</span>
       </div>
-      <p class="record-where">Lalitpur, Nepal</p>
+      <p class="record-where">Lalitpur, Nepal <span class="latlon">27.66° N, 85.32° E · 1 333 m</span></p>
       <ul class="highlights">
         <li>Assisted students in solving numerical problems in Fluid Mechanics and Hydraulics.</li>
         <li>Designed and taught an elective on Python and GIS for water resource management.</li>
@@ -245,7 +1002,6 @@
     </div>
   </section>
 
-  <!-- Volunteering --------------------------------------------------------->
   <section id="volunteering">
     <h2>Volunteering</h2>
 
@@ -254,6 +1010,7 @@
         <h3>Member, Young Hydrologic Society Netherlands (YHS-NL)</h3>
         <span class="record-when">Nov 2023 &ndash; present</span>
       </div>
+      <p class="record-where"><span class="latlon">52.22° N, 6.89° E · 44 m</span></p>
       <ul class="highlights">
         <li>Organised the YHS-NL Symposium 2025 at ITC, with 10 speakers from six universities, for
         hydrologists working in the Netherlands to share their research.</li>
@@ -265,13 +1022,13 @@
         <h3>President, Nepal Students' Union, Pulchowk Campus Unit</h3>
         <span class="record-when">Dec 2017 &ndash; Nov 2018</span>
       </div>
+      <p class="record-where"><span class="latlon">27.68° N, 85.32° E · 1 307 m</span></p>
       <ul class="highlights">
         <li>Organised a national civil engineering exhibition in 2018, with about 10,000 visitors.</li>
       </ul>
     </div>
   </section>
 
-  <!-- Skills --------------------------------------------------------------->
   <section id="skills">
     <h2>Skills</h2>
     <ul class="keyed-list">
@@ -290,64 +1047,8 @@
     </ul>
   </section>
 
-  <!-- Publications: the list itself is rendered from data/publications.json -->
-  <section id="publications-section" data-nav>
-    <h2>Publications</h2>
-    <div id="publications">
-      <p>Loading the publication list&hellip;</p>
-    </div>
-    <p class="pub-note">Also on
-      <a href="https://scholar.google.com/citations?user=UtzNqTwAAAAJ&amp;hl=en" rel="noopener">Google Scholar</a>.</p>
-  </section>
-
-  <!-- Projects ------------------------------------------------------------->
-  <section id="projects" data-nav>
-    <h2>Projects</h2>
-
-    <div class="record">
-      <div class="record-head">
-        <h3>WUNDER data viewer</h3>
-        <span class="record-when">2026</span>
-      </div>
-      <p class="record-where">Water Resources department, ITC, University of Twente</p>
-      <p>A drought-stress dashboard that four food-forest farms (73 ha) have used since early 2026.
-      It reads the WUNDER weather and soil moisture loggers so that the farmers can follow drought
-      as it develops.</p>
-      <p class="project-links">
-        <a href="https://wunder-project.streamlit.app" rel="noopener">Open the app</a> &middot;
-        <a href="https://github.com/prajzwal08/wunder-project" rel="noopener">Source on GitHub</a>
-      </p>
-    </div>
-
-    <!-- Write your projects here. Nothing below this line is shown on the page.
-
-    The pattern, if you want it. Paste it outside this comment and edit:
-
-    <div class="record">
-      <div class="record-head">
-        <h3>Project name</h3>
-        <span class="record-when">Year</span>
-      </div>
-      <p class="record-where">Affiliation</p>
-      <p>Description.</p>
-      <ul class="highlights">
-        <li>Result.</li>
-      </ul>
-    </div>
-
-    For a photo, put the file in images/ and add inside a record block:
-
-    <figure class="project-shot">
-      <img src="images/your-photo.jpg" alt="What the photo shows">
-      <figcaption>Caption.</figcaption>
-    </figure>
-
-    -->
-
-  </section>
-
-  <!-- Contact -------------------------------------------------------------->
   <section id="contact" data-nav>
+    <p class="cvnote"><a href="cv/cv.pdf">Full CV (PDF)</a></p>
     <h2>Contact</h2>
     <p>The quickest way to reach me is by email. I am happy to hear about collaborations, data
     requests, or questions about any of the papers.</p>
@@ -370,28 +1071,416 @@
         <span><a href="https://scholar.google.com/citations?user=UtzNqTwAAAAJ&amp;hl=en" rel="noopener">Profile</a></span>
       </li>
       <li>
+        <span class="contact-key">ORCID</span>
+        <span><a href="https://orcid.org/0009-0000-8086-5503" rel="noopener">0009-0000-8086-5503</a></span>
+      </li>
+      <li>
         <span class="contact-key">CV</span>
         <span><a href="cv/cv.pdf">Download (PDF)</a></span>
       </li>
       <li>
         <span class="contact-key">From</span>
-        <span>Nepal</span>
+        <span>Nepal <span class="latlon">27.72° N, 85.32° E · 1 312 m</span></span>
       </li>
       <li>
         <span class="contact-key">Where</span>
-        <span>ITC Faculty, University of Twente, Enschede, the Netherlands</span>
+        <span>ITC Faculty, University of Twente, Enschede, the Netherlands <span class="latlon">52.22° N, 6.89° E · 44 m</span></span>
       </li>
     </ul>
   </section>
 
-</main>
-
-<footer>
-  <p>Enschede, the Netherlands. Last updated September 2026.
-  <a class="to-top" href="#about">Back to top</a></p>
-</footer>
 
 </div>
+
+<footer>
+  <img src="images/site/hero0480.jpg" alt="Horses in snow at Maqu">
+  <canvas class="flags lungta" data-size="large"></canvas>
+  <p>Sanin jyalewo</p>
+</footer>
+
+<div class="alti" aria-hidden="true"><div class="alti-track"><i></i></div><span id="alti-n">8 848 m</span></div>
+
+<!-- A row of prayer wheels along the bottom of the screen. Scrolling turns them. -->
+<div class="pwbar single" role="button" tabindex="0" aria-label="Prayer wheel: play or stop the chant">
+  <div class="mtnphoto"></div>
+  <canvas class="mtn"></canvas>
+  <canvas class="flg"></canvas>
+  <div class="pwrow"></div>
+  <div class="pwrail"></div>
+</div>
+<p class="sound-hint" aria-hidden="true">Turn the wheel to hear the chant</p>
+<div class="ytcard" aria-label="Om Mani Padme Hum, played from YouTube"><div id="ytplayer"></div><p class="ytsrc">Om Mani Padme Hum · <a href="https://www.youtube.com/watch?v=mvBLSJWk6HE" rel="noopener">Essence of Universe on YouTube</a></p></div>
+<button class="sound" type="button" aria-pressed="false" aria-label="Chant: on or off"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z" fill="currentColor"/><path class="w1" d="M16 9a4 4 0 0 1 0 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path class="w2" d="M18.5 6.5a7.5 7.5 0 0 1 0 11" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path class="x" d="M16 9l5 6M21 9l-5 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></button>
+
+<script>
+(function(){
+  var root=document.documentElement, still=matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Font switch
+  var fb=document.querySelectorAll('.fontswitch button[data-f]');
+  function setFont(f){document.body.classList.toggle('f-tw',f==='f-tw');document.body.classList.toggle('f-land',f==='f-land');
+    fb.forEach(function(x){x.setAttribute('aria-pressed',x.dataset.f===f)});try{localStorage.setItem('samplefont-i',f)}catch(e){}}
+  fb.forEach(function(x){x.onclick=function(){setFont(x.dataset.f)}});
+  setFont('f-land');
+
+  // Background switch
+  var bb=document.querySelectorAll('[data-bg]');
+  function setBg(b){document.body.classList.toggle('bg-cream',b==='bg-cream');
+    bb.forEach(function(x){x.setAttribute('aria-pressed',x.dataset.bg===b)});try{localStorage.setItem('samplebg',b)}catch(e){}}
+  bb.forEach(function(x){x.onclick=function(){setBg(x.dataset.bg)}});
+  setBg('bg-white');
+
+  // Nightfall: --night runs 0 -> 1 across the hero's scroll
+  var hero=document.querySelector('.hero');
+  function onScroll(){var n=Math.min(1,Math.max(0,scrollY/(hero.offsetHeight-innerHeight)));root.style.setProperty('--night',n.toFixed(3));}
+  addEventListener('scroll',onScroll,{passive:true});onScroll();
+
+  // Stars over the ridge
+  var c=document.getElementById('sky'),x=c.getContext('2d'),st=[];
+  function size(){var r=c.getBoundingClientRect(),d=devicePixelRatio||1;c.width=r.width*d;c.height=r.height*d;st=[];
+    for(var i=0;i<c.width*c.height/2600;i++)st.push([Math.random()*c.width,Math.random()*c.height,Math.random()*Math.random()*1.8*d+.3,Math.random()*6.3,Math.random()*.8+.2]);}
+  function draw(t){x.clearRect(0,0,c.width,c.height);
+    for(var i=0;i<st.length;i++){var s=st[i];x.globalAlpha=still?s[4]:s[4]*(.55+.45*Math.sin(t/700*s[4]+s[3]));
+      x.fillStyle=s[4]>.9?'#ffe6c2':'#fff';x.beginPath();x.arc(s[0],s[1],s[2],0,6.3);x.fill();}
+    if(!still)requestAnimationFrame(draw);}
+  addEventListener('resize',function(){size();if(still)draw(0)});size();draw(0);
+
+  // Reveal on scroll
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.15});
+  document.querySelectorAll('.reveal,.sections .record,.sections h2').forEach(function(el){el.classList.add('reveal');io.observe(el)});
+
+  // Number the existing section headings 01, 02 ...
+  document.querySelectorAll('.sections h2').forEach(function(h,i){h.dataset.n=String(i+1).padStart(2,'0')});
+
+
+
+  // Timeline: days since birth, and hover links the list to the map
+  var DOB='1997-03-08';
+  document.querySelectorAll('.tl-day').forEach(function(el){
+    if(!DOB)return; var d=Math.round((new Date(el.dataset.date)-new Date(DOB))/864e5);
+    el.textContent='Day '+d.toLocaleString('en-GB').replace(/,/g,'\u2009');});
+
+  // Every other date on the page becomes days since birth; the calendar date stays as a tooltip
+  var MON={Jan:0,Feb:1,Mar:2,Apr:3,May:4,Jun:5,Jul:6,Aug:7,Sep:8,Oct:9,Nov:10,Dec:11,January:0,February:1,March:2,April:3,June:5,July:6,August:7,September:8,October:9,November:10,December:11};
+  function dayOf(t){t=t.trim();var m;
+    if(/present/i.test(t))return 'today';
+    if(m=t.match(/^(\d{1,2}) ([A-Za-z]+) (\d{4})$/))return days(new Date(+m[3],MON[m[2]],+m[1]));
+    if(m=t.match(/^([A-Za-z]+) (\d{4})$/))return days(new Date(+m[2],MON[m[1]],1));
+    if(m=t.match(/^(\d{4})$/))return days(new Date(+m[1],0,1));
+    return null;}
+  function days(d){return Math.round((d-new Date(DOB))/864e5).toLocaleString('en-GB').replace(/,/g,'\u2009');}
+  document.querySelectorAll('.record-when').forEach(function(el){
+    var orig=el.textContent,parts=orig.split(/\s*[\u2013-]\s*/),out=parts.map(dayOf);
+    if(out.some(function(x){return x===null}))return;
+    el.title=orig;el.textContent='Day '+out.join(' \u2013 ');});
+  document.querySelectorAll('.day[data-date]').forEach(function(el){el.title=el.textContent;el.textContent='Day '+days(new Date(el.dataset.date));});
+  var tlRows=document.querySelectorAll('.tl-list li'),tlPts=document.querySelectorAll('.pt');
+  function tlOn(i){tlRows.forEach(function(r){r.classList.toggle('on',r.dataset.i==i)});}
+  tlRows.forEach(function(r){r.addEventListener('mouseenter',function(){tlOn(r.dataset.i)})});
+  tlOn(3);
+
+  // Snow over the opening; it eases off as the page darkens toward the content
+  var sc=document.getElementById('snow'),sx=sc.getContext('2d'),flakes=[];
+  function sSize(){var r=sc.getBoundingClientRect(),d=devicePixelRatio||1;sc.width=r.width*d;sc.height=r.height*d;flakes=[];
+    for(var i=0;i<Math.min(260,r.width*r.height/5200);i++)flakes.push({x:Math.random()*sc.width,y:Math.random()*sc.height,r:(Math.random()*1.8+.6)*d,v:(Math.random()*.6+.35)*d,p:Math.random()*6.3});}
+  function sDraw(t){sx.clearRect(0,0,sc.width,sc.height);sx.fillStyle='#fff';
+    for(var i=0;i<flakes.length;i++){var f=flakes[i];f.y+=f.v;f.x+=Math.sin(t/1400+f.p)*.35;
+      if(f.y>sc.height){f.y=-4;f.x=Math.random()*sc.width}
+      sx.globalAlpha=.85;sx.beginPath();sx.arc(f.x,f.y,f.r,0,6.3);sx.fill();}
+    if(!still)requestAnimationFrame(sDraw);}
+  addEventListener('resize',sSize);sSize();if(!still)requestAnimationFrame(sDraw);
+
+  // Altimeter and prayer wheel follow the scroll
+  var an=document.getElementById('alti-n'),band=document.getElementById('wheelband');
+  function alt(){var max=document.documentElement.scrollHeight-innerHeight,p=max>0?scrollY/max:0;
+    root.style.setProperty('--alt',p.toFixed(4));
+    an.textContent=Math.round(8848-p*(8848-1400)).toLocaleString('en-GB').replace(/,/g,'\u2009')+' m';
+    }
+  addEventListener('scroll',alt,{passive:true});alt();
+
+  // Flag tabs: the one for the section in view hangs lower
+  var flinks=[];
+  var fsecs=flinks.map(function(a){return document.querySelector(a.getAttribute('href'))});
+  var fo=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){flinks.forEach(function(a,i){a.classList.toggle('on',fsecs[i]===e.target)})}})},{rootMargin:'-40% 0px -55% 0px'});
+  fsecs.forEach(function(x){x&&fo.observe(x)});
+
+
+
+
+  // The scene along the bottom of the screen.
+  //  Mountains: a snow-capped range, lit from the left, with haze between ridges.
+  //  Flags: two strings of thin cotton lungta, translucent, rippling in the wind.
+  //  Wheels: red lacquer drums with raised gold mantra between gold lotus bands,
+  //  drawn as real cylinders. Scrolling turns them clockwise (front moving left
+  //  to right), the push travelling along the row like a passing hand.
+  (function(){
+    var bar=document.querySelector('.pwbar'),row=bar&&bar.querySelector('.pwrow');if(!row)return;
+    var mtn=bar.querySelector('.mtn'),flg=bar.querySelector('.flg'),fg=flg.getContext('2d');
+    var dpr=Math.min(2,devicePixelRatio||1),MANTRA='ॐ मणि पद्मे हुँ';
+    function rnd(seed){return function(){seed=(seed*16807)%2147483647;return (seed-1)/2147483646}}
+
+    /* ---------- mountains ---------- */
+    function ridge(n,r,summits,rough){var xs=[0],ys=[summits[0]];
+      var pts=summits.map(function(v,i){return[i/(summits.length-1),v]}),a=.22;
+      for(var it=0;it<9;it++){var np=[];for(var i=0;i<pts.length-1;i++){np.push(pts[i]);np.push([(pts[i][0]+pts[i+1][0])/2,(pts[i][1]+pts[i+1][1])/2+(r()*2-1)*a]);}
+        np.push(pts[pts.length-1]);pts=np;a*=rough;}
+      var out=new Float32Array(n);for(var x=0;x<n;x++){var f=x/(n-1),j=Math.min(pts.length-2,Math.floor(f*(pts.length-1)));
+        var t=(f-pts[j][0])/(pts[j+1][0]-pts[j][0]||1);out[x]=pts[j][1]*(1-t)+pts[j+1][1]*t;}return out;}
+    function drawMountains(){var W=mtn.width=Math.round(mtn.clientWidth*dpr),H=mtn.height=Math.round(mtn.clientHeight*dpr),g=mtn.getContext('2d');
+      g.clearRect(0,0,W,H);
+      var L=[ // summits as fraction of height from top; far to near
+        {s:[.42,.22,.05,.30,.12,.02,.18,.35,.10,.26,.40],rough:.5,rock:[150,166,186],snow:[246,249,252],haze:.55,seed:11,snowline:.42},
+        {s:[.55,.40,.30,.46,.24,.38,.28,.44,.34,.50,.52],rough:.49,rock:[104,116,132],snow:[238,243,248],haze:.32,seed:23,snowline:.40},
+        {s:[.72,.62,.58,.66,.55,.64,.60,.70,.62,.68,.74],rough:.47,rock:[70,78,88],snow:[226,232,238],haze:.12,seed:37,snowline:.60}];
+      L.forEach(function(l){var r=rnd(l.seed),h=ridge(W,r,l.s,l.rough);
+        // smooth the profile a little, then light it by the slope over a wider window
+        var sm=new Float32Array(W),R=Math.max(2,Math.round(2*dpr));
+        for(var x=0;x<W;x++){var a=0,c=0;for(var k=-R;k<=R;k++){var q=x+k;if(q>=0&&q<W){a+=h[q];c++}}sm[x]=a/c;}
+        var Wn=Math.max(4,Math.round(6*dpr)),ph=r()*100;
+        for(var x2=0;x2<W;x2++){var y=sm[x2]*H,dy=(sm[Math.min(W-1,x2+Wn)]-sm[Math.max(0,x2-Wn)])*H/(2*Wn),
+            lit=Math.max(.35,Math.min(1.12,.78-dy*1.6)),
+            snowDepth=Math.max(0,(l.snowline*H-y))*(.6+.25*Math.sin(x2*.021+ph)+.15*Math.sin(x2*.083+ph*2));
+          var rc=l.rock.map(function(c){return Math.round(c*lit)}),sc=l.snow.map(function(c){return Math.round(Math.min(255,c*(.84+.16*lit)))});
+          g.fillStyle='rgb('+rc+')';g.fillRect(x2,y,1,H-y);
+          if(snowDepth>0){var sg=g.createLinearGradient(0,y,0,y+snowDepth);sg.addColorStop(0,'rgb('+sc+')');sg.addColorStop(.85,'rgb('+sc+')');sg.addColorStop(1,'rgba('+sc+',0)');
+            g.fillStyle=sg;g.fillRect(x2,y,1,snowDepth);}}
+        var hz=g.createLinearGradient(0,0,0,H);hz.addColorStop(0,'rgba(255,255,255,0)');hz.addColorStop(1,'rgba(255,255,255,'+l.haze+')');
+        g.fillStyle=hz;g.fillRect(0,0,W,H);});
+      var base=g.createLinearGradient(0,H*.7,0,H);base.addColorStop(0,'rgba(244,240,234,0)');base.addColorStop(1,'rgba(244,240,234,.9)');g.fillStyle=base;g.fillRect(0,0,W,H);}
+
+    /* ---------- prayer flags ---------- */
+    var FC=['#1f5fb0','#f4f1ea','#c8261f','#2f8a3a','#f0c420'],ftex=[],strings=[],FW=0,FH=0;
+    function flagTextures(){ftex=FC.map(function(c,i){var t=document.createElement('canvas');t.width=FW;t.height=FH;var g=t.getContext('2d'),r=rnd(91+i);
+      g.fillStyle=c;g.fillRect(0,0,FW,FH);
+      for(var k=0;k<FW*FH/6;k++){g.fillStyle='rgba(0,0,0,'+(r()*.06)+')';g.fillRect(r()*FW,r()*FH,1,1);}          // weave
+      for(var y=0;y<FH;y+=2){g.fillStyle='rgba(255,255,255,'+(r()*.05)+')';g.fillRect(0,y,FW,1);}
+      // block-print ink, worn and faint
+      g.globalAlpha=.16;g.fillStyle='#1b1410';g.fillRect(FW*.12,FH*.14,FW*.76,FH*.62);g.globalAlpha=1;
+      g.globalCompositeOperation='destination-out';for(var k2=0;k2<FW*FH/5;k2++){g.fillStyle='rgba(0,0,0,'+(r()*.5)+')';g.fillRect(r()*FW,FH*.12+r()*FH*.66,1.5,1);} 
+      // frayed bottom edge
+      for(var x=0;x<FW;x++){var fr=r()*FH*.07;g.fillRect(x,FH-fr,1,fr);}g.globalCompositeOperation='source-over';
+      return t;});}
+    function layoutFlags(){if(bar.classList.contains('single')||flg.clientHeight<10){strings=[];return}var W=flg.width=Math.round(flg.clientWidth*dpr),H=flg.height=Math.round(flg.clientHeight*dpr);
+      FW=Math.round(H*.17);FH=Math.round(FW*1.12);flagTextures();
+      strings=[{x0:-.05*W,y0:H*.05,x1:1.05*W,y1:H*.22,sag:H*.16},{x0:-.05*W,y0:H*.26,x1:1.05*W,y1:H*.08,sag:H*.13}].map(function(st,si){
+        var n=Math.ceil((st.x1-st.x0)/(FW*1.08)),fl=[];for(var i=0;i<n;i++)fl.push({t:(i+.5)/n,c:(i+si*2)%5,ph:Math.random()*6.3});st.fl=fl;return st;});}
+    function drawFlags(time){var W=flg.width,H=flg.height;fg.clearRect(0,0,W,H);
+      strings.forEach(function(st,si){
+        function at(t){var x=st.x0+(st.x1-st.x0)*t,y=st.y0+(st.y1-st.y0)*t+st.sag*4*t*(1-t);return[x,y]}
+        fg.strokeStyle='rgba(60,45,30,.55)';fg.lineWidth=dpr;fg.beginPath();for(var k=0;k<=40;k++){var q=at(k/40);k?fg.lineTo(q[0],q[1]):fg.moveTo(q[0],q[1]);}fg.stroke();
+        st.fl.forEach(function(f,i){var p=at(f.t),R=12,rh=FH/R,tex=ftex[f.c];
+          for(var k=0;k<R;k++){var d=k/R,w=time*.0026+f.ph+k*.42,sway=Math.sin(w)*FW*.16*Math.pow(d,1.1)+Math.sin(time*.0011+si)*FW*.12*d,
+              tilt=Math.cos(w)*Math.pow(d,1.1);
+            fg.globalAlpha=.9;fg.drawImage(tex,0,k*rh,FW,rh,p[0]-FW/2+sway,p[1]+k*rh,FW,rh+1);
+            fg.globalAlpha=Math.abs(tilt)*.18;fg.fillStyle=tilt>0?'#000':'#fff';fg.fillRect(p[0]-FW/2+sway,p[1]+k*rh,FW,rh+1);}
+          fg.globalAlpha=1;});});}
+
+    /* ---------- prayer wheels ---------- */
+    var wheels=[],tex=null,shade=null,spec=null,cols=null,DW=0,DH=0,TW=0;
+    var CAP='<svg class="cap" viewBox="0 0 44 24"><defs><linearGradient id="au" x1="0" x2="1"><stop offset="0" stop-color="#5a3b07"/><stop offset=".3" stop-color="#d9a93a"/><stop offset=".42" stop-color="#fff0b0"/><stop offset=".6" stop-color="#c08a22"/><stop offset="1" stop-color="#4a3005"/></linearGradient></defs>'+
+      '<path d="M22,0.5 C24.5,0.5 25.5,3 24,5 C26.5,6 27,8.5 26,10.5 L18,10.5 C17,8.5 17.5,6 20,5 C18.5,3 19.5,0.5 22,0.5Z" fill="url(#au)"/>'+
+      '<path d="M7,22 C8,15.5 13.5,11.5 22,11 C30.5,11.5 36,15.5 37,22Z" fill="url(#au)"/>'+
+      '<path d="M10,19 Q22,13 34,19" fill="none" stroke="#8a1010" stroke-width="1.2" opacity=".7"/>'+
+      '<rect x="2" y="21" width="40" height="3" rx="1" fill="url(#au)"/></svg>';
+    var FOOT='<svg class="foot" viewBox="0 0 28 12"><defs><linearGradient id="wd" x1="0" x2="1"><stop offset="0" stop-color="#2a170a"/><stop offset=".4" stop-color="#8a5a32"/><stop offset="1" stop-color="#24130a"/></linearGradient></defs>'+
+      '<rect x="0" y="0" width="28" height="3" rx="1" fill="#6a4a10"/><rect x="5" y="3" width="18" height="9" fill="url(#wd)"/></svg>';
+    function wheelTexture(){
+      tex=document.createElement('canvas');tex.width=TW;tex.height=DH;var g=tex.getContext('2d'),r=rnd(7);
+      // red lacquer
+      g.fillStyle='#9c1319';g.fillRect(0,0,TW,DH);
+      for(var k=0;k<TW*DH/14;k++){g.fillStyle=r()<.5?'rgba(40,0,0,'+(r()*.25)+')':'rgba(255,90,70,'+(r()*.08)+')';g.fillRect(r()*TW,r()*DH,1+r()*dpr,1);}
+      var gold=function(y0,y1){var gr=g.createLinearGradient(0,y0,0,y1);gr.addColorStop(0,'#fff2b8');gr.addColorStop(.35,'#e9b847');gr.addColorStop(1,'#93620f');return gr};
+      var rim=Math.max(2,Math.round(DH*.04)),lot=Math.round(DH*.17),mid=DH-2*rim-2*lot;
+      function rimAt(y){g.fillStyle='#3a0606';g.fillRect(0,y,TW,rim);g.fillStyle=gold(y,y+rim);g.fillRect(0,y+rim*.15,TW,rim*.6);}
+      function lotus(y,flip){var n=Math.round(TW/(lot*.9)),pw=TW/n;g.save();
+        for(var i=0;i<=n;i++){var x=i*pw;g.beginPath();
+          if(!flip){g.moveTo(x,y+lot);g.quadraticCurveTo(x+pw*.02,y+lot*.2,x+pw/2,y+lot*.08);g.quadraticCurveTo(x+pw*.98,y+lot*.2,x+pw,y+lot);}
+          else{g.moveTo(x,y);g.quadraticCurveTo(x+pw*.02,y+lot*.8,x+pw/2,y+lot*.92);g.quadraticCurveTo(x+pw*.98,y+lot*.8,x+pw,y);}
+          g.closePath();g.shadowColor='rgba(40,0,0,.8)';g.shadowBlur=1.5*dpr;g.shadowOffsetY=1*dpr;g.fillStyle=gold(y,y+lot);g.fill();
+          g.shadowColor='transparent';g.strokeStyle='rgba(120,20,10,.7)';g.lineWidth=.8*dpr;g.stroke();
+          g.beginPath();g.moveTo(x+pw/2,y+(flip?lot*.15:lot*.85));g.lineTo(x+pw/2,y+(flip?lot*.75:lot*.3));g.stroke();}
+        g.restore();}
+      rimAt(0);lotus(rim,false);
+      var top=rim+lot,fs=mid*.66;g.font='700 '+fs+'px "Noto Serif Devanagari", serif';
+      var m=g.measureText(MANTRA+'  ').width,sx=TW/m,base=top+mid*.78;
+      [-TW,0,TW].forEach(function(dx){g.save();g.translate(dx,0);g.scale(sx,1);
+        g.shadowColor='rgba(30,0,0,.95)';g.shadowBlur=2.5*dpr;g.shadowOffsetX=1.1*dpr/sx;g.shadowOffsetY=1.6*dpr;g.fillStyle='#5a0e08';g.fillText(MANTRA+'  ',0,base);
+        g.shadowColor='transparent';g.fillStyle='rgba(255,250,220,.85)';g.fillText(MANTRA+'  ',-.6*dpr/sx,base-.6*dpr);
+        g.fillStyle=gold(top,top+mid);g.fillText(MANTRA+'  ',0,base);g.restore();});
+      lotus(top+mid,true);rimAt(DH-rim);}
+    function wheelLight(){
+      shade=document.createElement('canvas');shade.width=DW;shade.height=DH;var g=shade.getContext('2d');
+      spec=document.createElement('canvas');spec.width=DW;spec.height=DH;var h=spec.getContext('2d');
+      for(var x=0;x<DW;x++){var t=Math.asin((x+.5)/DW*2-1),L=.16+.84*Math.max(0,Math.cos(t+.55)),c=Math.round(255*Math.pow(L,.85));
+        g.fillStyle='rgb('+c+','+c+','+c+')';g.fillRect(x,0,1,DH);
+        var sp=Math.pow(Math.max(0,Math.cos(t+.34)),60)*.75+Math.pow(Math.max(0,Math.cos(t+.34)),8)*.12;h.fillStyle='rgba(255,240,225,'+sp.toFixed(3)+')';h.fillRect(x,0,1,DH);}
+      var v=g.createLinearGradient(0,0,0,DH);v.addColorStop(0,'rgba(0,0,0,.35)');v.addColorStop(.07,'rgba(0,0,0,0)');v.addColorStop(.93,'rgba(0,0,0,0)');v.addColorStop(1,'rgba(0,0,0,.4)');
+      g.globalCompositeOperation='multiply';g.fillStyle=v;g.fillRect(0,0,DW,DH);}
+    function drawWheel(w){var g=w.g;g.globalCompositeOperation='source-over';g.clearRect(0,0,DW,DH);
+      for(var x=0;x<DW;x++){var c=cols[x],u=((w.off+c.u)%TW+TW)%TW,sw=Math.min(c.w,TW-u);g.drawImage(tex,u,0,Math.max(.5,sw),DH,x,0,1,DH);}
+      g.globalCompositeOperation='multiply';g.drawImage(shade,0,0);g.globalCompositeOperation='lighter';g.drawImage(spec,0,0);w.dirty=false;}
+    function buildWheels(){
+      var probe=document.createElement('div');probe.className='pw';probe.innerHTML=CAP+'<canvas></canvas>'+FOOT;row.appendChild(probe);
+      var pc=probe.querySelector('canvas'),cw=pc.clientWidth;DW=Math.round(cw*dpr);DH=Math.round(pc.clientHeight*dpr);probe.remove();
+      if(DW<8||DH<8)return;TW=Math.round(Math.PI*DW);wheelTexture();wheelLight();
+      var n=bar.classList.contains('single')?1:Math.ceil((innerWidth+4)/(cw+2))+1;row.innerHTML='';wheels=[];
+      for(var i=0;i<n;i++){var el=document.createElement('div');el.className='pw';el.innerHTML=CAP+'<canvas></canvas>'+FOOT;row.appendChild(el);
+        var cv=el.querySelector('canvas');cv.width=DW;cv.height=DH;wheels.push({cv:cv,g:cv.getContext('2d'),off:Math.random()*TW,v:0,queue:[],dirty:true});}
+      cols=[];for(var x=0;x<DW;x++){var a=(x+.5)/DW*2-1,b=Math.min(1,(x+1.5)/DW*2-1),t=Math.asin(a);cols.push({u:t/(2*Math.PI)*TW,w:Math.max(1,(Math.asin(b)-t)/(2*Math.PI)*TW)});}
+      wheels.forEach(drawWheel);}
+
+    function build(){layoutFlags();buildWheels();}
+    var lastY=scrollY,lastT=0;
+    function frame(t){var dt=lastT?Math.min(50,t-lastT):16;lastT=t;
+      var dy=Math.abs(scrollY-lastY);lastY=scrollY;
+      if(dy)wheels.forEach(function(w,i){w.queue.push({at:t+i*22,amt:dy*(.9+Math.random()*.2)})});
+      var chanting=bar.classList.contains('playing');
+      wheels.forEach(function(w){if(chanting&&w.v<.5)w.v=.5;while(w.queue.length&&w.queue[0].at<=t)w.v+=w.queue.shift().amt*dpr*.033;
+        if(w.v>.01){w.off-=w.v*dt/16;w.v*=Math.pow(.955,dt/16);w.dirty=true;}else w.v=0;if(w.dirty)drawWheel(w);});
+      if(!still&&strings.length)drawFlags(t);
+      requestAnimationFrame(frame);}
+    var ready=document.fonts&&document.fonts.load?document.fonts.load('700 40px "Noto Serif Devanagari"','ॐ'):Promise.resolve();
+    ready.then(function(){build();requestAnimationFrame(frame);});
+    var rt;addEventListener('resize',function(){clearTimeout(rt);rt=setTimeout(build,200)});
+  })();
+
+  // The chant: Om Mani Padme Hum by Essence of Universe, played through the
+  // YouTube player (their recording; embedding is how YouTube allows it to be
+  // used, and the player stays visible while it plays). Turning the wheel
+  // opens the card and plays; turning it again pauses and closes it.
+  (function(){
+    var wheelEl=document.querySelector('.pwbar'),card=document.querySelector('.ytcard'),hint=document.querySelector('.sound-hint');
+    if(!wheelEl||!card)return;
+    var player=null,ready=false,want=false,queued=false;
+    function show(on){wheelEl.classList.toggle('playing',on);card.classList.toggle('open',on);if(hint&&on)hint.classList.add('gone');}
+    function load(){if(window.YT&&YT.Player)return make();
+      var t=document.createElement('script');t.src='https://www.youtube.com/iframe_api';document.head.appendChild(t);
+      window.onYouTubeIframeAPIReady=make;}
+    function make(){player=new YT.Player('ytplayer',{videoId:'mvBLSJWk6HE',playerVars:{rel:0,modestbranding:1,playsinline:1,loop:1,playlist:'mvBLSJWk6HE'},
+      events:{onReady:function(){ready=true;if(queued){queued=false;player.playVideo();}},
+              onStateChange:function(e){if(e.data===YT.PlayerState.PLAYING)show(true);}}});}
+    function toggle(){want=!want;
+      if(want){show(true);if(ready)player.playVideo();else{queued=true;if(!player)load();}}
+      else{show(false);if(ready)player.pauseVideo();queued=false;}}
+    load();   // prepare the player in the background so the first turn is quick
+    wheelEl.addEventListener('click',function(e){e.stopPropagation();toggle()});
+    wheelEl.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();toggle()}});
+  })();
+
+  // Lungta: strings of thin cotton prayer flags, blue, white, red, green, yellow.
+  // Each flag is a small cloth mesh: its top edge is sewn along the sagging
+  // cord, soft vertical folds travel across it with the wind, the bottom
+  // corners lift in gusts, and the light follows the folds. The cloth is
+  // printed with worn block-print ink, hemmed at the top and frayed below.
+  (function(){
+    var FC=[[31,95,176],[244,241,234],[200,38,31],[47,138,58],[240,196,32]],dpr=Math.min(2,devicePixelRatio||1),lines=[];
+    function rnd(seed){return function(){seed=(seed*16807)%2147483647;return (seed-1)/2147483646}}
+    function texture(FW,FH,ci,seed){var t=document.createElement('canvas');t.width=FW;t.height=FH;var g=t.getContext('2d'),r=rnd(seed),c=FC[ci];
+      // faded cotton: uneven dye, lighter towards the bottom where the sun has worked on it
+      var fade=.82+r()*.18;g.fillStyle='rgb('+c.map(function(v){return Math.round(v*fade+255*(1-fade)*.5)})+')';g.fillRect(0,0,FW,FH);
+      var gr=g.createLinearGradient(0,0,0,FH);gr.addColorStop(0,'rgba(0,0,0,.06)');gr.addColorStop(1,'rgba(255,255,255,.14)');g.fillStyle=gr;g.fillRect(0,0,FW,FH);
+      for(var k=0;k<FW*FH/3;k++){g.fillStyle=r()<.5?'rgba(0,0,0,'+(r()*.06)+')':'rgba(255,255,255,'+(r()*.06)+')';g.fillRect(r()*FW,r()*FH,1,1);}
+      for(var y=0;y<FH;y+=Math.max(1,dpr)){g.fillStyle='rgba(0,0,0,'+(r()*.035)+')';g.fillRect(0,y,FW,.6);}
+      for(var x=0;x<FW;x+=Math.max(1,dpr)){g.fillStyle='rgba(255,255,255,'+(r()*.03)+')';g.fillRect(x,0,.6,FH);}
+      // block print in dark ink: a frame, the wind horse in a roundel, rows of small marks
+      var ink=ci===0||ci===2||ci===3?'rgba(10,8,6,':'rgba(30,22,14,';g.save();g.filter='blur('+Math.max(.6,FW*.008)+'px)';g.globalAlpha=.62;
+      g.strokeStyle=ink+'.32)';g.lineWidth=Math.max(1,FW*.012);g.strokeRect(FW*.09,FH*.1,FW*.82,FH*.72);
+      g.fillStyle=ink+'.26)';g.beginPath();g.ellipse(FW*.5,FH*.36,FW*.17,FH*.15,0,0,6.3);g.fill();
+      g.fillStyle=ink+'.32)';g.beginPath();g.ellipse(FW*.47,FH*.37,FW*.08,FH*.045,-.2,0,6.3);g.fill();g.fillRect(FW*.53,FH*.30,FW*.03,FH*.07);
+      [[.18,.2],[.82,.2],[.18,.7],[.82,.7]].forEach(function(q){g.fillStyle=ink+'.24)';g.beginPath();g.arc(FW*q[0],FH*q[1],FW*.045,0,6.3);g.fill();});
+      for(var row=0;row<5;row++){var yy=FH*(.55+row*.05);for(var xx=FW*.14;xx<FW*.86;){var w=FW*(.012+r()*.03);g.fillStyle=ink+(.18+r()*.14)+')';g.fillRect(xx,yy,w,Math.max(1,FH*.014));xx+=w+FW*(.006+r()*.012);}}
+      g.restore();
+      // worn: the ink has rubbed away in patches
+      g.globalCompositeOperation='destination-out';
+      for(var k2=0;k2<FW*FH/3;k2++){g.fillStyle='rgba(0,0,0,'+(r()*.08)+')';g.fillRect(r()*FW,r()*FH,1.4,1.4);}
+      // hem along the top, folded over the cord
+      g.globalCompositeOperation='source-over';g.fillStyle='rgba(0,0,0,.18)';g.fillRect(0,0,FW,FH*.06);g.fillStyle='rgba(255,255,255,.18)';g.fillRect(0,FH*.06,FW,Math.max(1,FH*.01));
+      // frayed bottom: loose threads
+      g.globalCompositeOperation='destination-out';
+      for(var x2=0;x2<FW;x2++){var fr=Math.pow(r(),2.2)*FH*.09;g.fillRect(x2,FH-fr,1,fr);}
+      g.globalCompositeOperation='source-over';return t;}
+    // draw one textured triangle (affine), slightly enlarged to hide seams
+    function tri(g,img,x0,y0,x1,y1,x2,y2,u0,v0,u1,v1,u2,v2){
+      var cx=(x0+x1+x2)/3,cy=(y0+y1+y2)/3,e=.6;
+      function ex(x,y){var dx=x-cx,dy=y-cy,l=Math.hypot(dx,dy)||1;return[x+dx/l*e,y+dy/l*e]}
+      var a=ex(x0,y0),b=ex(x1,y1),c=ex(x2,y2);
+      g.save();g.beginPath();g.moveTo(a[0],a[1]);g.lineTo(b[0],b[1]);g.lineTo(c[0],c[1]);g.closePath();g.clip();
+      var d=u0*(v1-v2)-u1*(v0-v2)+u2*(v0-v1);if(!d){g.restore();return}
+      var A=(x0*(v1-v2)-x1*(v0-v2)+x2*(v0-v1))/d,B=(y0*(v1-v2)-y1*(v0-v2)+y2*(v0-v1))/d,
+          C=(u0*(x1-x2)-u1*(x0-x2)+u2*(x0-x1))/d,Dd=(u0*(y1-y2)-u1*(y0-y2)+u2*(y0-y1))/d,
+          E=(u0*(v1*x2-v2*x1)-u1*(v0*x2-v2*x0)+u2*(v0*x1-v1*x0))/d,F=(u0*(v1*y2-v2*y1)-u1*(v0*y2-v2*y0)+u2*(v0*y1-v1*y0))/d;
+      g.transform(A,B,C,Dd,E,F);g.drawImage(img,0,0);g.restore();}
+    function setup(cv){var W=cv.width=Math.round(cv.clientWidth*dpr),H=cv.height=Math.round(cv.clientHeight*dpr);if(W<10||H<10)return null;
+      var big=cv.dataset.size==='large',FW=Math.round(big?Math.min(H*.42,72*dpr):H*.52),FH=Math.round(FW*(big?1.12:.92)),
+        sag=big?H*.2:H*.16,y0=big?H*.07:H*.05,r=rnd(big?5:9),fl=[],x=-FW*.3;
+      while(x<W+FW){var gap=FW*(1.04+r()*.12);fl.push({x:x+FW/2,c:fl.length%5,ph:r()*6.3,sp:.85+r()*.3,tex:null});x+=gap;}
+      fl.forEach(function(f,i){f.tex=texture(FW,FH,f.c,101+i*7+(big?1000:0))});
+      return {cv:cv,g:cv.getContext('2d'),W:W,H:H,FW:FW,FH:FH,sag:sag,y0:y0,fl:fl,NX:big?7:4,NY:big?5:2,big:big};}
+    function cordY(L,x){var t=Math.max(0,Math.min(1,x/L.W));return L.y0+L.sag*4*t*(1-t)}
+    function draw(L,time){var g=L.g,W=L.W,FW=L.FW,FH=L.FH,NX=L.NX,NY=L.NY;g.clearRect(0,0,W,L.H);
+      var gust=.55+.45*Math.sin(time*.00045)*Math.sin(time*.00017+1.3);   // the wind comes and goes
+      L.fl.forEach(function(f){
+        var P=[];for(var j=0;j<=NY;j++){var row=[];for(var i=0;i<=NX;i++){
+          var u=i/NX,v=j/NY,x0=f.x+(u-.5)*FW,yTop=cordY(L,x0)+FH*.02,
+              ph=time*.0032*f.sp-u*2*Math.PI*1.25+f.ph+v*.6,
+              amp=FW*.085*(.25+.75*v)*(.6+gust*.6),
+              z=Math.sin(ph)*amp,
+              swing=gust*FW*.22*Math.pow(v,1.35)+Math.sin(time*.0011*f.sp+f.ph)*FW*.05*v,
+              lift=gust*FH*.06*v*v;
+          row.push({x:x0+swing+z*.35,y:yTop+v*FH*(1-.06*gust)-lift+Math.cos(ph)*amp*.15,s:Math.cos(ph)*(.25+.75*v)});}
+          P.push(row);}
+        var cw=FW/NX,ch=FH/NY;
+        for(var j2=0;j2<NY;j2++)for(var i2=0;i2<NX;i2++){
+          var a=P[j2][i2],b=P[j2][i2+1],c=P[j2+1][i2];
+          g.setTransform((b.x-a.x)/cw,(b.y-a.y)/cw,(c.x-a.x)/ch,(c.y-a.y)/ch,a.x,a.y);
+          g.drawImage(f.tex,i2*cw,j2*ch,Math.min(cw+1,FW-i2*cw),Math.min(ch+1,FH-j2*ch),0,0,Math.min(cw+1,FW-i2*cw)+.6,Math.min(ch+1,FH-j2*ch)+.6);}
+        g.setTransform(1,0,0,1,0,0);
+        // light on the folds, as one smooth gradient across the flag
+        var mid=P[Math.round(NY*.6)],gr=g.createLinearGradient(mid[0].x,mid[0].y,mid[NX].x,mid[NX].y);
+        for(var i3=0;i3<=NX;i3++){var sh=0;for(var j3=0;j3<=NY;j3++)sh+=P[j3][i3].s;sh/=NY+1;
+          gr.addColorStop(i3/NX,sh>0?'rgba(255,248,232,'+(sh*.30).toFixed(3)+')':'rgba(20,12,6,'+(-sh*.34).toFixed(3)+')');}
+        g.save();g.beginPath();g.moveTo(P[0][0].x,P[0][0].y);
+        for(var i4=1;i4<=NX;i4++)g.lineTo(P[0][i4].x,P[0][i4].y);
+        for(var j4=1;j4<=NY;j4++)g.lineTo(P[j4][NX].x,P[j4][NX].y);
+        for(var i5=NX-1;i5>=0;i5--)g.lineTo(P[NY][i5].x,P[NY][i5].y);
+        for(var j5=NY-1;j5>0;j5--)g.lineTo(P[j5][0].x,P[j5][0].y);
+        g.closePath();g.clip();g.fillStyle=gr;g.fillRect(0,0,W,L.H);g.restore();});
+      // the cord, drawn over the hems
+      g.strokeStyle='rgba(58,42,26,.75)';g.lineWidth=Math.max(1,dpr*(L.big?1.3:.9));g.beginPath();
+      for(var k=0;k<=60;k++){var xx=k/60*W;k?g.lineTo(xx,cordY(L,xx)):g.moveTo(xx,cordY(L,xx));}g.stroke();}
+    function build(){lines=[].map.call(document.querySelectorAll('canvas.lungta'),setup).filter(Boolean);lines.forEach(function(L){draw(L,0)});}
+    var still=matchMedia('(prefers-reduced-motion: reduce)').matches,last=0;
+    function frame(t){if(t-last>32){last=t;lines.forEach(function(L){var r=L.cv.getBoundingClientRect();if(r.bottom>0&&r.top<innerHeight)draw(L,t)});}requestAnimationFrame(frame);}
+    build();if(!still)requestAnimationFrame(frame);
+    var rt;addEventListener('resize',function(){clearTimeout(rt);rt=setTimeout(build,200)});
+  })();
+
+  // Live map: the cover lifts on click; leaving the map puts it back
+  document.querySelectorAll('.livemap').forEach(function(m){var c=m.querySelector('.livemap-cover');
+    c.addEventListener('click',function(){m.classList.add('active')});
+    m.addEventListener('mouseleave',function(){m.classList.remove('active')});});
+  // Himalaya: ridge drift and the climbing progress bar
+  var cr=document.getElementById('climbrect');
+  function climb(){var max=document.documentElement.scrollHeight-innerHeight,p=max>0?scrollY/max:0;
+    cr.setAttribute('width',(p*1000).toFixed(1));root.style.setProperty('--scroll',(scrollY/innerHeight).toFixed(3));}
+  addEventListener('scroll',climb,{passive:true});climb();
+  // Tabs: underline the section in view
+  var links=[].slice.call(document.querySelectorAll('.tabs a[href^="#"]'));
+  var secs=links.map(function(a){return document.querySelector(a.getAttribute('href'))});
+  var so=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){links.forEach(function(a,i){a.classList.toggle('on',secs[i]===e.target)})}})},{rootMargin:'-40% 0px -55% 0px'});
+  secs.forEach(function(s){s&&so.observe(s)});
+
+  // Magnifying lens over the dense figures
+  document.querySelectorAll('.lens').forEach(function(l){
+    var g=l.querySelector('.glass'),img=l.querySelector('img'),z=+l.dataset.zoom;
+    g.style.backgroundImage='url('+img.src+')';
+    l.addEventListener('mousemove',function(e){var r=img.getBoundingClientRect(),px=e.clientX-r.left,py=e.clientY-r.top;
+      g.style.left=(px-g.offsetWidth/2)+'px';g.style.top=(py-g.offsetHeight/2)+'px';
+      g.style.backgroundSize=(r.width*z)+'px '+(r.height*z)+'px';
+      g.style.backgroundPosition=(-px*z+g.offsetWidth/2)+'px '+(-py*z+g.offsetHeight/2)+'px';});
+  });
+})();
+</script>
 <script src="assets/site.js"></script>
 </body>
 </html>

@@ -47,7 +47,11 @@ block that on `file://` URLs.
     assets/site.js          Publication list, and the nav highlighting
     assets/photo.jpg        Portrait shown on the About page
     data/publications.json  The publication list itself
-    images/                 Project photos go here
+    images/site/            Photos and figures used on the page
+    images/tibet/           Maqu plog photos (originals) and thumbs/
+    plogs/                  One page per picture log
+    embeds/                 Live project visuals (Bermbrand map, WUNDER chart)
+    files/                  Slides and other downloads
     cv/cv.tex               The CV. cv/cv.pdf is built from it, and is what
                             the contact section links to
 

@@ -3,6 +3,25 @@
 What changed, and why. Newest first. Named `LOG.md` to sit beside `README.md`
 and `TODO.md`; `git log` has the same story in more detail.
 
+## 11 October 2026 — New design: Himalaya, coordinates, plogs, live project visuals
+
+- **New look**: white page, Cormorant Garamond and Work Sans with every digit in
+  Times New Roman, tabs fixed at the top. The page opens on the snowy range at Maqu,
+  which fades into the page with falling snow; prayer flags (drawn as cloth) over the
+  footer photo; an altimeter that runs from 8 848 m down to the valley as you scroll.
+- **Prayer wheel** bottom right, turned clockwise by scrolling. Turning it plays
+  *Om Mani Padme Hum* (Essence of Universe) through the YouTube player.
+- **Places as coordinates**: every place carries lat, lon and altitude (Open-Meteo,
+  Copernicus DEM; approximate). A coordinate timeline sits under About.
+- **Dates as days since birth** on the page (calendar date as a tooltip).
+- **Recent**: presented at the Boussinesq Lecture, KNAW (slides PDF, two figures).
+- **Plogs**: picture logs; the first is *Walking with the wind*, Maqu, Eastern
+  Tibetan Plateau, October 2025 (27 unedited photos, plogs/maqu.html).
+- **Projects**: Bermbrand (roadside wildfire risks) with its live vulnerability map
+  for site S01, and WUNDER with an interactive root-zone soil moisture chart; both
+  are snapshots of the apps taken 11 October 2026 (embeds/).
+- **ORCID** added; Bermbrand and Noordwijk added; the ubRMSE caption removed.
+
 ## 28 September 2026 — Volunteering, freelance and lecturer dates, impact numbers
 
 - **WUNDER** now reads "Prediction of field-scale soil moisture, water and carbon

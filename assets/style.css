@@ -222,6 +222,16 @@ a:hover { border-bottom-color: var(--accent); }
 
 .highlights li { margin-bottom: 0.22rem; }
 
+/* Coordinates after a place name. */
+.latlon {
+  font-style: normal;
+  font-size: 0.8125rem;
+  letter-spacing: 0.04em;
+  color: var(--accent);
+  white-space: nowrap;
+  margin-left: 0.35rem;
+}
+
 /* Project photos ---------------------------------------------------------- */
 
 .project-shot { margin: 1rem 0; }
@@ -234,6 +244,9 @@ a:hover { border-bottom-color: var(--accent); }
   border: 1px solid var(--rule);
 }
 
+/* Talk figures are dense slides, so they get more width than a photo. */
+.talk-figure img { max-width: 56rem; background: #fff; }
+
 .project-shot figcaption {
   font-size: 0.9375rem;
   color: var(--ink-soft);
@@ -241,6 +254,97 @@ a:hover { border-bottom-color: var(--accent); }
 }
 
 .project-links { font-size: 0.9375rem; }
+
+/* Plogs: the list on the home page, and each plog's own page ------------- */
+
+.plog-intro { color: var(--ink-soft); margin-top: 0; }
+
+.plog-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(17rem, 1fr));
+  gap: 1.5rem;
+  margin-top: 1.25rem;
+}
+
+.plog-card {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+}
+
+.plog-card img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  margin-bottom: 0.6rem;
+}
+
+.plog-card-when {
+  display: block;
+  font-size: 0.9375rem;
+  color: var(--ink-soft);
+}
+
+.plog-card-title {
+  display: block;
+  font-size: 1.1875rem;
+  color: var(--accent);
+}
+
+.plog-card:hover .plog-card-title { text-decoration: underline; }
+
+.plog-card-line {
+  display: block;
+  font-style: italic;
+  color: var(--ink-soft);
+  margin-top: 0.15rem;
+}
+
+.plog-back { margin: 0 0 2rem; font-size: 0.9375rem; }
+
+.plog-kicker {
+  font-size: 0.9375rem;
+  color: var(--ink-soft);
+  margin: 0;
+}
+
+.plog h1 {
+  font-weight: normal;
+  font-size: 2.1rem;
+  line-height: 1.2;
+  margin: 0.2rem 0 1.5rem;
+}
+
+/* Tibet notes and photo grid ---------------------------------------------- */
+
+.essay { max-width: 42rem; }
+
+.phrases { margin: 1.25rem 0 0; }
+.phrases dt { font-style: italic; font-weight: 600; margin-top: 0.9rem; }
+.phrases dd { margin: 0.15rem 0 0; }
+
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+  gap: 0.5rem;
+  margin-top: 1.75rem;
+}
+
+.gallery img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+
+.gallery-note {
+  font-size: 0.9375rem;
+  color: var(--ink-soft);
+  margin-top: 0.5rem;
+}
 
 /* Publications ------------------------------------------------------------ */
 
