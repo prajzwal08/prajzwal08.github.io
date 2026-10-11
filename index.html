@@ -687,6 +687,15 @@ h2.kicker{margin-top:0}
 .proj-vis{max-width:none!important}
 .proj-vis .livemap{aspect-ratio:16/9!important;height:auto!important}
 @media(max-width:52rem){.proj-vis .livemap{aspect-ratio:4/3!important}}
+
+/* phones: the altimeter as a small pill, bottom left */
+@media(max-width:52rem){
+  .alti{display:flex!important;position:fixed;left:.6rem;right:auto;top:auto;bottom:.9rem;flex-direction:row;gap:.4rem;align-items:center;
+    opacity:1!important;background:#fffffff2;border:1px solid var(--line);border-radius:999px;padding:.3rem .65rem;box-shadow:0 4px 12px #0001;z-index:44}
+  .alti-track{flex:none;width:.5rem;height:.5rem;background:none}
+  .alti-track i{position:static;display:block;transform:none;width:.5rem;height:.5rem;left:auto}
+  #alti-n{writing-mode:horizontal-tb!important;transform:none!important;font-size:.85rem!important}
+}
 </style>
 </head>
 <body>
