@@ -680,6 +680,13 @@ h2.kicker{margin-top:0}
 .proj-vis{max-width:26rem}
 .proj-vis .livemap{height:auto!important;aspect-ratio:1/1}
 @media(max-width:52rem){.proj-vis{max-width:100%}}
+
+/* larger elevation reading; project visuals full width at 16:9 */
+#alti-n{font-size:.92rem!important;letter-spacing:.08em;font-weight:500;color:var(--ink)}
+.alti-track i{width:9px;height:9px;left:-4px}
+.proj-vis{max-width:none!important}
+.proj-vis .livemap{aspect-ratio:16/9!important;height:auto!important}
+@media(max-width:52rem){.proj-vis .livemap{aspect-ratio:4/3!important}}
 </style>
 </head>
 <body>
