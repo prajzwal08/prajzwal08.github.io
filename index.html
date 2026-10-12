@@ -1022,6 +1022,20 @@ canvas.lungta-corner,.ktm{display:none}
   .sound-hint{left:1rem!important;top:.95rem!important}
   .pwbar.single{left:calc(1rem + 8.2rem)!important}
 }
+
+/* desktop: the name centred in the band between the wheel and the menu */
+
+/* phones: keep the Kathmandu skyline above the graph */
+@media(max-width:52rem){
+  #himalaya .cs-top{display:flex!important;justify-content:center!important}
+  #himalaya .cs-top .ktm{width:100%!important;max-width:22rem}
+}
+
+/* phones: the Himalaya graph at a full, comfortable size */
+@media(max-width:52rem){
+  .cs-graphs .hpanel{height:auto!important}
+  .cs-graphs .hp-chart{flex:none!important;height:62svh!important;min-height:26rem}
+}
 </style>
 <script data-goatcounter="https://prajwalkhanal.goatcounter.com/count"
         async src="//gc.zgo.at/count.js"></script>
@@ -2021,6 +2035,24 @@ canvas.lungta-corner,.ktm{display:none}
   function place(){parts.forEach(function(p){ if(mq.matches){ if(p.e.parentNode!==p.to) p.to.appendChild(p.e); } else if(p.e.parentNode!==p.home){ p.home.insertBefore(p.e,p.next); } });
     strip.hidden=!mq.matches; dispatchEvent(new Event('resize'));}
   mq.addEventListener('change',place); place();
+})();
+</script>
+<script>
+// desktop: the name sits right after the wheel, centred top to bottom in the band
+(function(){
+  var n=document.querySelector('.topbar .mono'), w=document.querySelector('.pwbar'), t=document.querySelector('.topbar .tabs');
+  var mq=matchMedia('(min-width: 82rem)');
+  function place(){
+    n.style.marginLeft=''; n.style.position=''; n.style.top='';
+    if(!mq.matches||!w||!t) return;
+    // keep the name in the flow (so the menu stays put) and nudge it to the middle of the gap
+    var nb=n.getBoundingClientRect(), a=w.getBoundingClientRect().right, b=t.getBoundingClientRect().left;
+    // just after the wheel, and centred top to bottom in the band; the menu stays where it was
+    var shift=a+16-nb.left; n.style.marginLeft=shift+'px';
+    var bar=document.querySelector('.topbar').getBoundingClientRect(); nb=n.getBoundingClientRect();
+    n.style.position='relative'; n.style.top=((bar.top+bar.height/2)-(nb.top+nb.height/2))+'px';
+  }
+  addEventListener('resize',place); document.fonts&&document.fonts.ready.then(place); setTimeout(place,300); place();
 })();
 </script>
 </body>
