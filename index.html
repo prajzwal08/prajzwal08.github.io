@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Prajwal Khanal</title>
-<meta name="description" content="PhD researcher at ITC, University of Twente: soil moisture, water and carbon fluxes, from land surface models to deep learning. Also picture logs from the Himalaya.">
+<meta name="description" content="PhD researcher at ITC, University of Twente: soil moisture, water and carbon fluxes, from land surface models to deep learning. Also picture logs from the Tibetan Plateau.">
 <link href="https://fonts.googleapis.com/css2?family=Special+Elite&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Work+Sans:wght@400;500&family=Noto+Serif+Devanagari:wght@300;500;700&display=swap" rel="stylesheet">
 <style>
 /* Nightfall: the page opens on the Maqu landscape in daylight. As you scroll,
@@ -728,7 +728,7 @@ h2.kicker{margin-top:0}
 .np-mark i{position:absolute;left:-3px;top:50%;width:6px;height:6px;margin-top:-3px;border-radius:50%;border:1px solid var(--ink);background:#fff}
 .np-sum{padding-left:0;transform:translate(-100%,-180%)}.np-sum i{display:none}
 .np-cap{font:.66rem var(--text);letter-spacing:.08em;color:var(--soft);padding:.2rem 0}
-@media(max-width:82rem){.nprofile{display:none}}
+@media(max-width:81.99rem){.nprofile{display:none}}
 
 /* footer: the lake, the hills and the birds are the picture; flags in the sky above, the words on the left */
 footer{height:max(82vh,520px)!important;place-items:end start!important}
@@ -789,7 +789,7 @@ footer p{margin-left:var(--pad)!important}
 .hp-src:hover,.hp-src[aria-expanded=true]{color:var(--ink);border-color:var(--ink)}
 .hp-pop{position:absolute;left:0;right:auto;bottom:2rem;max-width:calc(100vw - 2rem);width:19rem;padding:.75rem .9rem;background:#fff;border:1px solid var(--line);border-radius:10px;box-shadow:0 10px 30px #0002;font:.68rem/1.45 var(--text);color:var(--ink);max-height:70vh;overflow:auto}
 .hp-pop p{margin:0 0 .45rem}.hp-pop p:last-child{margin:0;color:var(--soft)}
-@media(max-width:82rem){.hpanel{display:none}}
+@media(max-width:81.99rem){.hpanel{display:none}}
 .hp-key{margin-top:.1rem}
 
 
@@ -1061,6 +1061,23 @@ canvas.lungta-corner,.ktm{display:none}
 }
 
 @media(max-width:52rem){ .topbar .tabs{max-width:100%;overflow-x:auto;scrollbar-width:none} .topbar .tabs::-webkit-scrollbar{display:none} html,body{overflow-x:hidden} }
+
+/* ===== fixes from the 12 October review ===== */
+.ytcard{visibility:hidden;transition:opacity .35s,transform .35s,visibility 0s .35s}
+.ytcard.open{visibility:visible;transition:opacity .35s,transform .35s,visibility 0s}
+.hpanel.np-off{pointer-events:none;visibility:hidden;transition:opacity .4s,visibility 0s .4s}
+html,body{overflow-x:clip}
+@media(max-width:24rem){.record-where .latlon,.record-where .nw{white-space:normal}}
+@media(max-width:52rem){
+  .sound-hint{bottom:6.9rem!important;transition:opacity .6s}
+  .sound-hint.later{opacity:0;pointer-events:none}
+  .topbar{background:#fff!important;-webkit-backdrop-filter:none;backdrop-filter:none}
+  .ytclose{right:-.2rem}
+  .ytcard{right:.5rem!important}
+}
+@media(max-width:81.99rem){.cue{right:auto!important;left:50%;transform:translateX(-50%)}}
+@media(min-width:100rem){.hpanel{width:min(17rem,calc(var(--pad) - 2.4rem))!important}.nprofile{width:min(10rem,calc(var(--pad) - 5.6rem))!important}}
+.hp-key,.hp-snow,.hp-tg,.hp-play,.hp-src{font-size:max(.55rem,9px)!important}
 </style>
 <script data-goatcounter="https://prajwalkhanal.goatcounter.com/count"
         async src="//gc.zgo.at/count.js"></script>
@@ -1537,11 +1554,11 @@ canvas.lungta-corner,.ktm{display:none}
   var c=document.getElementById('sky'),x=c.getContext('2d'),st=[];
   function size(){var r=c.getBoundingClientRect(),d=devicePixelRatio||1;c.width=r.width*d;c.height=r.height*d;st=[];
     for(var i=0;i<c.width*c.height/2600;i++)st.push([Math.random()*c.width,Math.random()*c.height,Math.random()*Math.random()*1.8*d+.3,Math.random()*6.3,Math.random()*.8+.2]);}
-  function draw(t){x.clearRect(0,0,c.width,c.height);
+  function draw(t){if(window.__heroOff){requestAnimationFrame(draw);return;}x.clearRect(0,0,c.width,c.height);
     for(var i=0;i<st.length;i++){var s=st[i];x.globalAlpha=still?s[4]:s[4]*(.55+.45*Math.sin(t/700*s[4]+s[3]));
       x.fillStyle=s[4]>.9?'#ffe6c2':'#fff';x.beginPath();x.arc(s[0],s[1],s[2],0,6.3);x.fill();}
     if(!still)requestAnimationFrame(draw);}
-  addEventListener('resize',function(){size();if(still)draw(0)});size();draw(0);
+  var lw=innerWidth;addEventListener('resize',function(){if(innerWidth===lw)return;lw=innerWidth;size();if(still)draw(0)});size();draw(0);
 
   // Reveal on scroll
   var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.15});
@@ -1581,12 +1598,12 @@ canvas.lungta-corner,.ktm{display:none}
   var sc=document.getElementById('snow'),sx=sc.getContext('2d'),flakes=[];
   function sSize(){var r=sc.getBoundingClientRect(),d=devicePixelRatio||1;sc.width=r.width*d;sc.height=r.height*d;flakes=[];
     for(var i=0;i<Math.min(260,r.width*r.height/5200);i++)flakes.push({x:Math.random()*sc.width,y:Math.random()*sc.height,r:(Math.random()*1.8+.6)*d,v:(Math.random()*.6+.35)*d,p:Math.random()*6.3});}
-  function sDraw(t){sx.clearRect(0,0,sc.width,sc.height);sx.fillStyle='#fff';
+  function sDraw(t){if(window.__heroOff){requestAnimationFrame(sDraw);return;}sx.clearRect(0,0,sc.width,sc.height);sx.fillStyle='#fff';
     for(var i=0;i<flakes.length;i++){var f=flakes[i];f.y+=f.v;f.x+=Math.sin(t/1400+f.p)*.35;
       if(f.y>sc.height){f.y=-4;f.x=Math.random()*sc.width}
       sx.globalAlpha=.85;sx.beginPath();sx.arc(f.x,f.y,f.r,0,6.3);sx.fill();}
     if(!still)requestAnimationFrame(sDraw);}
-  addEventListener('resize',sSize);sSize();if(!still)requestAnimationFrame(sDraw);
+  var lw2=innerWidth;addEventListener('resize',function(){if(innerWidth===lw2)return;lw2=innerWidth;sSize()});sSize();if(!still)requestAnimationFrame(sDraw);
 
   // Altimeter and prayer wheel follow the scroll
   var an=document.getElementById('alti-n'),band=document.getElementById('wheelband');
@@ -1733,7 +1750,7 @@ canvas.lungta-corner,.ktm{display:none}
     bar.addEventListener('pointermove',function(e){if(!drag)return;var dx=e.clientX-drag.x;drag.x=e.clientX;drag.moved+=Math.abs(dx);
       wheels.forEach(function(w){w.off-=dx*dpr*2.8;w.v=Math.max(w.v,Math.abs(dx)*dpr*.12);w.dirty=true;});});
     function end(){if(!drag)return;var m=drag.moved;drag=null;
-      if(m>14){bar.dataset.turned='1';bar.dispatchEvent(new CustomEvent('turned'));}}
+      if(m>14){bar.dataset.turned=String(performance.now());bar.dispatchEvent(new CustomEvent('turned'));}}
     bar.addEventListener('pointerup',end);bar.addEventListener('pointercancel',end);
     bar.addEventListener('nudge',function(){wheels.forEach(function(w){w.v+=TW/(dpr*60);});});
     function build(){layoutFlags();buildWheels();}
@@ -1749,7 +1766,7 @@ canvas.lungta-corner,.ktm{display:none}
       requestAnimationFrame(frame);}
     var ready=document.fonts&&document.fonts.load?document.fonts.load('700 40px "Noto Serif Devanagari"','ॐ'):Promise.resolve();
     ready.then(function(){build();requestAnimationFrame(frame);});
-    var rt;addEventListener('resize',function(){clearTimeout(rt);rt=setTimeout(build,200)});
+    var rt,rw=innerWidth;addEventListener('resize',function(){if(innerWidth===rw)return;rw=innerWidth;clearTimeout(rt);rt=setTimeout(build,200)});
   })();
 
   // The chant: Om Mani Padme Hum by Essence of Universe, played through the
@@ -1770,12 +1787,13 @@ canvas.lungta-corner,.ktm{display:none}
     function toggle(){want=!want;
       if(want){show(true);if(ready)player.playVideo();else{queued=true;if(!player)load();}}
       else{show(false);if(ready)player.pauseVideo();queued=false;}}
-    load();   // prepare the player in the background so the first turn is quick
+    // prepare the player when someone reaches for the wheel, not on every visit
+    ['pointerdown','focus','mouseenter'].forEach(function(ev){wheelEl.addEventListener(ev,function(){if(!player)load();},{once:true});});
     wheelEl.addEventListener('turned',function(){if(!want)toggle();});
     card.querySelector('.ytclose').addEventListener('click',function(e){e.stopPropagation();if(want)toggle();});
     addEventListener('keydown',function(e){if(e.key==='Escape'&&want)toggle();});
     wheelEl.addEventListener('click',function(e){e.stopPropagation();
-      if(wheelEl.dataset.turned){delete wheelEl.dataset.turned;return;}   // that was a turn, not a tap
+      var tt=+wheelEl.dataset.turned||0; delete wheelEl.dataset.turned; if(performance.now()-tt<400)return;   // that was a turn, not a tap
       if(want)toggle(); else wheelEl.dispatchEvent(new CustomEvent('nudge'));});
     wheelEl.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();toggle()}});
   })();
@@ -1865,7 +1883,7 @@ canvas.lungta-corner,.ktm{display:none}
     var still=matchMedia('(prefers-reduced-motion: reduce)').matches,last=0;
     function frame(t){if(t-last>32){last=t;lines.forEach(function(L){var r=L.cv.getBoundingClientRect();if(r.bottom>0&&r.top<innerHeight)draw(L,t)});}requestAnimationFrame(frame);}
     build();if(!still)requestAnimationFrame(frame);
-    var rt;addEventListener('resize',function(){clearTimeout(rt);rt=setTimeout(build,200)});
+    var rt,rw=innerWidth;addEventListener('resize',function(){if(innerWidth===rw)return;rw=innerWidth;clearTimeout(rt);rt=setTimeout(build,200)});
   })();
 
   // Live map: the cover lifts on click; leaving the map puts it back
@@ -1953,7 +1971,7 @@ canvas.lungta-corner,.ktm{display:none}
   <button class="hp-src" type="button" aria-expanded="false">Source</button>
   <div class="hp-pop" hidden>
     <button class="hp-x-close" type="button" aria-label="Close">×</button>
-    <p><b>Himalaya, 3 088–8 848 m</b>: the mean of six ERA5-Land points along the profile on the left, year by year, 1981–2024. Thin line: each year; thick line and shading: 9-year running mean, coloured from its coldest (1981) to its warmest (2024) value.</p>
+    <p><b>Himalaya, 3 088–8 848 m</b>: the mean of six ERA5-Land points along the Nepal profile (Sagarmatha–Kathmandu–Terai), year by year, 1981–2024. Thin line: each year; thick line and shading: 9-year running mean, coloured from its coldest (early 1980s) to its warmest (2024) value.</p>
     <p>Warming 1981–2024: +0.28 °C per decade here; +0.21 °C for the world, land and ocean (NASA GISTEMP v4): 1.3× the global average.</p>
     <p>Snow days: days with at least 5 cm of snow on the ground, ERA5-Land, mean of the four points without glacier (3 088–5 915 m).</p>
     <p>Snow days in 2050, a rough estimate: in ERA5-Land each extra 1 °C in a year's mean has meant about 44 fewer snow days (±3) at these points; applied to each pathway's median warming from 2024, starting from the 2015–2024 mean of 93 days. Hover the graph for any year. Not a snow model: it assumes the past link holds, uses Nepal-wide warming (the Himalaya warm faster) and ignores changes in snowfall.</p>
@@ -2013,7 +2031,7 @@ canvas.lungta-corner,.ktm{display:none}
   var avg=function(a){return Math.round(a.reduce(function(p,q){return p+q})/a.length)};
   // the same estimate the hover uses: about 44 fewer snow days per extra 1 °C, from the 2015–2024 mean
   var snow2050=function(s){return Math.max(0,Math.round(D.snowNow-44.3*(P[s].median[P[s].median.length-1]-now)))};
-  box.querySelector('.hp-snow').innerHTML='<li><b>'+avg(D.snow.slice(0,10))+'</b> snow days a year, 1981–1990</li><li><b>'+avg(D.snow.slice(-10))+'</b> snow days a year, 2015–2024</li><li class="fut"><b>~'+snow2050('ssp126')+'</b> to <b>~'+snow2050('ssp585')+'</b> snow days a year, 2050 (low to high emissions)</li>';
+  box.querySelector('.hp-snow').innerHTML='<li><b>'+avg(D.snow.slice(0,10))+'</b> snow days a year, 1981–1990</li><li><b>'+avg(D.snow.slice(-10))+'</b> snow days a year, 2015–2024</li><li class="fut"><b>~'+snow2050('ssp126')+'</b> to <b>~'+snow2050('ssp585')+'</b> snow days a year, 2050 (low to high emissions; rough estimate)</li>';
   [].forEach(function(n){
     var e=document.createElement('span');e.className=n[2];e.style.top=pct(n[0])+'%';e.textContent=n[1];nt.appendChild(e);});
   var ax=box.querySelector('.hp-axis');
@@ -2024,10 +2042,10 @@ canvas.lungta-corner,.ktm{display:none}
   // one pathway or both; the readout follows the choice
   var only=null, tgs=box.querySelectorAll('.hp-tg');
   tgs.forEach(function(bt){bt.addEventListener('click',function(){only=only===bt.dataset.s?null:bt.dataset.s;
-    tgs.forEach(function(o){o.setAttribute('aria-pressed',o.dataset.s===only)}); only?box.setAttribute('data-only',only):box.removeAttribute('data-only'); if(cur)show(cur);});});
+    tgs.forEach(function(o){o.setAttribute('aria-pressed',o.dataset.s===only)}); only?box.setAttribute('data-only',only):box.removeAttribute('data-only'); if(cur&&(pinned||playing||rd.style.display==='block'))show(cur);});});
   var cur=null, pinned=false;
   function show(y){cur=y; var t;
-    if(y<=2024){var k=y-Y0;t='<b>'+y+'</b> '+f1(D.T[k])+' °C'+(D.snow[k]!=null?' · '+D.snow[k]+' snow days':'');}
+    if(y<=2024){var k=y-Y0;t='<b>'+y+'</b> '+f1(D.T[k])+' °C (9-yr mean '+f1(SM[k])+')'+(D.snow[k]!=null?' · '+D.snow[k]+' snow days':'');}
     else{var i=y-2024, sd=function(s){return Math.max(0,Math.round(D.snowNow-44.3*(P[s].median[i]-now)))},
       row=function(s,n){return n+' '+f1(P[s].median[i])+' °C · ~'+sd(s)+' snow days'};
       t='<b>'+y+'</b>'+(only!=='ssp585'?'<br>'+row('ssp126','low'):'')+(only!=='ssp126'?'<br>'+row('ssp585','high'):'');}
@@ -2035,7 +2053,7 @@ canvas.lungta-corner,.ktm{display:none}
   function yAt(e){var b=ch.getBoundingClientRect();return Math.max(Y0,Math.min(END,Math.round(END-(e.clientY-b.top)/b.height*R)))}
   ch.addEventListener('pointermove',function(e){if(!pinned&&!playing)show(yAt(e))});
   ch.addEventListener('pointerleave',function(){if(!pinned&&!playing)rd.style.display='none'});
-  ch.addEventListener('click',function(e){if(playing)return; var y=yAt(e); pinned=!(pinned&&y===cur); show(y); if(!pinned)rd.classList.remove('pin');});
+  ch.addEventListener('click',function(e){if(playing)return; if(pinned){pinned=false;rd.classList.remove('pin');rd.style.display='none';return;} pinned=true; show(yAt(e));});
   // play: a cursor sweeps 1981 → 2050
   var playing=null, pb=box.querySelector('.hp-play');
   pb.addEventListener('click',function(){
@@ -2064,8 +2082,8 @@ canvas.lungta-corner,.ktm{display:none}
     // tap or drag along it: the year's reading
     var rd=document.createElement('div'); rd.className='hh-read'; hs.parentNode.insertBefore(rd,hs.nextSibling);
     function read(e){var b=hs.getBoundingClientRect(), x=(e.clientX-b.left)/b.width*W, y=Math.max(Y0,Math.min(END,Math.round(Y0+(x-ML)/(W-ML-MR)*(END-Y0))));
-      var t; if(y<=2024){var k=y-Y0;t='<b>'+y+'</b> '+f1(D.T[k])+' °C'+(D.snow[k]!=null?' · '+D.snow[k]+' snow days':'');}
-      else{var i=y-2024,sd=function(sx){return Math.max(0,Math.round(D.snowNow-44.3*(P[sx].median[i]-now)))};t='<b>'+y+'</b><br>low '+f1(P.ssp126.median[i])+' °C · ~'+sd('ssp126')+' snow days<br>high '+f1(P.ssp585.median[i])+' °C · ~'+sd('ssp585')+' snow days';}
+      var t; if(y<=2024){var k=y-Y0;t='<b>'+y+'</b> '+f1(D.T[k])+' °C (9-yr mean '+f1(SM[k])+')'+(D.snow[k]!=null?' · '+D.snow[k]+' snow days':'');}
+      else{var i=y-2024,sd=function(sx){return Math.max(0,Math.round(D.snowNow-44.3*(P[sx].median[i]-now)))},row=function(sx,n){return n+' '+f1(P[sx].median[i])+' °C · ~'+sd(sx)+' snow days'};t='<b>'+y+'</b>'+(only!=='ssp585'?'<br>'+row('ssp126','low'):'')+(only!=='ssp126'?'<br>'+row('ssp585','high'):'');}
       rd.innerHTML=t;}
     hs.addEventListener('pointermove',read); hs.addEventListener('pointerdown',read);
   })();
@@ -2106,6 +2124,17 @@ canvas.lungta-corner,.ktm{display:none}
     n.style.position='relative'; n.style.top=((bar.top+bar.height/2)-(nb.top+nb.height/2))+'px';
   }
   addEventListener('resize',place); document.fonts&&document.fonts.ready.then(place); setTimeout(place,300); place();
+})();
+</script>
+<script>
+// phones: "Rotate yourself" fades after a few seconds (it sits over text); back once the chant stops
+(function(){var h=document.querySelector('.sound-hint'),w=document.querySelector('.pwbar');if(!h||!w)return;
+  var t=setTimeout(function(){h.classList.add('later')},6000);
+  new MutationObserver(function(){if(!w.classList.contains('playing')){h.classList.remove('later');clearTimeout(t);t=setTimeout(function(){h.classList.add('later')},6000);}}).observe(w,{attributes:true,attributeFilter:['class']});
+})();
+// stars and snow rest once the opening photo has scrolled away
+(function(){var hero=document.querySelector('.hero');if(!hero||!window.IntersectionObserver)return;
+  new IntersectionObserver(function(es){var on=es[0].isIntersecting;window.__heroOff=!on;['sky','snow'].forEach(function(id){var c=document.getElementById(id);if(c)c.style.visibility=on?'':'hidden';});}).observe(hero);
 })();
 </script>
 </body>

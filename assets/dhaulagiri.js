@@ -96,22 +96,40 @@ function play(stage) {
 
   let W = 0, H = 0;
   const v = new THREE.Vector3(), d = new THREE.Vector3(), sight = new THREE.Raycaster();
-  function place() {
-    // never under the card or the hint on the full page
-    const sb = stage.getBoundingClientRect(), taken = [...document.querySelectorAll('.card, .hint')].map(e => {
+  // where a ray from o along unit vector dir first meets the land, by marching over the height grid
+  function hitDist(o, dir, far) {
+    const step = .12; let prev = null;
+    for (let s = .2; s < far; s += step) {
+      const x = o.x + dir.x * s, y = o.y + dir.y * s, z = o.z + dir.z * s;
+      if (x < 0 || x > KM_X || z < 0 || z > KM_Y) { prev = null; continue; }
+      const g = Y(ground(LAT0 - z / KM_Y * (LAT0 - LAT1), LON0 + x / KM_X * (LON1 - LON0)));
+      if (y <= g) return s;
+    }
+    return null;
+  }
+  // label sizes never change: measure once
+  labels.forEach(t => { t.el.style.display = 'block'; t.w = t.el.offsetWidth; t.h = t.el.offsetHeight; t.el.style.display = 'none'; });
+  let keepOut = [];
+  function measureKeepOut() {
+    const sb = stage.getBoundingClientRect();
+    keepOut = [...document.querySelectorAll('.card, .hint, .views, .trekcap.on, .credit-3d')].filter(e => e.offsetParent !== null).map(e => {
       const b = e.getBoundingClientRect(); return [b.left - sb.left - 6, b.top - sb.top - 6, b.right - sb.left + 6, b.bottom - sb.top + 6]; });
+  }
+  function place() {
+    // never under the card, the buttons, the caption or the hint, and never off the edge
+    const taken = keepOut.slice();
     labels.forEach(t => {
       v.copy(t.pos).project(cam); const x = (v.x + 1) / 2 * W, y = (1 - v.y) / 2 * H;
-      if (t.behind || v.z > 1 || x < 0 || x > W || y < 0 || y > H) { t.el.style.display = 'none'; return; }
-      t.el.style.display = 'block'; const w = t.el.offsetWidth, h = t.el.offsetHeight, b = [x - w / 2 - 2, y - h - 3, x + w / 2 + 2, y];
+      const b = [x - t.w / 2 - 2, y - t.h - 3, x + t.w / 2 + 2, y];
+      if (t.behind || v.z > 1 || b[0] < 2 || b[2] > W - 2 || b[1] < 2 || y > H) { t.el.style.display = 'none'; return; }
       const ok = !taken.some(o => b[0] < o[2] && b[2] > o[0] && b[1] < o[3] && b[3] > o[1]);
       t.el.style.display = ok ? 'block' : 'none';
       if (ok) { taken.push(b); t.el.style.transform = `translate(${x}px, ${y}px) translate(-50%,-100%)`; }
     });
   }
   function occlude() {
-    labels.forEach(t => { d.copy(t.pos).sub(cam.position); const far = d.length(); sight.set(cam.position, d.normalize()); sight.far = far;
-      const hit = sight.intersectObject(land)[0]; t.behind = !!hit && hit.distance < far - .5; });
+    labels.forEach(t => { d.copy(t.pos).sub(cam.position); const far = d.length(); d.normalize();
+      const hd = hitDist(cam.position, d, far - .5); t.behind = hd !== null; });
   }
   let looping = false;
   function loop() {
@@ -125,13 +143,16 @@ function play(stage) {
 
   // hover: the height under the pointer
   const tip = stage.querySelector('.play-tip'), ray = new THREE.Raycaster(), m = new THREE.Vector2();
-  r.domElement.addEventListener('pointermove', e => {
+  let hoverE = null;
+  r.domElement.addEventListener('pointermove', e => { if (!hoverE) requestAnimationFrame(hover); hoverE = e; });
+  function hover() { const e = hoverE; hoverE = null;
     const b = r.domElement.getBoundingClientRect(); m.set((e.clientX - b.left) / b.width * 2 - 1, -(e.clientY - b.top) / b.height * 2 + 1); ray.setFromCamera(m, cam);
-    const hit = ray.intersectObject(land)[0]; if (!hit) { tip.style.opacity = 0; return; }
-    const la = LAT0 - hit.point.z / KM_Y * (LAT0 - LAT1), lo = LON0 + hit.point.x / KM_X * (LON1 - LON0);
+    const hd = hitDist(ray.ray.origin, ray.ray.direction, 400); if (hd === null) { tip.style.opacity = 0; return; }
+    const hp = ray.ray.origin.clone().addScaledVector(ray.ray.direction, hd);
+    const la = LAT0 - hp.z / KM_Y * (LAT0 - LAT1), lo = LON0 + hp.x / KM_X * (LON1 - LON0);
     tip.innerHTML = `<b>${fmt(ground(la, lo))} m</b> · ${la.toFixed(3)}° N, ${lo.toFixed(3)}° E`;
     tip.style.opacity = 1; tip.style.transform = `translate(${e.clientX - b.left + 14}px, ${e.clientY - b.top + 14}px)`;
-  });
+  }
   r.domElement.addEventListener('pointerleave', () => { tip.style.opacity = 0; });
 
   // the first view: from the south, over the green hills of Beni, up the valley to Dhaulagiri
@@ -140,8 +161,10 @@ function play(stage) {
     const card = document.querySelector('.card'), cw = card && W > 700 ? card.getBoundingClientRect().right : 0;
     // phones: the card sits on top, so centre the land in the space below it
     const ch = card && W <= 700 ? card.getBoundingClientRect().bottom : 0;
-    if (cw) cam.setViewOffset(W, H, -cw / 2, 0, W, H); else if (ch) cam.setViewOffset(W, H, 0, -ch / 2, W, H); else cam.clearViewOffset();
-    cam.updateProjectionMatrix(); trail.material.resolution.set(W, H); loop(); }
+    if (cw) cam.setViewOffset(W, H, -cw / 2, 0, W, H);
+    else if (ch) cam.setViewOffset(W, H, 0, window.__walking ? H * .12 : -ch / 2, W, H);
+    else cam.clearViewOffset();
+    cam.updateProjectionMatrix(); trail.material.resolution.set(W, H); measureKeepOut(); loop(); }
   addEventListener('resize', size); size();
   // from the south and well above; come in until the near (south) edge spans the full width,
   // then aim so the land sits in the middle of the frame top to bottom
@@ -222,8 +245,10 @@ function play(stage) {
   let trek = 0, tk = 0, tLast = 0;
   const cP = new THREE.Vector3(), cL = new THREE.Vector3(), tdir = new THREE.Vector3();
   function at(k) { return TP[Math.max(0, Math.min(N, Math.round(k)))]; }
-  function stopTrek() { if (!trek) return; trek = 0; tLast = 0; walker.visible = false; ctl.enabled = true;
-    if (pbtn) pbtn.textContent = '▶ Play the trek'; if (cap) cap.classList.remove('on'); }
+  function setWalking(on) { window.__walking = on; document.body.classList.toggle('walking', on); size(); }
+  function stopTrek() { if (!trek) return; trek = 0; tLast = 0; ctl.enabled = true; setWalking(false);
+    if (pbtn) { pbtn.textContent = '▶ Resume'; pbtn.setAttribute('aria-pressed', 'false'); } setTimeout(() => { occlude(); loop(); }, 60); }
+  let lastOcc = 0;
   function frameTrek(t) {
     if (!trek) return;
     const dt = tLast ? Math.min(.25, (t - tLast) / 1000) : 0; tLast = t; tk = Math.min(N, tk + dt * N / SECS);
@@ -236,19 +261,24 @@ function play(stage) {
     let s = 0; T.stops.forEach((st, n) => { if (st.k <= tk) s = n; });
     const q = T.pts[Math.round(tk)], day = (DAYS[s] || [0, 15])[1];
     if (cap) cap.innerHTML = `<b>Day ${day}</b> · ${T.stops[s].n}<span>${fmt(q[2])} m · km ${Math.round(q[3])} of ${Math.round(T.pts[N][3])}</span>`;
+    if (t - lastOcc > 400) { lastOcc = t; occlude(); }
     loop();
-    if (tk >= N) { trek = 0; tLast = 0; ctl.enabled = true; if (pbtn) pbtn.textContent = '↺ Play again'; setTimeout(() => { occlude(); loop(); }, 60); return; }
+    if (tk >= N) { trek = 0; tLast = 0; ctl.enabled = true; setWalking(false); if (pbtn) { pbtn.textContent = '↺ Play again'; pbtn.setAttribute('aria-pressed', 'false'); } setTimeout(() => { occlude(); loop(); }, 60); return; }
     requestAnimationFrame(frameTrek);
   }
   if (pbtn) pbtn.addEventListener('click', () => {
     if (trek) { stopTrek(); return; }
     views.querySelectorAll('button').forEach(x => x.setAttribute('aria-pressed', x === pbtn));
-    if (tk >= N) tk = 0;
-    trek = 1; ctl.enabled = false; walker.visible = true; labels.forEach(l => { l.behind = false; });
-    pbtn.textContent = '❚❚ Pause'; if (cap) cap.classList.add('on'); requestAnimationFrame(frameTrek);
+    if (tk >= N) {   // replay: cut straight back to Beni rather than sweep across the massif
+      tk = 0; const h0 = at(0), a0 = at(18); tdir.subVectors(a0, h0).setY(0).normalize();
+      cam.position.copy(h0).addScaledVector(tdir, -4.5); cam.position.y = h0.y + 2.2; ctl.target.copy(h0).addScaledVector(tdir, 5); }
+    trek = 1; ctl.enabled = false; walker.visible = true; setWalking(true);
+    pbtn.textContent = '❚❚ Pause'; pbtn.setAttribute('aria-pressed', 'true'); if (cap) cap.classList.add('on'); measureKeepOut(); requestAnimationFrame(frameTrek);
   });
-  // the page opens playing: a moment on the view from below Beni, then the walk begins
-  if (pbtn) setTimeout(() => { if (!trek && tk === 0) pbtn.click(); }, 1800);
+  // the page opens playing: a moment on the view from below Beni, then the walk begins,
+  // unless the reader has already started looking around
+  let auto = pbtn && setTimeout(() => { if (!trek && tk === 0) pbtn.click(); }, 1800);
+  ctl.addEventListener('start', () => { if (auto) { clearTimeout(auto); auto = 0; } });
 
   // the page scrolls past it until someone chooses to play
   const cover = stage.querySelector('.play-cover');
@@ -268,5 +298,10 @@ if (stage) new IntersectionObserver((es, io) => {
   ]).then(([dem, trail, t]) => {
     Z = new Uint16Array(dem); T = trail; tex = t; tex.colorSpace = THREE.SRGBColorSpace; tex.anisotropy = 8;
     play(stage);
+  }).catch(err => {
+    console.error(err);
+    const msg = document.createElement('p'); msg.className = 'load-fail';
+    msg.textContent = 'The 3D view could not load here (it needs WebGL and a connection). Try reloading, or another browser.';
+    stage.appendChild(msg); const b = document.querySelector('.views'); if (b) b.hidden = true;
   });
 }, { rootMargin: '600px 0px' }).observe(stage);

@@ -79,6 +79,20 @@ html,body{margin:0;height:100%;background:#d6e3ee;color:var(--ink);font-family:v
 .trekcap b{font:500 1.2rem var(--display)}
 .trekcap span{display:block;font:.8rem "Times New Roman",Times,serif;opacity:.85}
 @media(max-width:40rem){.views{flex-wrap:wrap;justify-content:center;width:calc(100% - 2rem)}.trekcap{bottom:6.4rem}}
+
+/* the imagery credit always visible, small, bottom left */
+.credit-3d{position:fixed;left:.6rem;bottom:.4rem;z-index:5;margin:0;font:.62rem var(--text);color:#1d1b18aa;background:#ffffffb0;padding:.1rem .4rem;border-radius:4px}
+.credit-3d a{color:inherit}
+.card small a{color:inherit}
+@media(max-width:40rem){
+  .card small{display:block!important}
+  .credit-3d{left:.4rem;bottom:.3rem;font-size:.55rem}
+  .hint{bottom:1.6rem!important}
+  body.walking .hint{display:none}
+  body.walking .trekcap{bottom:4.7rem!important}
+  body.walking .views{bottom:1.8rem!important}
+}
+.load-fail{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);max-width:22rem;margin:0;padding:1rem 1.2rem;border-radius:12px;background:#fff;box-shadow:0 8px 30px #0002;font:.9rem/1.5 var(--text);text-align:center}
 </style>
 </head>
 <body>
@@ -115,10 +129,11 @@ html,body{margin:0;height:100%;background:#d6e3ee;color:var(--ink);font-family:v
     </ol>
     <p class="note">A typical itinerary; operators vary by a day or two. Tents above Italian Base Camp.</p>
   </details>
-  <small>Terrain: Copernicus GLO-30 DEM, ESA · surface: Sentinel-2 cloudless 2020 by EOX IT Services GmbH (contains modified Copernicus Sentinel data 2020), CC BY-NC-SA 4.0 · trail and km routed along the valleys between these places, not a GPS track · relief ×1.5</small>
+  <small>Terrain: Copernicus GLO-30 DEM (© DLR e.V. 2010–2014 and © Airbus 2014–2018, provided under COPERNICUS by the European Union and ESA) · surface: <a href="https://s2maps.eu" rel="noopener">Sentinel-2 cloudless</a> 2020 by EOX IT Services GmbH (contains modified Copernicus Sentinel data 2020), <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener">CC BY-NC-SA 4.0</a> · trail and km routed along the valleys between these places, not a GPS track · relief ×1.5</small>
   </div>
 </div>
-<div class="views"><button type="button" data-v="trek" class="play" aria-pressed="false">❚❚ Pause</button></div>
+<div class="views"><button type="button" data-v="trek" class="play" aria-pressed="false">▶ Play the trek</button></div>
+<p class="credit-3d"><a href="https://s2maps.eu" rel="noopener">Sentinel-2 cloudless</a> by EOX (CC BY-NC-SA 4.0) · Copernicus GLO-30</p>
 <p class="trekcap" aria-live="polite"></p>
 <p class="hint"><span class="mouse">Drag to turn · right-drag to move · scroll to zoom · hover the land</span><span class="touch">Drag to turn · pinch to zoom · two fingers to move</span></p>
 <div class="ptip"></div>
@@ -147,6 +162,6 @@ fetch('data/dhaulagiri-circuit.json').then(function(r){return r.json()}).then(fu
       dispatchEvent(new Event('resize'));});})();
 </script>
 <script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>
-<script type="module" src="assets/dhaulagiri.js?v=24"></script>
+<script type="module" src="assets/dhaulagiri.js?v=25"></script>
 </body>
 </html>
