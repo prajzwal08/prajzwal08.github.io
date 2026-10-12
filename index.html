@@ -914,6 +914,18 @@ footer p{margin-left:var(--pad)!important}
 .hp-years span{left:auto!important;right:100%;width:auto;transform:translateY(-50%);padding-right:.35rem;font:.6rem "Times New Roman",Times,serif!important;color:var(--soft);white-space:nowrap}
 .hp-years span::after{content:"";position:absolute;right:-1px;top:50%;width:4px;height:1px;background:var(--soft)}
 .hp-years{position:absolute;left:0;top:0;bottom:0;border-left:1px solid var(--line)}
+
+/* five small prayer flags on a string, just left of the name */
+.lungta-mini{display:inline-flex;gap:2px;margin-right:.5rem;padding-top:3px;vertical-align:middle;position:relative;top:-2px;border-top:1px solid #8a7a66}
+.lungta-mini i{display:block;width:7px;height:9px;transform-origin:top center;animation:lm 3.2s ease-in-out infinite}
+.lungta-mini i:nth-child(1){background:#2b5fa8}.lungta-mini i:nth-child(2){background:#f4f1ea;box-shadow:inset 0 0 0 1px #d8d2c6;animation-delay:-.4s}
+.lungta-mini i:nth-child(3){background:#c8261f;animation-delay:-.8s}.lungta-mini i:nth-child(4){background:#2f8a3a;animation-delay:-1.2s}
+.lungta-mini i:nth-child(5){background:#f0c420;animation-delay:-1.6s}
+@keyframes lm{50%{transform:skewX(-8deg) rotate(4deg)}}
+@media(prefers-reduced-motion:reduce){.lungta-mini i{animation:none}}
+
+.np-tag{padding:0 .3rem;border-radius:4px;background:#ffffffe8;box-shadow:0 1px 4px #0002}
+.lungta-mini{gap:3px}.lungta-mini i{width:9px;height:12px}
 </style>
 <script data-goatcounter="https://prajwalkhanal.goatcounter.com/count"
         async src="//gc.zgo.at/count.js"></script>
@@ -922,7 +934,7 @@ footer p{margin-left:var(--pad)!important}
 <svg width="0" height="0" style="position:absolute"><defs><linearGradient id="fold" x1="0" x2="1"><stop offset="0" stop-color="#000" stop-opacity=".12"/><stop offset=".2" stop-color="#fff" stop-opacity=".16"/><stop offset=".45" stop-color="#000" stop-opacity=".08"/><stop offset=".7" stop-color="#fff" stop-opacity=".12"/><stop offset="1" stop-color="#000" stop-opacity=".14"/></linearGradient><linearGradient id="cap" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="0" y2="120"><stop offset="0" stop-color="#fff"/><stop offset=".36" stop-color="#fff"/><stop offset=".40" stop-color="#fff" stop-opacity="0"/></linearGradient><linearGradient id="cap2" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="0" y2="120"><stop offset="0" stop-color="#fbf8f2"/><stop offset=".52" stop-color="#fbf8f2"/><stop offset=".56" stop-color="#fbf8f2" stop-opacity="0"/></linearGradient></defs></svg>
 
 <header class="topbar">
-  <a href="#top" class="mono">Prajwal Khanal</a>
+  <a href="#top" class="mono"><span class="lungta-mini" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>Prajwal Khanal</a>
   <nav class="tabs"><a href="#about">About</a><a href="#recent">Recent</a><a href="#plogs">Plogs</a><a href="#projects">Projects</a><a href="#experience">Experience</a><a href="#education">Education</a><a href="#publications-section">Publications</a><a href="#contact">Contact</a><a href="cv/cv.pdf">CV</a></nav>
   <svg class="climb" viewBox="0 0 1000 14" preserveAspectRatio="none" aria-hidden="true">
     <defs><clipPath id="climbed"><rect id="climbrect" x="0" y="0" width="0" height="14"/></clipPath></defs>
@@ -1779,7 +1791,9 @@ footer p{margin-left:var(--pad)!important}
     var max=document.documentElement.scrollHeight-innerHeight, p=max>0?Math.min(1,Math.max(0,scrollY/max)):0;
     var i=Math.round(TOP+p*(Z.length-1-TOP)), h=Z[i];
     dot.style.top=tag.style.top=(i/(Z.length-1)*100)+'%';
-    dot.style.left=(h/MAX*100)+'%'; tag.style.left='calc('+(h/MAX*100)+'% + 10px)';
+    dot.style.left=(h/MAX*100)+'%';
+    // near the right edge of the screen the reading goes on the dot's left side
+    var flip=h/MAX>.6; tag.style.left=flip?'auto':'calc('+(h/MAX*100)+'% + 10px)'; tag.style.right=flip?'calc('+(100-h/MAX*100)+'% + 10px)':'auto'; tag.style.marginTop=flip?'14px':'0';
     tag.textContent=h.toLocaleString('en-GB').replace(/,/g,'\u2009')+' m';
   }
   addEventListener('scroll',walk,{passive:true}); addEventListener('resize',walk); walk();
