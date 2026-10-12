@@ -1,10 +1,10 @@
 // The Dhaulagiri Circuit in 3D, on its own page (dhaulagiri.html), to turn and zoom.
-// Trail: Beni, up the Myagdi Khola past Darbang, Muri, Boghara and Dobang to Italian Base Camp,
+// The first view is from Poon Hill; the trail: Beni, up the Myagdi Khola past Darbang, Muri, Boghara and Dobang to Italian Base Camp,
 // up the glacier to Dhaulagiri Base Camp, over French Pass, through Hidden Valley, over Dhampus
 // Pass and down to Yak Kharka and Marpha. It is routed between those places along the easiest
 // ground on this terrain, so it follows the valleys but is not a GPS track.
 // Terrain: Copernicus GLO-30 DEM (© DLR e.V. 2010–2014 and © Airbus 2014–2018, provided under
-// COPERNICUS by the European Union and ESA), averaged to 400 × 498, 28.30–28.86° N, 83.30–83.75° E.
+// COPERNICUS by the European Union and ESA), averaged to 540 × 505, 28.15–28.86° N, 83.30–84.06° E (from Pokhara to Dhaulagiri).
 // Surface: Sentinel-2 cloudless 2020 by EOX IT Services GmbH (contains modified Copernicus
 // Sentinel data 2020), CC BY-NC-SA 4.0. Streams painted on in blue from flow accumulation on the same terrain.
 import * as THREE from 'three';
@@ -13,7 +13,7 @@ import { Line2 } from 'three/addons/lines/Line2.js';
 import { LineMaterial } from 'three/addons/lines/LineMaterial.js';
 import { LineGeometry } from 'three/addons/lines/LineGeometry.js';
 
-const NX = 400, NY = 498, LAT0 = 28.86, LAT1 = 28.30, LON0 = 83.30, LON1 = 83.75;
+const NX = 540, NY = 505, LAT0 = 28.86, LAT1 = 28.15, LON0 = 83.30, LON1 = 84.06;
 const KM_X = (LON1 - LON0) * 97.6, KM_Y = (LAT0 - LAT1) * 111.0;
 const VE = 1.5, FLOOR = 700;
 const fmt = n => Math.round(n).toLocaleString('en-GB').replace(/,/g, ' ');
@@ -22,6 +22,7 @@ const fmt = n => Math.round(n).toLocaleString('en-GB').replace(/,/g, ' ');
 const PEAKS = [
   ['Dhaulagiri I', 8167, 28.6975, 83.4897], ['Dhaulagiri II', 7751, 28.7631, 83.3875], ['Dhaulagiri III', 7715, 28.7543, 83.3774],
   ['Dhaulagiri IV', 7661, 28.7362, 83.3144], ['Tukuche Peak', 6920, 28.7449, 83.5576], ['Nilgiri South', 6839, 28.6729, 83.7352],
+  ['Annapurna I', 8091, 28.5959, 83.8270], ['Annapurna South', 7219, 28.5184, 83.8064], ['Machhapuchhre', 6993, 28.4979, 83.9456], ['Hiunchuli', 6441, 28.5105, 83.8493],
 ];
 
 let Z, T, tex;
@@ -162,12 +163,16 @@ function play(stage) {
   const overP = cam.position.clone(), overL = look.clone();
 
   // the first view: at the start of the trek
-  // standing at the start of the trek, Beni, a little behind and above it, facing up the Myagdi valley
-  const b0 = T.pts[0], VS = [1.5, 1.0];
-  const beni = new THREE.Vector3(X(b0[1]), Y(ground(b0[0], b0[1])), Zw(b0[0]));
-  const toPeak = new THREE.Vector3(X(83.4897) - beni.x, 0, Zw(28.6975) - beni.z).normalize();
-  const hillP = beni.clone().addScaledVector(toPeak, -VS[0]); hillP.y = Math.max(beni.y, Y(ground(LAT0 - hillP.z / KM_Y * (LAT0 - LAT1), LON0 + hillP.x / KM_X * (LON1 - LON0)))) + VS[1];
-  const hillL = new THREE.Vector3(X(83.46), Y(4600), Zw(28.69));
+  // the first view: Poon Hill (3 210 m), the classic viewpoint, with Dhaulagiri on the left and
+  // the Annapurnas on the right
+  const VV = [28.400, 83.690, .3, 83.70, 28.62, 5200, 60];
+  const pk = new THREE.Vector3(X(VV[1]), Y(ground(VV[0], VV[1])), Zw(VV[0]));
+  const gnd = P => Y(ground(LAT0 - P.z / KM_Y * (LAT0 - LAT1), LON0 + P.x / KM_X * (LON1 - LON0)));
+  const hillP = pk.clone(); hillP.y = Math.max(pk.y, gnd(hillP)) + VV[2];
+  // narrow screens can't hold the whole panorama: face Dhaulagiri I
+  const hillL = innerWidth < 700 ? new THREE.Vector3(X(83.50), Y(5600), Zw(28.68)) : new THREE.Vector3(X(VV[3]), Y(VV[5]), Zw(VV[4]));
+  cam.fov = VV[6]; cam.updateProjectionMatrix();
+
   function go(P, L, ms) {
     const p0 = cam.position.clone(), l0 = ctl.target.clone(), t0 = performance.now();
     (function step(t) { const k = Math.min(1, (t - t0) / ms), e = k < .5 ? 2 * k * k : 1 - Math.pow(-2 * k + 2, 2) / 2;
@@ -195,7 +200,7 @@ if (stage) new IntersectionObserver((es, io) => {
   Promise.all([
     fetch('data/dhaulagiri-dem.bin').then(r => r.arrayBuffer()),
     fetch('data/dhaulagiri-circuit.json').then(r => r.json()),
-    new THREE.TextureLoader().loadAsync('images/site/dhaulagiri-s2.jpg?v=3'),
+    new THREE.TextureLoader().loadAsync('images/site/dhaulagiri-s2.jpg?v=4'),
   ]).then(([dem, trail, t]) => {
     Z = new Uint16Array(dem); T = trail; tex = t; tex.colorSpace = THREE.SRGBColorSpace; tex.anisotropy = 8;
     play(stage);

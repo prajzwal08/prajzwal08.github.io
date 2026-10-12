@@ -61,6 +61,15 @@ html,body{margin:0;height:100%;background:#d6e3ee;color:var(--ink);font-family:v
 .views button{white-space:nowrap;padding:.4rem .8rem;border:0;border-radius:999px;background:#fffffff2;box-shadow:0 4px 14px #0002;font:500 .78rem var(--text);color:var(--ink);cursor:pointer}
 .views button[aria-pressed=true]{background:#1d1b18;color:#fff}
 @media(max-width:40rem){.views{top:auto;bottom:3.4rem;right:50%;transform:translateX(50%)}}
+
+/* the card stays small until asked: title and numbers, details on demand */
+.card{width:auto;max-width:24rem}
+.card .body{display:none}
+.card.open .body{display:block}
+.card.open{width:24rem}
+.more{margin-top:.2rem;padding:.2rem .6rem;border:1px solid #1d1b1822;border-radius:999px;background:#fff;font:500 .72rem var(--text);color:var(--ink);cursor:pointer}
+.facts{margin-bottom:.3rem!important}
+@media(max-width:40rem){.card{right:auto;max-width:calc(100% - 1rem)}.card.open{width:auto;right:.5rem}}
 </style>
 </head>
 <body>
@@ -72,6 +81,8 @@ html,body{margin:0;height:100%;background:#d6e3ee;color:var(--ink);font-family:v
   <a href="index.html">← Prajwal Khanal</a>
   <h1>Dhaulagiri Circuit</h1>
   <p class="facts"><span><b>15</b> days</span><span><b>~115</b> km</span><span><b>5 360</b> m French Pass</span></p>
+  <button class="more" type="button" aria-expanded="false">Details ▾</button>
+  <div class="body">
   <svg class="prof" viewBox="0 0 300 120" preserveAspectRatio="none" aria-label="Elevation along the trail"></svg>
   <div class="prof-x"><span>0 km</span><span>km along the trail</span><span class="end"></span></div>
   <details class="itin">
@@ -96,8 +107,9 @@ html,body{margin:0;height:100%;background:#d6e3ee;color:var(--ink);font-family:v
     <p class="note">A typical itinerary; operators vary by a day or two. Tents above Italian Base Camp.</p>
   </details>
   <small>Terrain: Copernicus GLO-30 DEM, ESA · surface: Sentinel-2 cloudless 2020 by EOX IT Services GmbH (contains modified Copernicus Sentinel data 2020), CC BY-NC-SA 4.0 · trail and km routed along the valleys between these places, not a GPS track · relief ×1.5</small>
+  </div>
 </div>
-<div class="views"><button type="button" data-v="hill" aria-pressed="true">From Beni</button><button type="button" data-v="over" aria-pressed="false">Whole circuit</button></div>
+<div class="views"><button type="button" data-v="hill" aria-pressed="true">From Poon Hill</button><button type="button" data-v="over" aria-pressed="false">Whole circuit</button></div>
 <p class="hint"><span class="mouse">Drag to turn · right-drag to move · scroll to zoom · hover the land</span><span class="touch">Drag to turn · pinch to zoom · two fingers to move</span></p>
 <div class="ptip"></div>
 <script>
@@ -119,7 +131,12 @@ fetch('data/dhaulagiri-circuit.json').then(function(r){return r.json()}).then(fu
   svg.addEventListener('pointerleave',function(){tip.style.opacity=0});
 });
 </script>
+<script>
+  (function(){var c=document.querySelector('.card'),b=c.querySelector('.more');
+    b.addEventListener('click',function(){var o=c.classList.toggle('open');b.setAttribute('aria-expanded',o);b.textContent=o?'Less ▴':'Details ▾';
+      dispatchEvent(new Event('resize'));});})();
+</script>
 <script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>
-<script type="module" src="assets/dhaulagiri.js?v=13"></script>
+<script type="module" src="assets/dhaulagiri.js?v=19"></script>
 </body>
 </html>
