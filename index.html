@@ -728,7 +728,7 @@ h2.kicker{margin-top:0}
 .np-mark i{position:absolute;left:-3px;top:50%;width:6px;height:6px;margin-top:-3px;border-radius:50%;border:1px solid var(--ink);background:#fff}
 .np-sum{padding-left:0;transform:translate(-100%,-180%)}.np-sum i{display:none}
 .np-cap{font:.66rem var(--text);letter-spacing:.08em;color:var(--soft);padding:.2rem 0}
-@media(max-width:81.99rem){.nprofile{display:none}}
+@media(max-width:63.99rem){.nprofile{display:none}}
 
 /* footer: the lake, the hills and the birds are the picture; flags in the sky above, the words on the left */
 footer{height:max(82vh,520px)!important;place-items:end start!important}
@@ -789,7 +789,7 @@ footer p{margin-left:var(--pad)!important}
 .hp-src:hover,.hp-src[aria-expanded=true]{color:var(--ink);border-color:var(--ink)}
 .hp-pop{position:absolute;left:0;right:auto;bottom:2rem;max-width:calc(100vw - 2rem);width:19rem;padding:.75rem .9rem;background:#fff;border:1px solid var(--line);border-radius:10px;box-shadow:0 10px 30px #0002;font:.68rem/1.45 var(--text);color:var(--ink);max-height:70vh;overflow:auto}
 .hp-pop p{margin:0 0 .45rem}.hp-pop p:last-child{margin:0;color:var(--soft)}
-@media(max-width:81.99rem){.hpanel{display:none}}
+@media(max-width:63.99rem){.hpanel{display:none}}
 .hp-key{margin-top:.1rem}
 
 
@@ -931,11 +931,11 @@ footer p{margin-left:var(--pad)!important}
 
 /* corners of the top band: real cloth flags over the left graph, Kathmandu at Dashain over the right */
 canvas.lungta-corner,.ktm{display:none}
-@media(min-width:82rem){
+@media(min-width:64rem){
   canvas.lungta-corner{display:block;position:absolute;left:1rem;top:6px;width:min(8rem,calc(var(--pad) - 3rem));height:32px}
   .ktm{display:block;position:absolute;right:.6rem;bottom:0;width:min(19rem,calc(var(--pad) - 1.4rem));height:auto;max-height:100%;object-fit:contain;object-position:right bottom}
 }
-@media(max-width:81.99rem){ .topbar .mono::before{content:none} }
+@media(max-width:63.99rem){ .topbar .mono::before{content:none} }
 .ktm .hills{fill:#d9b98a55}.ktm .snow{fill:#fff}.ktm .city{fill:#8c2f1e}
 .ktm .kite{animation:kite 5s ease-in-out infinite;transform-box:fill-box;transform-origin:50% 100%}
 .ktm .k2{animation-duration:6.5s;animation-delay:-2s}.ktm .k4{animation-duration:7s;animation-delay:-1s}.ktm .k3{animation-duration:5.8s;animation-delay:-3.5s}
@@ -965,7 +965,7 @@ canvas.lungta-corner,.ktm{display:none}
 
 /* ===== small screens: the graphs, flags and skyline as a section after About ===== */
 .climate-strip{display:none}
-@media(max-width:81.99rem){
+@media(max-width:63.99rem){
   .climate-strip{display:block;position:relative;z-index:1;margin:2.5rem auto 0;padding:0 var(--gut,1.25rem);max-width:46rem}
   .cs-top{display:flex;align-items:flex-end;justify-content:space-between;gap:1rem;border-bottom:1px solid var(--line);padding-bottom:.2rem}
   .cs-top canvas.lungta-corner{display:block!important;position:static!important;width:7rem!important;height:30px!important}
@@ -984,7 +984,7 @@ canvas.lungta-corner,.ktm{display:none}
 }
 
 /* wide screens: the wheel in the top-left corner with its hint; the right graph full height */
-@media(min-width:82rem){
+@media(min-width:64rem){
   .pwbar.single{left:1.2rem!important;right:auto!important;top:-1.05rem!important;bottom:auto!important;transform:scale(.52);transform-origin:top left;z-index:61}
   .sound-hint{left:3.4rem!important;right:auto!important;top:1rem!important;bottom:auto!important;z-index:61;max-width:none!important;white-space:nowrap!important}
   .ytcard{left:1rem!important;right:auto!important;top:4rem!important;bottom:auto!important;transform:translateY(8px)}
@@ -995,13 +995,13 @@ canvas.lungta-corner,.ktm{display:none}
 
 /* phones: room for the top bar above the strip; the hint a quiet pill that stays clear of text */
 #himalaya{scroll-margin-top:6.5rem}
-@media(max-width:81.99rem){ .climate-strip{padding-top:1rem} }
+@media(max-width:63.99rem){ .climate-strip{padding-top:1rem} }
 @media(max-width:52rem){
   .sound-hint{bottom:6.4rem!important;right:.35rem!important;font-size:.62rem!important;padding:.15rem .45rem!important;background:#ffffffee!important;box-shadow:0 2px 8px #0002}
   .nprofile .np-key{padding-right:3.4rem}
 }
 /* wide screens: the whole wheel inside the top bar */
-@media(min-width:82rem){ .pwbar.single{top:.35rem!important;transform:scale(.44)!important} .sound-hint{top:.9rem!important;left:3.1rem!important} }
+@media(min-width:64rem){ .pwbar.single{top:.35rem!important;transform:scale(.44)!important} .sound-hint{top:.9rem!important;left:3.1rem!important} }
 
 /* phones: only the Himalaya graph, full width */
 @media(max-width:52rem){
@@ -1011,14 +1011,14 @@ canvas.lungta-corner,.ktm{display:none}
   .cs-graphs .hp-pop{width:auto!important;right:0!important}
 }
 /* desktop: the wheel fully inside the top bar, centred on the name line */
-@media(min-width:82rem){
+@media(min-width:64rem){
   .pwbar.single{top:.5rem!important;left:1.1rem!important;transform:none!important;width:1.5rem!important;height:2.9rem!important}
   .pwbar.single .pwrow,.pwbar.single .pw{width:1.5rem!important;height:2.9rem!important}
   .sound-hint{top:.95rem!important;left:3.2rem!important}
 }
 
 /* desktop: "Rotate yourself" on the left, the wheel to its right */
-@media(min-width:82rem){
+@media(min-width:64rem){
   .sound-hint{left:1rem!important;top:.95rem!important}
   .pwbar.single{left:calc(1rem + 8.2rem)!important}
 }
@@ -1075,9 +1075,32 @@ html,body{overflow-x:clip}
   .ytclose{right:-.2rem}
   .ytcard{right:.5rem!important}
 }
-@media(max-width:81.99rem){.cue{right:auto!important;left:50%;transform:translateX(-50%)}}
+@media(max-width:63.99rem){.cue{right:auto!important;left:50%;transform:translateX(-50%)}}
 @media(min-width:100rem){.hpanel{width:min(17rem,calc(var(--pad) - 2.4rem))!important}.nprofile{width:min(10rem,calc(var(--pad) - 5.6rem))!important}}
 .hp-key,.hp-snow,.hp-tg,.hp-play,.hp-src{font-size:max(.55rem,9px)!important}
+
+/* desktop layout on every screen wider than a phone: on narrower desktops the text column
+   gives up a little width so the two side graphs keep room in the margins */
+@media(min-width:64rem){ :root{--col:min(60rem,calc(100vw - 23rem))} }
+
+/* the Maqu photo stays clear: the side graphs come in once the page is scrolled into */
+@media(min-width:64rem){
+  .hpanel,.nprofile{transition:opacity .5s}
+  html.hero-in .hpanel,html.hero-in .nprofile{opacity:0;pointer-events:none}
+}
+
+/* narrower desktops: a slightly smaller, tighter menu so it stays on one line */
+@media(min-width:64rem) and (max-width:86rem){
+  .topbar{flex-wrap:nowrap!important}
+  .topbar .tabs{flex-wrap:nowrap!important;gap:.75rem!important;margin-left:auto}
+  .topbar .tabs a{font-size:.74rem!important;letter-spacing:0!important}
+}
+@media(min-width:64rem) and (max-width:72rem){
+  .topbar .tabs{gap:.55rem!important}
+  .topbar .tabs a{font-size:.68rem!important}
+}
+
+@media(min-width:64rem){ .topbar{background:#fffffff5!important} }
 </style>
 <script data-goatcounter="https://prajwalkhanal.goatcounter.com/count"
         async src="//gc.zgo.at/count.js"></script>
@@ -2099,7 +2122,7 @@ html,body{overflow-x:clip}
 <script>
 // small screens have no margins: the two graphs, the flags and the skyline move into a section of the page
 (function(){
-  var mq=matchMedia('(max-width: 81.99rem)'), strip=document.getElementById('himalaya'); if(!strip) return;
+  var mq=matchMedia('(max-width: 63.99rem)'), strip=document.getElementById('himalaya'); if(!strip) return;
   var top=strip.querySelector('.cs-top'), gr=strip.querySelector('.cs-graphs');
   var parts=[['.ktm',top,true],['.hpanel',gr],['.nprofile',gr]].map(function(q){var e=document.querySelector(q[0]);return e&&{e:e,home:e.parentNode,next:e.nextSibling,to:q[1],wideOnly:q[2]}}).filter(Boolean);
   var phone=matchMedia('(max-width: 52rem)');
@@ -2112,7 +2135,7 @@ html,body{overflow-x:clip}
 // desktop: the name sits right after the wheel, centred top to bottom in the band
 (function(){
   var n=document.querySelector('.topbar .mono'), w=document.querySelector('.pwbar'), t=document.querySelector('.topbar .tabs');
-  var mq=matchMedia('(min-width: 82rem)');
+  var mq=matchMedia('(min-width: 64rem)');
   function place(){
     n.style.marginLeft=''; n.style.position=''; n.style.top='';
     if(!mq.matches||!w||!t) return;
@@ -2134,7 +2157,7 @@ html,body{overflow-x:clip}
 })();
 // stars and snow rest once the opening photo has scrolled away
 (function(){var hero=document.querySelector('.hero');if(!hero||!window.IntersectionObserver)return;
-  new IntersectionObserver(function(es){var on=es[0].isIntersecting;window.__heroOff=!on;['sky','snow'].forEach(function(id){var c=document.getElementById(id);if(c)c.style.visibility=on?'':'hidden';});}).observe(hero);
+  new IntersectionObserver(function(es){var on=es[0].isIntersecting;window.__heroOff=!on;document.documentElement.classList.toggle('hero-in',es[0].intersectionRatio>.35);['sky','snow'].forEach(function(id){var c=document.getElementById(id);if(c)c.style.visibility=on?'':'hidden';});},{threshold:[0,.35,.6]}).observe(hero);
 })();
 </script>
 </body>
