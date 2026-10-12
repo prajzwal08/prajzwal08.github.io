@@ -36,6 +36,25 @@ and `TODO.md`; `git log` has the same story in more detail.
 - Checked at phone, tablet, laptop and wide sizes, in Chrome and Safari's engine
   (WebKit). If Safari shows an old version, reload.
 
+Later the same day, after a four-part review (layout, code, content, 3D page):
+
+- **Desktop layout from 1024 px** (it had needed 1312 px): graphs in both margins,
+  wheel top-left, skyline top-right; the column narrows a little and the menu
+  tightens on smaller desktops. The graphs fade in after the Maqu photo, so the
+  opening picture shows as it is.
+- **Wheel**: one tap stops the chant on phones; YouTube loads only when someone
+  reaches for the wheel. **Graph readout**: observed years also show the 9-year
+  mean, so 2024→2025 no longer looks like cooling; clearer pin and toggles.
+- **Phones**: no hidden sideways scroll on small iPhones; opaque top bar; the
+  hint fades after a few seconds; WUNDER chart and Bermbrand legend fit.
+- **Dhaulagiri page**: no freeze after dragging; hidden places stay hidden during
+  the walk; the trekker stays clear of the caption on phones; pause keeps your
+  place; imagery credit always visible.
+- **Open, for Prajwal to decide** (his facts or words): the 2019 flood paper not in
+  the CV; "University of Bonn" in Awards; "(1 = best)" wording; prose not in the
+  CV; "(?)" on the slides' title page; the PhD under both Experience and
+  Education; the Bermbrand app spelled "bembrand".
+
 ## 11 October 2026 — New design: Himalaya, coordinates, plogs, live project visuals
 
 - **New look**: white page, Cormorant Garamond and Work Sans with every digit in
