@@ -3,6 +3,39 @@
 What changed, and why. Newest first. Named `LOG.md` to sit beside `README.md`
 and `TODO.md`; `git log` has the same story in more detail.
 
+## 12 October 2026 — Hierarchy, Himalaya climate panels, Dhaulagiri in 3D
+
+- **One type scale**: every section heading is the same large serif with a gold
+  rule; item titles (roles, degrees, projects) a size down in dark blue; dates and
+  places small and gold. Entries are centred, each with one uniform divider.
+- **Publications** show days since birth from their DOI dates (Crossref); the two
+  conference entries without a DOI keep their year.
+- **About**: the coordinate timeline is removed.
+- **Left (desktop): Himalaya, हिम (snow) को आलय (house).** Mean annual temperature of
+  the band 3 088–8 848 m, 1981–2024 (six ERA5-Land points along the profile), as
+  stripes and a 9-year mean; CMIP6 low (SSP1-2.6) and high (SSP5-8.5) pathways to
+  2050 with their 10–90 % spread (World Bank CCKP, Nepal), joined at 2024. Warming
+  1.3× the global average (+0.28 vs +0.21 °C per decade, NASA GISTEMP v4). Snow
+  days: 134 (1980s) → 93 (2015–24) → about 65 to 28 by 2050, a rough estimate from
+  the past link between temperature and snow days. Hover, pin, play, and a Source
+  note with the references. On phones it is drawn left to right at full width.
+- **Right (desktop): profile of Nepal**, Terai (0 km) to Kathmandu to Sagarmatha
+  (250 km), coloured by mean annual temperature; the dot walks it as you scroll.
+- **Top band**: "Rotate yourself" and the prayer wheel at the left, then the name;
+  turning the wheel by hand starts the chant, × or Esc stops it. A Kathmandu
+  skyline (adapted from a Freepik vector, in lighter Newari brick, flags in colour)
+  at the right; on phones beside the name.
+- **Dhaulagiri Circuit** on its own page (dhaulagiri.html): 3D from Pokhara to
+  Dhaulagiri (Copernicus GLO-30, Sentinel-2 cloudless), rivers in blue, the trek
+  played as a fly-through from below Beni to Marpha with a small trekker, plus
+  15 days, ~115 km, the elevation profile and a day-by-day itinerary. Linked from
+  the main page.
+- **Poem**: *Sagarmatha* by Yuyutsu Sharma, from *Panaharu Khali Chhan* (2020),
+  with the poet's permission; the line "Glacial" left out at Prajwal's request.
+- **Footer**: the lake, hills and birds at Maqu; smaller prayer flags.
+- Checked at phone, tablet, laptop and wide sizes, in Chrome and Safari's engine
+  (WebKit). If Safari shows an old version, reload.
+
 ## 11 October 2026 — New design: Himalaya, coordinates, plogs, live project visuals
 
 - **New look**: white page, Cormorant Garamond and Work Sans with every digit in
