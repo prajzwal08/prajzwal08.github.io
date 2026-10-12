@@ -982,6 +982,40 @@ canvas.lungta-corner,.ktm{display:none}
 @media(max-width:52rem){
   .sound-hint{display:block!important;right:.4rem!important;left:auto!important;bottom:7.1rem!important;max-width:6.5rem!important;font-size:.68rem!important;padding:.2rem .5rem!important;z-index:44}
 }
+
+/* wide screens: the wheel in the top-left corner with its hint; the right graph full height */
+@media(min-width:82rem){
+  .pwbar.single{left:1.2rem!important;right:auto!important;top:-1.05rem!important;bottom:auto!important;transform:scale(.52);transform-origin:top left;z-index:61}
+  .sound-hint{left:3.4rem!important;right:auto!important;top:1rem!important;bottom:auto!important;z-index:61;max-width:none!important;white-space:nowrap!important}
+  .ytcard{left:1rem!important;right:auto!important;top:4rem!important;bottom:auto!important;transform:translateY(8px)}
+  .ytcard.open{transform:none}
+  .nprofile{bottom:1.6rem!important}
+}
+.cs-top{justify-content:flex-end!important}
+
+/* phones: room for the top bar above the strip; the hint a quiet pill that stays clear of text */
+#himalaya{scroll-margin-top:6.5rem}
+@media(max-width:81.99rem){ .climate-strip{padding-top:1rem} }
+@media(max-width:52rem){
+  .sound-hint{bottom:6.4rem!important;right:.35rem!important;font-size:.62rem!important;padding:.15rem .45rem!important;background:#ffffffee!important;box-shadow:0 2px 8px #0002}
+  .nprofile .np-key{padding-right:3.4rem}
+}
+/* wide screens: the whole wheel inside the top bar */
+@media(min-width:82rem){ .pwbar.single{top:.35rem!important;transform:scale(.44)!important} .sound-hint{top:.9rem!important;left:3.1rem!important} }
+
+/* phones: only the Himalaya graph, full width */
+@media(max-width:52rem){
+  #himalaya .cs-top,#himalaya .nprofile{display:none!important}
+  .cs-graphs{grid-template-columns:1fr!important}
+  .cs-graphs .hpanel{height:min(70svh,34rem)!important}
+  .cs-graphs .hp-pop{width:auto!important;right:0!important}
+}
+/* desktop: the wheel fully inside the top bar, centred on the name line */
+@media(min-width:82rem){
+  .pwbar.single{top:.5rem!important;left:1.1rem!important;transform:none!important;width:1.5rem!important;height:2.9rem!important}
+  .pwbar.single .pwrow,.pwbar.single .pw{width:1.5rem!important;height:2.9rem!important}
+  .sound-hint{top:.95rem!important;left:3.2rem!important}
+}
 </style>
 <script data-goatcounter="https://prajwalkhanal.goatcounter.com/count"
         async src="//gc.zgo.at/count.js"></script>
@@ -990,7 +1024,6 @@ canvas.lungta-corner,.ktm{display:none}
 <svg width="0" height="0" style="position:absolute"><defs><linearGradient id="fold" x1="0" x2="1"><stop offset="0" stop-color="#000" stop-opacity=".12"/><stop offset=".2" stop-color="#fff" stop-opacity=".16"/><stop offset=".45" stop-color="#000" stop-opacity=".08"/><stop offset=".7" stop-color="#fff" stop-opacity=".12"/><stop offset="1" stop-color="#000" stop-opacity=".14"/></linearGradient><linearGradient id="cap" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="0" y2="120"><stop offset="0" stop-color="#fff"/><stop offset=".36" stop-color="#fff"/><stop offset=".40" stop-color="#fff" stop-opacity="0"/></linearGradient><linearGradient id="cap2" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="0" y2="120"><stop offset="0" stop-color="#fbf8f2"/><stop offset=".52" stop-color="#fbf8f2"/><stop offset=".56" stop-color="#fbf8f2" stop-opacity="0"/></linearGradient></defs></svg>
 
 <header class="topbar">
-  <canvas class="lungta lungta-corner" aria-hidden="true"></canvas>
   <img class="ktm" src="images/site/kathmandu-skyline.webp" alt="Kathmandu skyline: Boudhanath, Swayambhu, pagodas and the hills behind">
   <a href="#top" class="mono">Prajwal Khanal</a>
   <nav class="tabs"><a href="#about">About</a><a href="#recent">Recent</a><a href="#plogs">Plogs</a><a href="#projects">Projects</a><a href="#experience">Experience</a><a href="#education">Education</a><a href="#publications-section">Publications</a><a href="#contact">Contact</a><a href="cv/cv.pdf">CV</a></nav>
@@ -1978,7 +2011,7 @@ canvas.lungta-corner,.ktm{display:none}
 (function(){
   var mq=matchMedia('(max-width: 81.99rem)'), strip=document.getElementById('himalaya'); if(!strip) return;
   var top=strip.querySelector('.cs-top'), gr=strip.querySelector('.cs-graphs');
-  var parts=[['.lungta-corner',top],['.ktm',top],['.hpanel',gr],['.nprofile',gr]].map(function(q){var e=document.querySelector(q[0]);return e&&{e:e,home:e.parentNode,next:e.nextSibling,to:q[1]}}).filter(Boolean);
+  var parts=[['.ktm',top],['.hpanel',gr],['.nprofile',gr]].map(function(q){var e=document.querySelector(q[0]);return e&&{e:e,home:e.parentNode,next:e.nextSibling,to:q[1]}}).filter(Boolean);
   function place(){parts.forEach(function(p){ if(mq.matches){ if(p.e.parentNode!==p.to) p.to.appendChild(p.e); } else if(p.e.parentNode!==p.home){ p.home.insertBefore(p.e,p.next); } });
     strip.hidden=!mq.matches; dispatchEvent(new Event('resize'));}
   mq.addEventListener('change',place); place();
