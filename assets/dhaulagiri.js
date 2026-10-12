@@ -161,9 +161,10 @@ function play(stage) {
   const d0 = cam.position.distanceTo(look); scene.fog.near = d0 * 1.1; scene.fog.far = d0 * 3;
   const overP = cam.position.clone(), overL = look.clone();
 
-  // the first view: on the green hills above Darbang, looking up the valley to Dhaulagiri I and the range
-  const hillP = new THREE.Vector3(X(83.43), Y(ground(28.385, 83.43)) + 2.4, Zw(28.385));
-  const hillL = new THREE.Vector3(X(83.47), Y(6200), Zw(28.69));
+  // the first view: from the foot of the block, just off its south (Beni) edge and low,
+  // looking north across the whole model to the range
+  const hillP = new THREE.Vector3(KM_X * .5, Y(ground(LAT1, (LON0 + LON1) / 2)) + 4.5, KM_Y + 14);
+  const hillL = new THREE.Vector3(X(83.46), Y(4600), Zw(28.69));
   function go(P, L, ms) {
     const p0 = cam.position.clone(), l0 = ctl.target.clone(), t0 = performance.now();
     (function step(t) { const k = Math.min(1, (t - t0) / ms), e = k < .5 ? 2 * k * k : 1 - Math.pow(-2 * k + 2, 2) / 2;

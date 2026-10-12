@@ -732,8 +732,9 @@ h2.kicker{margin-top:0}
 
 /* footer: the lake, the hills and the birds are the picture; flags in the sky above, the words on the left */
 footer{height:max(82vh,520px)!important;place-items:end start!important}
+@media(max-width:52rem){footer img{object-position:22% 60%!important}}
 footer img{object-position:50% 60%;-webkit-mask:linear-gradient(#0000,#000 14%)!important;mask:linear-gradient(#0000,#000 14%)!important}
-footer canvas.flags{top:2%!important;height:26%!important}
+footer canvas.flags{top:1%!important;height:15%!important}
 footer p{margin-left:var(--pad)!important}
 .nprofile{transition:opacity .4s}
 .nprofile.np-off{opacity:0}
@@ -1641,7 +1642,7 @@ footer p{margin-left:var(--pad)!important}
           E=(u0*(v1*x2-v2*x1)-u1*(v0*x2-v2*x0)+u2*(v0*x1-v1*x0))/d,F=(u0*(v1*y2-v2*y1)-u1*(v0*y2-v2*y0)+u2*(v0*y1-v1*y0))/d;
       g.transform(A,B,C,Dd,E,F);g.drawImage(img,0,0);g.restore();}
     function setup(cv){var W=cv.width=Math.round(cv.clientWidth*dpr),H=cv.height=Math.round(cv.clientHeight*dpr);if(W<10||H<10)return null;
-      var big=cv.dataset.size==='large',FW=Math.round(big?Math.min(H*.42,72*dpr):H*.52),FH=Math.round(FW*(big?1.12:.92)),
+      var big=cv.dataset.size==='large',FW=Math.round(big?Math.min(H*.42,44*dpr):H*.52),FH=Math.round(FW*(big?1.12:.92)),
         sag=big?H*.2:H*.16,y0=big?H*.07:H*.05,r=rnd(big?5:9),fl=[],x=-FW*.3;
       while(x<W+FW){var gap=FW*(1.04+r()*.12);fl.push({x:x+FW/2,c:fl.length%5,ph:r()*6.3,sp:.85+r()*.3,tex:null});x+=gap;}
       fl.forEach(function(f,i){f.tex=texture(FW,FH,f.c,101+i*7+(big?1000:0))});
