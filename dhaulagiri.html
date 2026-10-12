@@ -70,6 +70,15 @@ html,body{margin:0;height:100%;background:#d6e3ee;color:var(--ink);font-family:v
 .more{margin-top:.2rem;padding:.2rem .6rem;border:1px solid #1d1b1822;border-radius:999px;background:#fff;font:500 .72rem var(--text);color:var(--ink);cursor:pointer}
 .facts{margin-bottom:.3rem!important}
 @media(max-width:40rem){.card{right:auto;max-width:calc(100% - 1rem)}.card.open{width:auto;right:.5rem}}
+
+.views .play{background:#e0312b;color:#fff}
+.views .play[aria-pressed=true]{background:#b8322a}
+.trekcap{position:fixed;left:50%;bottom:3.4rem;z-index:5;transform:translateX(-50%) translateY(10px);margin:0;padding:.5rem 1rem;border-radius:12px;background:#1d1b18e0;color:#fff;
+  font:500 1rem var(--text);text-align:center;white-space:nowrap;opacity:0;transition:.4s;pointer-events:none}
+.trekcap.on{opacity:1;transform:translateX(-50%)}
+.trekcap b{font:500 1.2rem var(--display)}
+.trekcap span{display:block;font:.8rem "Times New Roman",Times,serif;opacity:.85}
+@media(max-width:40rem){.views{flex-wrap:wrap;justify-content:center;width:calc(100% - 2rem)}.trekcap{bottom:6.4rem}}
 </style>
 </head>
 <body>
@@ -109,7 +118,8 @@ html,body{margin:0;height:100%;background:#d6e3ee;color:var(--ink);font-family:v
   <small>Terrain: Copernicus GLO-30 DEM, ESA · surface: Sentinel-2 cloudless 2020 by EOX IT Services GmbH (contains modified Copernicus Sentinel data 2020), CC BY-NC-SA 4.0 · trail and km routed along the valleys between these places, not a GPS track · relief ×1.5</small>
   </div>
 </div>
-<div class="views"><button type="button" data-v="hill" aria-pressed="true">From Poon Hill</button><button type="button" data-v="over" aria-pressed="false">Whole circuit</button></div>
+<div class="views"><button type="button" data-v="trek" class="play" aria-pressed="false">▶ Play the trek</button><button type="button" data-v="hill" aria-pressed="true">From Beni</button><button type="button" data-v="over" aria-pressed="false">Whole circuit</button></div>
+<p class="trekcap" aria-live="polite"></p>
 <p class="hint"><span class="mouse">Drag to turn · right-drag to move · scroll to zoom · hover the land</span><span class="touch">Drag to turn · pinch to zoom · two fingers to move</span></p>
 <div class="ptip"></div>
 <script>
@@ -137,6 +147,6 @@ fetch('data/dhaulagiri-circuit.json').then(function(r){return r.json()}).then(fu
       dispatchEvent(new Event('resize'));});})();
 </script>
 <script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>
-<script type="module" src="assets/dhaulagiri.js?v=19"></script>
+<script type="module" src="assets/dhaulagiri.js?v=22"></script>
 </body>
 </html>

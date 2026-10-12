@@ -1589,7 +1589,7 @@ footer p{margin-left:var(--pad)!important}
     var wheelEl=document.querySelector('.pwbar'),card=document.querySelector('.ytcard'),hint=document.querySelector('.sound-hint');
     if(!wheelEl||!card)return;
     var player=null,ready=false,want=false,queued=false;
-    function show(on){wheelEl.classList.toggle('playing',on);card.classList.toggle('open',on);if(hint&&on)hint.classList.add('gone');}
+    function show(on){wheelEl.classList.toggle('playing',on);card.classList.toggle('open',on);if(hint)hint.classList.toggle('gone',on);}
     function load(){if(window.YT&&YT.Player)return make();
       var t=document.createElement('script');t.src='https://www.youtube.com/iframe_api';document.head.appendChild(t);
       window.onYouTubeIframeAPIReady=make;}

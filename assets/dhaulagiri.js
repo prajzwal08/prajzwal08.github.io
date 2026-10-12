@@ -1,5 +1,5 @@
 // The Dhaulagiri Circuit in 3D, on its own page (dhaulagiri.html), to turn and zoom.
-// The first view is from Poon Hill; the trail: Beni, up the Myagdi Khola past Darbang, Muri, Boghara and Dobang to Italian Base Camp,
+// The first view is from below Beni, where the trek starts; the trail: Beni, up the Myagdi Khola past Darbang, Muri, Boghara and Dobang to Italian Base Camp,
 // up the glacier to Dhaulagiri Base Camp, over French Pass, through Hidden Valley, over Dhampus
 // Pass and down to Yak Kharka and Marpha. It is routed between those places along the easiest
 // ground on this terrain, so it follows the valleys but is not a GPS track.
@@ -163,15 +163,26 @@ function play(stage) {
   const overP = cam.position.clone(), overL = look.clone();
 
   // the first view: at the start of the trek
-  // the first view: Poon Hill (3 210 m), the classic viewpoint, with Dhaulagiri on the left and
-  // the Annapurnas on the right
-  const VV = [28.400, 83.690, .3, 83.70, 28.62, 5200, 60];
-  const pk = new THREE.Vector3(X(VV[1]), Y(ground(VV[0], VV[1])), Zw(VV[0]));
+  // the first view: on the hills below (south of) Beni, where the trek starts, looking up the
+  // Myagdi valley; step back until Beni sits low in the frame and Dhaulagiri I's summit fits
   const gnd = P => Y(ground(LAT0 - P.z / KM_Y * (LAT0 - LAT1), LON0 + P.x / KM_X * (LON1 - LON0)));
-  const hillP = pk.clone(); hillP.y = Math.max(pk.y, gnd(hillP)) + VV[2];
-  // narrow screens can't hold the whole panorama: face Dhaulagiri I
-  const hillL = innerWidth < 700 ? new THREE.Vector3(X(83.50), Y(5600), Zw(28.68)) : new THREE.Vector3(X(VV[3]), Y(VV[5]), Zw(VV[4]));
-  cam.fov = VV[6]; cam.updateProjectionMatrix();
+  const b0 = T.pts[0], beni = new THREE.Vector3(X(b0[1]), Y(ground(b0[0], b0[1])), Zw(b0[0]));
+  const peakV = new THREE.Vector3(X(83.4897), Y(8167), Zw(28.6975));
+  const away = new THREE.Vector3(beni.x - peakV.x, 0, beni.z - peakV.z).normalize();
+  let hillP, hillL;
+  cam.fov = 52; cam.updateProjectionMatrix();
+  for (let back = 4; back <= 40; back += 1.5) {
+    hillP = beni.clone().addScaledVector(away, back); hillP.y = Math.max(beni.y, gnd(hillP)) + 1.2 + back * .12;
+    hillL = beni.clone().lerp(peakV, .4);
+    const c = cam.clone(), v = new THREE.Vector3(); c.position.copy(hillP);
+    for (let n = 0; n < 60; n++) {
+      c.lookAt(hillL); c.updateMatrixWorld(); v.copy(beni).project(c);
+      const dx = v.x, dy = v.y + .62; if (Math.abs(dx) < .02 && Math.abs(dy) < .02) break;
+      const right = new THREE.Vector3().setFromMatrixColumn(c.matrixWorld, 0), up = new THREE.Vector3().setFromMatrixColumn(c.matrixWorld, 1);
+      const d = hillL.distanceTo(hillP); hillL.addScaledVector(right, dx * d * .35).addScaledVector(up, dy * d * .35); }
+    c.lookAt(hillL); c.updateMatrixWorld();
+    const pv = peakV.clone().project(c); if (pv.y < .7 && Math.abs(pv.x) < .85) break;
+  }
 
   function go(P, L, ms) {
     const p0 = cam.position.clone(), l0 = ctl.target.clone(), t0 = performance.now();
@@ -183,8 +194,52 @@ function play(stage) {
   const views = stage.parentElement.querySelector('.views');
   if (views) views.addEventListener('click', e => { const b = e.target.closest('button'); if (!b) return;
     views.querySelectorAll('button').forEach(x => x.setAttribute('aria-pressed', x === b));
-    b.dataset.v === 'hill' ? go(hillP, hillL, 1600) : go(overP, overL, 1600); });
+    if (b.dataset.v === 'trek') return;
+    stopTrek(); b.dataset.v === 'hill' ? go(hillP, hillL, 1600) : go(overP, overL, 1600); });
   occlude(); loop();
+
+  // ---- play the trek: a drone flies the trail from Beni to Marpha, like a video ----
+  const TP = T.pts.map(([la, lo]) => new THREE.Vector3(X(lo), Y(ground(la, lo)) + .1, Zw(la)));
+  // a small trekker: red jacket, dark legs, a backpack and a sun hat
+  const walker = new THREE.Group(), M = c => new THREE.MeshStandardMaterial({ color: c, roughness: .8 });
+  const legs = new THREE.Mesh(new THREE.CylinderGeometry(.028, .028, .14, 8), M('#2b2b33')); legs.position.y = .07;
+  const body = new THREE.Mesh(new THREE.CylinderGeometry(.04, .045, .13, 10), M('#d1322a')); body.position.y = .2;
+  const pack = new THREE.Mesh(new THREE.BoxGeometry(.07, .1, .05), M('#e2a33a')); pack.position.set(0, .21, .05);
+  const head = new THREE.Mesh(new THREE.SphereGeometry(.035, 12, 10), M('#c8956a')); head.position.y = .3;
+  const hat = new THREE.Mesh(new THREE.CylinderGeometry(.06, .06, .012, 14), M('#f2e6c9')); hat.position.y = .33;
+  walker.add(legs, body, pack, head, hat); walker.scale.setScalar(1.25);
+  walker.visible = false; scene.add(walker);
+  const cap = document.querySelector('.trekcap'), pbtn = views && views.querySelector('[data-v=trek]');
+  const DAYS = [[0, 1], [1, 1], [2, 3], [3, 4], [4, 5], [5, 7], [6, 10], [7, 12], [8, 12], [9, 13], [10, 13], [11, 14]];   // stop → itinerary day
+  const SECS = 70, N = TP.length - 1;
+  let trek = 0, tk = 0, tLast = 0;
+  const cP = new THREE.Vector3(), cL = new THREE.Vector3(), tdir = new THREE.Vector3();
+  function at(k) { return TP[Math.max(0, Math.min(N, Math.round(k)))]; }
+  function stopTrek() { if (!trek) return; trek = 0; tLast = 0; walker.visible = false; ctl.enabled = true;
+    if (pbtn) pbtn.textContent = '▶ Play the trek'; if (cap) cap.classList.remove('on'); }
+  function frameTrek(t) {
+    if (!trek) return;
+    const dt = tLast ? Math.min(.25, (t - tLast) / 1000) : 0; tLast = t; tk = Math.min(N, tk + dt * N / SECS);
+    const here = at(tk), ahead = at(tk + 18), behind = at(tk - 10);
+    tdir.subVectors(ahead, behind).setY(0); if (tdir.lengthSq() < 1e-6) tdir.set(0, 0, -1); tdir.normalize();
+    cP.copy(here).addScaledVector(tdir, -4.5); cP.y = Math.max(here.y, Y(ground(LAT0 - cP.z / KM_Y * (LAT0 - LAT1), LON0 + cP.x / KM_X * (LON1 - LON0)))) + 2.2;
+    cL.copy(here).addScaledVector(tdir, 5); cL.y = here.y + .8;
+    cam.position.lerp(cP, .06); ctl.target.lerp(cL, .08); cam.lookAt(ctl.target);
+    walker.position.copy(here).setY(here.y - .02); walker.rotation.y = Math.atan2(tdir.x, tdir.z) + Math.PI;
+    let s = 0; T.stops.forEach((st, n) => { if (st.k <= tk) s = n; });
+    const q = T.pts[Math.round(tk)], day = (DAYS[s] || [0, 15])[1];
+    if (cap) cap.innerHTML = `<b>Day ${day}</b> · ${T.stops[s].n}<span>${fmt(q[2])} m · km ${Math.round(q[3])} of ${Math.round(T.pts[N][3])}</span>`;
+    loop();
+    if (tk >= N) { trek = 0; tLast = 0; ctl.enabled = true; if (pbtn) pbtn.textContent = '↺ Play again'; setTimeout(() => { occlude(); loop(); }, 60); return; }
+    requestAnimationFrame(frameTrek);
+  }
+  if (pbtn) pbtn.addEventListener('click', () => {
+    if (trek) { stopTrek(); return; }
+    views.querySelectorAll('button').forEach(x => x.setAttribute('aria-pressed', x === pbtn));
+    if (tk >= N) tk = 0;
+    trek = 1; ctl.enabled = false; walker.visible = true; labels.forEach(l => { l.behind = false; });
+    pbtn.textContent = '❚❚ Pause'; if (cap) cap.classList.add('on'); requestAnimationFrame(frameTrek);
+  });
 
   // the page scrolls past it until someone chooses to play
   const cover = stage.querySelector('.play-cover');
