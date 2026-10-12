@@ -1036,6 +1036,31 @@ canvas.lungta-corner,.ktm{display:none}
   .cs-graphs .hpanel{height:auto!important}
   .cs-graphs .hp-chart{flex:none!important;height:62svh!important;min-height:26rem}
 }
+
+/* phones: the skyline in the top band, to the right of the name; the graph tall and roomy */
+@media(max-width:52rem){
+  #himalaya .cs-top{display:none!important}
+  .topbar > .ktm{display:block!important;position:absolute!important;right:.6rem;top:.35rem;bottom:auto;width:auto!important;height:2.6rem!important;max-width:52vw;object-fit:contain;object-position:right bottom}
+  .cs-graphs .hp-chart{height:72svh!important;min-height:30rem!important}
+  .cs-graphs .hpanel{padding-top:.5rem}
+}
+
+/* phones: the horizontal chart replaces the tall one */
+.hp-hchart,.hh-read{display:none}
+@media(max-width:52rem){
+  .cs-graphs .hp-chart,.cs-graphs .hp-axis,.cs-graphs .hp-unit{display:none!important}
+  .hp-hchart{display:block;width:100%;height:auto;margin:.3rem 0 .2rem;touch-action:pan-y}
+  .hh-read{display:block;min-height:1.2rem;font:.72rem/1.4 var(--text);color:var(--ink)}
+  .hh-read b{font:600 .8rem "Times New Roman",Times,serif}
+  .hh-grid{stroke:#1d1b1814;stroke-width:1}
+  .hh-t{font:10px "Times New Roman",Times,serif;fill:#78726a}
+  .hh-now{stroke:#1d1b1899;stroke-width:1.2;stroke-dasharray:4 3}
+  .hp-hchart .hp-obs,.hp-hchart .hp-smooth,.hp-hchart .hp-ssp,.hp-hchart .hp-band{vector-effect:none}
+  .hp-hchart .hp-smooth{stroke-width:2.4}.hp-hchart .hp-obs{stroke-width:1}.hp-hchart .hp-ssp{stroke-width:1.8}.hp-hchart .hp-band{stroke-width:.8}
+  .cs-graphs .hpanel{height:auto!important}
+}
+
+@media(max-width:52rem){ .topbar .tabs{max-width:100%;overflow-x:auto;scrollbar-width:none} .topbar .tabs::-webkit-scrollbar{display:none} html,body{overflow-x:hidden} }
 </style>
 <script data-goatcounter="https://prajwalkhanal.goatcounter.com/count"
         async src="//gc.zgo.at/count.js"></script>
@@ -2017,6 +2042,33 @@ canvas.lungta-corner,.ktm{display:none}
     if(playing){clearInterval(playing);playing=null;pb.textContent='▶ Play 1981–2050';return;}
     pinned=false; var y=Y0; pb.textContent='❚❚ Pause'; show(y);
     playing=setInterval(function(){y++; if(y>END){clearInterval(playing);playing=null;pb.textContent='▶ Play 1981–2050';pinned=true;show(END);return;} show(y);},115);});
+  // phones: the same series drawn the usual way round, years left to right, warmer upwards
+  (function(){
+    var W=360,H=230,ML=30,MB=22,MT=8,MR=8, hs=document.createElementNS(NS,'svg'); hs.setAttribute('class','hp-hchart'); hs.setAttribute('viewBox','0 0 '+W+' '+H);
+    var X=function(y){return ML+(y-Y0)/(END-Y0)*(W-ML-MR)}, Yt=function(t){return MT+(1-(t-LO)/(HI-LO))*(H-MT-MB)};
+    var add=function(n,a,p){var e=document.createElementNS(NS,n);for(var k in a)e.setAttribute(k,a[k]);(p||hs).appendChild(e);return e};
+    var g=add('linearGradient',{id:'hp-hgrad',gradientUnits:'userSpaceOnUse',x1:X(Y0),y1:0,x2:X(2024),y2:0},add('defs',{}));
+    SM.forEach(function(t,k){add('stop',{offset:(k/(SM.length-1)).toFixed(3),'stop-color':col(t)},g)});
+    for(var t=Math.ceil(LO);t<=HI;t++){add('line',{x1:ML,x2:W-MR,y1:Yt(t),y2:Yt(t),class:'hh-grid'});add('text',{x:ML-4,y:Yt(t)+3,class:'hh-t','text-anchor':'end'}).textContent=(t<0?'−':'')+Math.abs(t);}
+    [1981,2000,2024,2050].forEach(function(y){add('text',{x:X(y),y:H-6,class:'hh-t','text-anchor':y===END?'end':y===Y0?'start':'middle'}).textContent=y;});
+    add('path',{d:'M'+X(Y0)+' '+(H-MB)+SM.map(function(t,k){return 'L'+X(Y0+k).toFixed(1)+' '+Yt(t).toFixed(1)}).join('')+'L'+X(2024)+' '+(H-MB)+'Z',fill:'url(#hp-hgrad)'});
+    S.forEach(function(sx){add('path',{class:'hp-band','data-s':sx,fill:COL[sx],stroke:COL[sx],d:ys.map(function(y,i){return (i?'L':'M')+X(y).toFixed(1)+' '+Yt(P[sx].p90[i]).toFixed(1)}).join('')+ys.slice().reverse().map(function(y,i){return 'L'+X(y).toFixed(1)+' '+Yt(P[sx].p10[ys.length-1-i]).toFixed(1)}).join('')+'Z'});});
+    S.forEach(function(sx){add('path',{class:'hp-ssp','data-s':sx,stroke:COL[sx],d:ys.map(function(y,i){return (i?'L':'M')+X(y).toFixed(1)+' '+Yt(P[sx].median[i]).toFixed(1)}).join('')});});
+    add('path',{class:'hp-obs',d:D.T.map(function(t,k){return (k?'L':'M')+X(Y0+k).toFixed(1)+' '+Yt(t).toFixed(1)}).join('')});
+    add('path',{class:'hp-smooth',d:SM.map(function(t,k){return (k?'L':'M')+X(Y0+k).toFixed(1)+' '+Yt(t).toFixed(1)}).join('')});
+    add('line',{x1:X(2024),x2:X(2024),y1:MT,y2:H-MB,class:'hh-now'});
+    add('text',{x:X(2024)-3,y:MT+8,class:'hh-t','text-anchor':'end'}).textContent='observed';
+    add('text',{x:X(2024)+3,y:MT+8,class:'hh-t'}).textContent='projected';
+    add('text',{x:W-MR,y:H-MB-4,class:'hh-t','text-anchor':'end'}).textContent='mean annual °C';
+    var ch=box.querySelector('.hp-chart'); ch.parentNode.insertBefore(hs,ch);
+    // tap or drag along it: the year's reading
+    var rd=document.createElement('div'); rd.className='hh-read'; hs.parentNode.insertBefore(rd,hs.nextSibling);
+    function read(e){var b=hs.getBoundingClientRect(), x=(e.clientX-b.left)/b.width*W, y=Math.max(Y0,Math.min(END,Math.round(Y0+(x-ML)/(W-ML-MR)*(END-Y0))));
+      var t; if(y<=2024){var k=y-Y0;t='<b>'+y+'</b> '+f1(D.T[k])+' °C'+(D.snow[k]!=null?' · '+D.snow[k]+' snow days':'');}
+      else{var i=y-2024,sd=function(sx){return Math.max(0,Math.round(D.snowNow-44.3*(P[sx].median[i]-now)))};t='<b>'+y+'</b><br>low '+f1(P.ssp126.median[i])+' °C · ~'+sd('ssp126')+' snow days<br>high '+f1(P.ssp585.median[i])+' °C · ~'+sd('ssp585')+' snow days';}
+      rd.innerHTML=t;}
+    hs.addEventListener('pointermove',read); hs.addEventListener('pointerdown',read);
+  })();
   var src=box.querySelector('.hp-src'), pop=box.querySelector('.hp-pop');
   src.addEventListener('click',function(){pop.hidden=!pop.hidden;src.setAttribute('aria-expanded',!pop.hidden);});
   pop.querySelector('.hp-x-close').addEventListener('click',function(){pop.hidden=true;src.setAttribute('aria-expanded',false);src.focus();});
@@ -2031,10 +2083,11 @@ canvas.lungta-corner,.ktm{display:none}
 (function(){
   var mq=matchMedia('(max-width: 81.99rem)'), strip=document.getElementById('himalaya'); if(!strip) return;
   var top=strip.querySelector('.cs-top'), gr=strip.querySelector('.cs-graphs');
-  var parts=[['.ktm',top],['.hpanel',gr],['.nprofile',gr]].map(function(q){var e=document.querySelector(q[0]);return e&&{e:e,home:e.parentNode,next:e.nextSibling,to:q[1]}}).filter(Boolean);
-  function place(){parts.forEach(function(p){ if(mq.matches){ if(p.e.parentNode!==p.to) p.to.appendChild(p.e); } else if(p.e.parentNode!==p.home){ p.home.insertBefore(p.e,p.next); } });
+  var parts=[['.ktm',top,true],['.hpanel',gr],['.nprofile',gr]].map(function(q){var e=document.querySelector(q[0]);return e&&{e:e,home:e.parentNode,next:e.nextSibling,to:q[1],wideOnly:q[2]}}).filter(Boolean);
+  var phone=matchMedia('(max-width: 52rem)');
+  function place(){parts.forEach(function(p){ if(mq.matches&&!(p.wideOnly&&phone.matches)){ if(p.e.parentNode!==p.to) p.to.appendChild(p.e); } else if(p.e.parentNode!==p.home){ p.home.insertBefore(p.e,p.next); } });
     strip.hidden=!mq.matches; dispatchEvent(new Event('resize'));}
-  mq.addEventListener('change',place); place();
+  mq.addEventListener('change',place); phone.addEventListener('change',place); place();
 })();
 </script>
 <script>
