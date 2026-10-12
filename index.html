@@ -787,7 +787,7 @@ footer p{margin-left:var(--pad)!important}
 .hp-key i{display:inline-block;width:.8rem;height:2px;margin:0 .2rem .15rem 0;background:var(--c);vertical-align:middle}
 .hp-src{align-self:flex-start;margin-top:.25rem;padding:.12rem .5rem;font-size:.6rem!important;border:1px solid var(--line);border-radius:999px;background:#fff;font:.66rem var(--text);color:var(--soft);cursor:pointer}
 .hp-src:hover,.hp-src[aria-expanded=true]{color:var(--ink);border-color:var(--ink)}
-.hp-pop{position:absolute;right:0;bottom:2rem;width:19rem;padding:.75rem .9rem;background:#fff;border:1px solid var(--line);border-radius:10px;box-shadow:0 10px 30px #0002;font:.68rem/1.45 var(--text);color:var(--ink);max-height:70vh;overflow:auto}
+.hp-pop{position:absolute;left:0;right:auto;bottom:2rem;max-width:calc(100vw - 2rem);width:19rem;padding:.75rem .9rem;background:#fff;border:1px solid var(--line);border-radius:10px;box-shadow:0 10px 30px #0002;font:.68rem/1.45 var(--text);color:var(--ink);max-height:70vh;overflow:auto}
 .hp-pop p{margin:0 0 .45rem}.hp-pop p:last-child{margin:0;color:var(--soft)}
 @media(max-width:82rem){.hpanel{display:none}}
 .hp-key{margin-top:.1rem}
@@ -933,7 +933,7 @@ footer p{margin-left:var(--pad)!important}
 canvas.lungta-corner,.ktm{display:none}
 @media(min-width:82rem){
   canvas.lungta-corner{display:block;position:absolute;left:1rem;top:6px;width:min(8rem,calc(var(--pad) - 3rem));height:32px}
-  .ktm{display:block;position:absolute;right:.6rem;top:0;bottom:0;height:100%;width:min(19rem,calc(var(--pad) - 1.4rem))}
+  .ktm{display:block;position:absolute;right:.6rem;bottom:0;width:min(19rem,calc(var(--pad) - 1.4rem));height:auto;max-height:100%;object-fit:contain;object-position:right bottom}
 }
 @media(max-width:81.99rem){ .topbar .mono::before{content:none} }
 .ktm .hills{fill:#d9b98a55}.ktm .snow{fill:#fff}.ktm .city{fill:#8c2f1e}
@@ -952,6 +952,11 @@ canvas.lungta-corner,.ktm{display:none}
 .record,.recent-item,.contact-list li,.keyed-list li,#publications li{border-top:1px solid var(--line)!important}
 .contact-list,.keyed-list{max-width:none!important}
 .contact-list li > *,.keyed-list li > *{max-width:46rem;margin-left:auto;margin-right:auto}
+
+/* the year labels sit over the dashed line, so 2024 stays readable */
+.hp-years{z-index:2}
+.hp-years span{background:var(--bg,#fff);padding-left:.15rem}
+.hp-sep{z-index:1}
 </style>
 <script data-goatcounter="https://prajwalkhanal.goatcounter.com/count"
         async src="//gc.zgo.at/count.js"></script>
@@ -961,36 +966,7 @@ canvas.lungta-corner,.ktm{display:none}
 
 <header class="topbar">
   <canvas class="lungta lungta-corner" aria-hidden="true"></canvas>
-  <svg class="ktm" viewBox="40 10 212 62" preserveAspectRatio="xMaxYMax meet" aria-label="Kathmandu skyline at Dashain: the Himalaya behind, Swayambhu, Dharahara, Nyatapola, Krishna Mandir, Boudhanath and pagodas, and a bamboo swing" role="img">
-    <path class="hills" d="M0 46 L22 30 L34 36 L52 18 L64 28 L80 14 L96 30 L112 22 L130 34 L150 16 L168 30 L186 20 L204 32 L224 12 L242 28 L260 20 L280 32 L300 24 V72 H0 Z"/>
-    <path class="snow" d="M46 23 L52 18 L58 23 L55 22 L52 24 L49 22 Z M74 19 L80 14 L86 19 L83 18 L80 20 L77 18 Z M144 21 L150 16 L156 21 L153 20 L150 22 L147 20 Z M218 17 L224 12 L230 17 L227 16 L224 18 L221 16 Z"/>
-    <g class="stupa-flags"><path d="M59 25 Q47.5 48.5 36 64" stroke="#5a3a28" stroke-width=".35" fill="none"/><rect x="55.80" y="29.62" width="1.8" height="2.4" fill="#f4f1ea"/><rect x="53.50" y="34.08" width="1.8" height="2.4" fill="#c8261f"/><rect x="51.20" y="38.38" width="1.8" height="2.4" fill="#2f8a3a"/><rect x="48.90" y="42.52" width="1.8" height="2.4" fill="#f0c420"/><rect x="46.60" y="46.50" width="1.8" height="2.4" fill="#2b5fa8"/><rect x="44.30" y="50.32" width="1.8" height="2.4" fill="#f4f1ea"/><rect x="42.00" y="53.98" width="1.8" height="2.4" fill="#c8261f"/><rect x="39.70" y="57.48" width="1.8" height="2.4" fill="#2f8a3a"/><rect x="37.40" y="60.82" width="1.8" height="2.4" fill="#f0c420"/><path d="M59 25 Q52.5 47.5 46 66" stroke="#5a3a28" stroke-width=".35" fill="none"/><rect x="56.24" y="31.35" width="1.8" height="2.4" fill="#f4f1ea"/><rect x="54.39" y="37.53" width="1.8" height="2.4" fill="#c8261f"/><rect x="52.53" y="43.55" width="1.8" height="2.4" fill="#2f8a3a"/><rect x="50.67" y="49.41" width="1.8" height="2.4" fill="#f0c420"/><rect x="48.81" y="55.10" width="1.8" height="2.4" fill="#2b5fa8"/><rect x="46.96" y="60.63" width="1.8" height="2.4" fill="#f4f1ea"/><path d="M59 25 Q65.5 47.5 72 66" stroke="#5a3a28" stroke-width=".35" fill="none"/><rect x="59.96" y="31.35" width="1.8" height="2.4" fill="#f4f1ea"/><rect x="61.81" y="37.53" width="1.8" height="2.4" fill="#c8261f"/><rect x="63.67" y="43.55" width="1.8" height="2.4" fill="#2f8a3a"/><rect x="65.53" y="49.41" width="1.8" height="2.4" fill="#f0c420"/><rect x="67.39" y="55.10" width="1.8" height="2.4" fill="#2b5fa8"/><rect x="69.24" y="60.63" width="1.8" height="2.4" fill="#f4f1ea"/><path d="M59 25 Q71.5 48.5 84 64" stroke="#5a3a28" stroke-width=".35" fill="none"/><rect x="60.60" y="29.62" width="1.8" height="2.4" fill="#f4f1ea"/><rect x="63.10" y="34.08" width="1.8" height="2.4" fill="#c8261f"/><rect x="65.60" y="38.38" width="1.8" height="2.4" fill="#2f8a3a"/><rect x="68.10" y="42.52" width="1.8" height="2.4" fill="#f0c420"/><rect x="70.60" y="46.50" width="1.8" height="2.4" fill="#2b5fa8"/><rect x="73.10" y="50.32" width="1.8" height="2.4" fill="#f4f1ea"/><rect x="75.60" y="53.98" width="1.8" height="2.4" fill="#c8261f"/><rect x="78.10" y="57.48" width="1.8" height="2.4" fill="#2f8a3a"/><rect x="80.60" y="60.82" width="1.8" height="2.4" fill="#f0c420"/><path d="M230 35 Q218.0 55.5 206 68" stroke="#5a3a28" stroke-width=".35" fill="none"/><rect x="226.70" y="39.02" width="1.8" height="2.4" fill="#f4f1ea"/><rect x="224.30" y="42.88" width="1.8" height="2.4" fill="#c8261f"/><rect x="221.90" y="46.58" width="1.8" height="2.4" fill="#2f8a3a"/><rect x="219.50" y="50.12" width="1.8" height="2.4" fill="#f0c420"/><rect x="217.10" y="53.50" width="1.8" height="2.4" fill="#2b5fa8"/><rect x="214.70" y="56.72" width="1.8" height="2.4" fill="#f4f1ea"/><rect x="212.30" y="59.78" width="1.8" height="2.4" fill="#c8261f"/><rect x="209.90" y="62.68" width="1.8" height="2.4" fill="#2f8a3a"/><rect x="207.50" y="65.42" width="1.8" height="2.4" fill="#f0c420"/><path d="M230 35 Q224.0 53.5 218 68" stroke="#5a3a28" stroke-width=".35" fill="none"/><rect x="227.39" y="40.20" width="1.8" height="2.4" fill="#f4f1ea"/><rect x="225.67" y="45.24" width="1.8" height="2.4" fill="#c8261f"/><rect x="223.96" y="50.12" width="1.8" height="2.4" fill="#2f8a3a"/><rect x="222.24" y="54.84" width="1.8" height="2.4" fill="#f0c420"/><rect x="220.53" y="59.39" width="1.8" height="2.4" fill="#2b5fa8"/><rect x="218.81" y="63.78" width="1.8" height="2.4" fill="#f4f1ea"/><path d="M230 35 Q236.0 53.5 242 68" stroke="#5a3a28" stroke-width=".35" fill="none"/><rect x="230.81" y="40.20" width="1.8" height="2.4" fill="#f4f1ea"/><rect x="232.53" y="45.24" width="1.8" height="2.4" fill="#c8261f"/><rect x="234.24" y="50.12" width="1.8" height="2.4" fill="#2f8a3a"/><rect x="235.96" y="54.84" width="1.8" height="2.4" fill="#f0c420"/><rect x="237.67" y="59.39" width="1.8" height="2.4" fill="#2b5fa8"/><rect x="239.39" y="63.78" width="1.8" height="2.4" fill="#f4f1ea"/><path d="M230 35 Q242.0 55.5 254 68" stroke="#5a3a28" stroke-width=".35" fill="none"/><rect x="231.50" y="39.02" width="1.8" height="2.4" fill="#f4f1ea"/><rect x="233.90" y="42.88" width="1.8" height="2.4" fill="#c8261f"/><rect x="236.30" y="46.58" width="1.8" height="2.4" fill="#2f8a3a"/><rect x="238.70" y="50.12" width="1.8" height="2.4" fill="#f0c420"/><rect x="241.10" y="53.50" width="1.8" height="2.4" fill="#2b5fa8"/><rect x="243.50" y="56.72" width="1.8" height="2.4" fill="#f4f1ea"/><rect x="245.90" y="59.78" width="1.8" height="2.4" fill="#c8261f"/><rect x="248.30" y="62.68" width="1.8" height="2.4" fill="#2f8a3a"/><rect x="250.70" y="65.42" width="1.8" height="2.4" fill="#f0c420"/></g>
-    <g class="city">
-      <path d="M0 72 V62 h8 v-3 h9 v5 h6 V72 Z"/>
-      <!-- linge ping: a bamboo swing -->
-      <path d="M24 72 L30 46 L31 46 L26 72 Z M40 72 L34 46 L33 46 L38 72 Z M29 46 h7 v1.2 h-7 Z"/><path d="M31.5 47 v10 M33.5 47 v10" stroke="#8c2f1e" stroke-width=".5"/><rect x="30.5" y="57" width="4" height="1" />
-      <!-- Swayambhu: dome, the eyes on the harmika, 13 rings, umbrella -->
-      <path d="M44 72 V64 q0 -11 15 -11 q15 0 15 11 V72 Z"/><rect x="54.5" y="46" width="9" height="7"/>
-      <path class="eyes" d="M56 49 q1.2 -1 2.4 0 M60 49 q1.2 -1 2.4 0" stroke="#f4efe4" stroke-width=".7" fill="none"/>
-      <path d="M55.5 46 L59 28 L62.5 46 Z"/><path d="M56 27 h6 l-3 -3 Z"/>
-      <!-- Dharahara -->
-      <path d="M80 72 V52 l2 -2 V30 l1.6 -6 l1.6 6 V50 l2 2 V72 Z"/>
-      <!-- Nyatapola: five roofs on a stepped plinth -->
-      <path d="M94 72 v-3 h2 v-3 h2 v-3 h20 v3 h2 v3 h2 v3 Z"/>
-      <path d="M99 63 l-3 0 l12 -6 l12 6 l-3 0 v-1 h-18 Z"/><path d="M101 58 l-3 0 l10 -5 l10 5 l-3 0 Z"/><path d="M103 54 l-3 0 l8 -4 l8 4 l-3 0 Z"/><path d="M104.5 50 l-2.5 0 l6 -3 l6 3 l-2.5 0 Z"/><path d="M106 47 l-2 0 l4 -2.5 l4 2.5 l-2 0 Z"/><path d="M107.4 44.5 L108 41 L108.6 44.5 Z"/>
-      <rect x="99" y="63" width="18" height="6"/>
-      <path d="M124 72 V62 h12 v-4 h8 V72 Z"/>
-      <!-- Krishna Mandir: a shikhara with small towers -->
-      <path d="M148 72 V60 h22 V72 Z"/><path d="M151 60 l2 -6 l2 6 Z M163 60 l2 -6 l2 6 Z"/><path d="M155 60 q4 -22 4 -22 q0 0 4 22 Z"/><path d="M158.4 38 L159 33 L159.6 38 Z"/>
-      <path d="M172 72 V64 h9 v-6 h7 V72 Z"/>
-      <!-- a two-roof pagoda -->
-      <path d="M190 72 V60 h-3 l10 -5 l10 5 h-3 v-1 h-14 Z"/><path d="M191 55 l-2 0 l8 -4 l8 4 l-2 0 Z"/><path d="M196.4 51 L197 47 L197.6 51 Z"/><rect x="191" y="60" width="12" height="12"/>
-      <!-- Boudhanath: wide dome and spire -->
-      <path d="M212 72 v-3 h-2 v-2 h40 v2 h-2 v3 Z"/><path d="M214 67 q0 -11 16 -11 q16 0 16 11 Z"/><rect x="225" y="49" width="10" height="7"/>
-      <path class="eyes" d="M227 52 q1.2 -1 2.4 0 M231 52 q1.2 -1 2.4 0" stroke="#f4efe4" stroke-width=".7" fill="none"/><path d="M226 49 L230 33 L234 49 Z"/>
-      <path d="M252 72 V60 h10 v-5 h9 v8 h8 v-4 h9 v5 h12 V72 Z"/>
-    </g>
-  </svg>
+  <img class="ktm" src="images/site/kathmandu-skyline.webp" alt="Kathmandu skyline: Boudhanath, Swayambhu, pagodas and the hills behind">
   <a href="#top" class="mono">Prajwal Khanal</a>
   <nav class="tabs"><a href="#about">About</a><a href="#recent">Recent</a><a href="#plogs">Plogs</a><a href="#projects">Projects</a><a href="#experience">Experience</a><a href="#education">Education</a><a href="#publications-section">Publications</a><a href="#contact">Contact</a><a href="cv/cv.pdf">CV</a></nav>
   <svg class="climb" viewBox="0 0 1000 14" preserveAspectRatio="none" aria-hidden="true">
@@ -1413,6 +1389,7 @@ canvas.lungta-corner,.ktm{display:none}
   <canvas class="flags lungta" data-size="large"></canvas>
   <p>Sanin jyalewo</p>
 </footer>
+<p class="credit-bar">Kathmandu skyline adapted from <a href="https://www.freepik.com" rel="noopener">Freepik</a>.</p>
 
 <div class="alti" aria-hidden="true"><div class="alti-track"><i></i></div><span id="alti-n">8 848 m</span></div>
 
