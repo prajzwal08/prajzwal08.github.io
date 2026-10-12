@@ -896,7 +896,7 @@ footer p{margin-left:var(--pad)!important}
 .ytclose:hover{background:#b8322a}
 
 /* the Himalaya panel: a longer graph, smaller words around it */
-.hpanel{top:4.1rem!important;bottom:.6rem!important}
+.hpanel{top:4.1rem!important;bottom:1.6rem!important}
 .hp-name b{font-size:.95rem!important}
 .hp-name > span[lang]{font-size:.6rem!important;margin:0!important}
 .hp-ety{font-size:.5rem!important}.hp-ety span{font-size:.56rem!important}
@@ -909,6 +909,11 @@ footer p{margin-left:var(--pad)!important}
 .hp-tg,.hp-play{padding:.1rem .35rem!important;font-size:.5rem!important}
 .hp-key{font-size:.46rem!important}
 .hp-src{margin-top:.15rem!important;padding:.06rem .4rem!important;font-size:.5rem!important}
+
+/* years styled like the profile's km axis: small serif with a tick */
+.hp-years span{left:auto!important;right:100%;width:auto;transform:translateY(-50%);padding-right:.35rem;font:.6rem "Times New Roman",Times,serif!important;color:var(--soft);white-space:nowrap}
+.hp-years span::after{content:"";position:absolute;right:-1px;top:50%;width:4px;height:1px;background:var(--soft)}
+.hp-years{position:absolute;left:0;top:0;bottom:0;border-left:1px solid var(--line)}
 </style>
 <script data-goatcounter="https://prajwalkhanal.goatcounter.com/count"
         async src="//gc.zgo.at/count.js"></script>
