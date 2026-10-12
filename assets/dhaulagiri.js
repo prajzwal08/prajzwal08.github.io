@@ -161,9 +161,12 @@ function play(stage) {
   const d0 = cam.position.distanceTo(look); scene.fog.near = d0 * 1.1; scene.fog.far = d0 * 3;
   const overP = cam.position.clone(), overL = look.clone();
 
-  // the first view: from the foot of the block, just off its south (Beni) edge and low,
-  // looking north across the whole model to the range
-  const hillP = new THREE.Vector3(KM_X * .5, Y(ground(LAT1, (LON0 + LON1) / 2)) + 4.5, KM_Y + 14);
+  // the first view: at the start of the trek
+  // standing at the start of the trek, Beni, a little behind and above it, facing up the Myagdi valley
+  const b0 = T.pts[0], VS = [1.5, 1.0];
+  const beni = new THREE.Vector3(X(b0[1]), Y(ground(b0[0], b0[1])), Zw(b0[0]));
+  const toPeak = new THREE.Vector3(X(83.4897) - beni.x, 0, Zw(28.6975) - beni.z).normalize();
+  const hillP = beni.clone().addScaledVector(toPeak, -VS[0]); hillP.y = Math.max(beni.y, Y(ground(LAT0 - hillP.z / KM_Y * (LAT0 - LAT1), LON0 + hillP.x / KM_X * (LON1 - LON0)))) + VS[1];
   const hillL = new THREE.Vector3(X(83.46), Y(4600), Zw(28.69));
   function go(P, L, ms) {
     const p0 = cam.position.clone(), l0 = ctl.target.clone(), t0 = performance.now();
