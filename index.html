@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Prajwal Khanal</title>
 <meta name="description" content="PhD researcher at ITC, University of Twente: soil moisture, water and carbon fluxes, from land surface models to deep learning. Also picture logs from the Himalaya.">
-<link href="https://fonts.googleapis.com/css2?family=Special+Elite&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Work+Sans:wght@400;500&family=Noto+Serif+Devanagari:wght@300;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Special+Elite&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Work+Sans:wght@400;500&family=Noto+Serif+Devanagari:wght@300;500;700&display=swap" rel="stylesheet">
 <style>
 /* Nightfall: the page opens on the Maqu landscape in daylight. As you scroll,
    the light goes, stars come out over the ridge, and a satellite crosses the
@@ -684,7 +684,7 @@ h2.kicker{margin-top:0}
 .proj-vis .livemap{height:auto!important;aspect-ratio:1/1}
 @media(max-width:52rem){.proj-vis{max-width:100%}}
 
-/* larger elevation reading; project visuals full width at 16:9 */
+/* larger elevation reading; project visuals full width at 16:9 (later capped smaller) */
 #alti-n{font-family:"Times New Roman",Times,serif!important;font-size:.98rem!important;letter-spacing:.08em;font-weight:500;color:var(--ink)}
 .alti-track i{width:9px;height:9px;left:-4px}
 .proj-vis{max-width:none!important}
@@ -699,6 +699,187 @@ h2.kicker{margin-top:0}
   .alti-track i{position:static;display:block;transform:none;width:.5rem;height:.5rem;left:auto}
   #alti-n{writing-mode:horizontal-tb!important;transform:none!important;font-size:.85rem!important}
 }
+
+#publications li{grid-template-columns:6.5rem 1fr}
+@media(max-width:52rem){#publications li{grid-template-columns:1fr}}
+/* ===== One type scale =====
+   1 section title (every section, kicker or not) · 2 item title · 3 date/place line · body */
+.kicker,.sections h2{display:block!important;font:500 clamp(1.9rem,3.6vw,2.6rem)/1.1 var(--display)!important;letter-spacing:0!important;text-transform:none!important;
+  color:var(--ink)!important;margin:0 0 1rem!important}
+.kicker::before,.sections h2::before{content:""!important;display:block!important;width:2.4rem!important;height:2px!important;background:var(--gold)!important;margin:0 0 .8rem!important}
+.ridge.first + .chapter .kicker{color:#f4ede0!important}
+.ridge.first + .chapter .kicker::before{background:var(--flag-y)!important}
+.recent-item h3.sub,.record-head h3{font:500 1.3rem/1.3 var(--display)!important;color:var(--ink)}
+.recent-item h3.sub b{font-weight:600}
+.recent-item .meta,.record-when,.contact-key,.pub-year{font:500 .8rem/1.6 var(--type)!important;letter-spacing:.06em!important}
+@media(max-width:52rem){.kicker,.sections h2{font-size:1.8rem!important}.recent-item h3.sub,.record-head h3{font-size:1.15rem!important}}
+
+
+/* the altimeter becomes a profile of Nepal, south–north through Sagarmatha, on the left */
+.alti{display:none!important}
+.nprofile{position:fixed;left:3.1rem;top:6.5rem;bottom:2.5rem;z-index:20;width:min(7.5rem,calc(var(--pad) - 5.6rem));display:flex;flex-direction:column;pointer-events:none}
+.np-plot{position:relative;flex:1;min-height:0}
+.np-plot svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.np-line{fill:none;stroke:var(--ink);stroke-width:1;vector-effect:non-scaling-stroke;stroke-linejoin:round;opacity:.75}
+.np-fill{fill:url(#np-temp);opacity:.85}
+.np-dot{position:absolute;width:9px;height:9px;margin:-4.5px 0 0 -4.5px;border-radius:50%;background:var(--flag-r,#b8322a);box-shadow:0 0 0 3px #b8322a22}
+.np-tag{position:absolute;transform:translateY(-50%);font:.82rem "Times New Roman",Times,serif;color:var(--ink);white-space:nowrap}
+.np-mark{position:absolute;transform:translateY(-50%);padding-left:14px;font:.66rem var(--text);letter-spacing:.08em;color:var(--soft);white-space:nowrap}
+.np-mark i{position:absolute;left:-3px;top:50%;width:6px;height:6px;margin-top:-3px;border-radius:50%;border:1px solid var(--ink);background:#fff}
+.np-sum{padding-left:0;transform:translate(-100%,-180%)}.np-sum i{display:none}
+.np-cap{font:.66rem var(--text);letter-spacing:.08em;color:var(--soft);padding:.2rem 0}
+@media(max-width:82rem){.nprofile{display:none}}
+
+/* footer: the lake, the hills and the birds are the picture; flags in the sky above, the words on the left */
+footer{height:max(82vh,520px)!important;place-items:end start!important}
+footer img{object-position:50% 60%;-webkit-mask:linear-gradient(#0000,#000 14%)!important;mask:linear-gradient(#0000,#000 14%)!important}
+footer canvas.flags{top:2%!important;height:26%!important}
+footer p{margin-left:var(--pad)!important}
+.nprofile{transition:opacity .4s}
+.nprofile.np-off{opacity:0}
+
+/* a link to the Dhaulagiri Circuit in 3D, above the yaks */
+.play-link{position:relative;z-index:1;margin:0;padding:2.5rem var(--pad) 1.5rem;text-align:center}
+.play-link a{display:inline-flex;align-items:baseline;gap:.6rem;padding:.6rem 1.1rem;border:1px solid var(--line);border-radius:999px;color:var(--ink);text-decoration:none;font:.85rem var(--text)}
+.play-link a:hover{border-color:var(--gold);color:var(--gold)}
+.play-link b{font:500 1.15rem var(--display)}
+
+.np-axis{position:absolute;left:-.5rem;top:0;bottom:0}
+.np-axis span{position:absolute;right:0;transform:translateY(-50%);padding-right:.35rem;font:.6rem "Times New Roman",Times,serif;color:var(--soft);white-space:nowrap;border-right:1px solid var(--line)}
+.np-axis span::after{content:"";position:absolute;right:-1px;top:50%;width:4px;height:1px;background:var(--soft)}
+.np-key{display:grid;grid-template-columns:auto 1fr auto;gap:.1rem .3rem;margin-top:.35rem;font:.58rem var(--text);color:var(--soft)}
+.np-key i{grid-column:1/-1;height:5px;border-radius:3px}
+.np-key span:nth-of-type(2){text-align:center}
+.np-key span:first-of-type,.np-key span:last-of-type{font-family:"Times New Roman",Times,serif}
+
+/* the Himalaya on the right: observed 1981–2024 and four pathways to 2050, 2050 at the top */
+.hpanel{position:fixed;right:.8rem;top:4.2rem;bottom:1.2rem;z-index:20;width:min(13rem,calc(var(--pad) - 2.4rem));display:flex;flex-direction:column;transition:opacity .4s}
+.hpanel.np-off{opacity:0}
+.hp-name{margin:0;font:.66rem/1.3 var(--text);color:var(--soft)}
+.hp-name b{display:block;font:500 1.15rem/1 var(--display);color:var(--ink)}
+.hp-ety{display:block;font:.6rem var(--text);color:var(--soft)}
+.hp-ety span{font:.68rem "Noto Serif Devanagari",serif;color:var(--ink)}
+.hp-name > span[lang]{display:block;margin:.1rem 0 0;font:.72rem/1.2 "Noto Serif Devanagari",serif;color:var(--ink)}
+.hp-x{margin:.25rem 0 .35rem;font-size:.62rem!important;font:.7rem var(--text);color:var(--soft)}
+.hp-x b{font:500 1.2rem/1 var(--display);color:#a50f15;margin-right:.2rem}
+.hp-chart{position:relative;flex:1;min-height:0;margin-left:2.2rem}
+.hp-chart svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.hp-area{fill:url(#hp-grad);opacity:1}
+.hp-fut{fill:url(#hp-fut);opacity:.55}
+.hp-smooth{fill:none;stroke:#1d1b18;stroke-width:2.6;vector-effect:non-scaling-stroke;stroke-linejoin:round}
+.hp-obs{fill:none;stroke:#1d1b1866;stroke-width:1;vector-effect:non-scaling-stroke;stroke-linejoin:round}
+.hp-band{fill-opacity:.18;stroke-width:1;stroke-opacity:.6;stroke-dasharray:3 2;vector-effect:non-scaling-stroke}
+.hp-ssp{fill:none;stroke-width:1.8;vector-effect:non-scaling-stroke}
+.hp-now{stroke:#1d1b1855;stroke-width:1;stroke-dasharray:2 2;vector-effect:non-scaling-stroke}
+.hp-years span{position:absolute;left:-2.2rem;transform:translateY(-50%);font:.72rem "Times New Roman",Times,serif;color:var(--soft)}
+.hp-notes span{position:absolute;right:0;transform:translateY(-50%);padding:.05rem .35rem;border-radius:4px;background:#ffffffd9;font:.6rem var(--text);color:var(--ink);white-space:nowrap}
+.hp-notes span.q{right:auto;left:.3rem;transform:translateY(-50%);background:none;font:italic 500 .95rem var(--display);color:#a50f15;padding:0}
+.hp-axis{position:relative;height:1.3rem;margin-left:2.2rem;border-top:1px solid var(--line)}
+.hp-axis span{position:absolute;top:.25rem;transform:translateX(-50%);font:.66rem "Times New Roman",Times,serif;color:var(--soft)}
+.hp-unit{margin:0 0 .3rem 2.2rem;font:.62rem var(--text);color:var(--soft);text-align:center}
+.hp-q{margin:0 0 .15rem 2.2rem;font:italic 500 1rem/1 var(--display);color:#a50f15}
+.hp-snow{margin:.1rem 0 .25rem;padding:0 0 0 .8rem;font:.56rem/1.4 var(--text);color:var(--soft)}
+.hp-snow li.fut{color:#a50f15}
+.hp-snow li.fut b{color:#a50f15}
+.hp-snow b{font:600 .66rem "Times New Roman",Times,serif;color:var(--ink)}
+.hp-key{margin:0;font:.52rem/1.45 var(--text);color:var(--soft)}
+.hp-key i{display:inline-block;width:.8rem;height:2px;margin:0 .2rem .15rem 0;background:var(--c);vertical-align:middle}
+.hp-src{align-self:flex-start;margin-top:.25rem;padding:.12rem .5rem;font-size:.6rem!important;border:1px solid var(--line);border-radius:999px;background:#fff;font:.66rem var(--text);color:var(--soft);cursor:pointer}
+.hp-src:hover,.hp-src[aria-expanded=true]{color:var(--ink);border-color:var(--ink)}
+.hp-pop{position:absolute;right:0;bottom:2rem;width:19rem;padding:.75rem .9rem;background:#fff;border:1px solid var(--line);border-radius:10px;box-shadow:0 10px 30px #0002;font:.68rem/1.45 var(--text);color:var(--ink);max-height:70vh;overflow:auto}
+.hp-pop p{margin:0 0 .45rem}.hp-pop p:last-child{margin:0;color:var(--soft)}
+@media(max-width:82rem){.hpanel{display:none}}
+.hp-key{margin-top:.1rem}
+
+
+/* the prayer wheel in the top bar, just before the name */
+.pwbar.single{left:var(--pad)!important;right:auto!important;top:.45rem!important;bottom:auto!important;transform:scale(.36);transform-origin:top left;z-index:61}
+.topbar .mono{margin-left:2.4rem}
+.pwbar.single{touch-action:none;cursor:grab}
+.pwbar.single:active{cursor:grabbing}
+.sound-hint{right:auto!important;left:0!important;top:0!important;bottom:auto!important;z-index:61;animation:none!important;padding:.2rem .6rem!important;font-size:.72rem!important;white-space:nowrap}
+.ytcard{right:auto!important;left:var(--pad)!important;top:4rem!important;bottom:auto!important;z-index:61}
+
+/* a few lines of Yuyutsu Sharma's "Sagarmatha", credited, above the Dhaulagiri link */
+.poem{position:relative;z-index:1;margin:0;padding:4rem var(--pad) 0;text-align:center}
+.poem blockquote{margin:0}
+.poem-title{margin:0 0 1.6rem;font:500 clamp(1.9rem,3.6vw,2.6rem)/1.1 var(--display);color:var(--ink)}
+.poem-title::before{content:"";display:block;width:2.4rem;height:2px;margin:0 auto .8rem;background:var(--gold)}
+.poem-title::after{content:"सगरमाथा";display:block;margin-top:.35rem;font:400 .95rem "Noto Serif Devanagari",serif;color:var(--soft)}
+.poem blockquote p{margin:0 0 1.15rem;font:italic 400 clamp(1.05rem,1.8vw,1.25rem)/1.5 var(--display);color:var(--ink)}
+.poem figcaption{margin-top:1.2rem;font:.78rem var(--text);color:var(--soft)}
+.poem figcaption a{color:var(--gold)}
+
+/* project dashboards: a calmer size */
+.proj-vis{max-width:40rem!important}
+.proj-vis .livemap{aspect-ratio:16/10!important}
+/* hover the Himalaya graph for the year's value */
+.hp-chart{cursor:crosshair}
+.hp-read{position:absolute;left:0;right:0;height:0;border-top:1px solid #1d1b1866;pointer-events:none;display:none}
+.hp-read span{position:absolute;right:0;bottom:2px;padding:.1rem .35rem;border-radius:4px;background:#1d1b18e8;color:#fff;font:.62rem/1.35 var(--text);white-space:nowrap}
+.hp-read b{font:600 .72rem "Times New Roman",Times,serif}
+
+/* more treks: a centred grid of small cards under the Dhaulagiri link */
+.treks{position:relative;z-index:1;padding:.5rem var(--pad) 3rem;text-align:center}
+.treks h3{margin:0 0 1rem;font:500 1.3rem var(--display);color:var(--ink)}
+.treks ul{list-style:none;margin:0 auto;padding:0;max-width:52rem;display:grid;grid-template-columns:repeat(auto-fit,minmax(14rem,1fr));gap:.6rem}
+.treks li{padding:.65rem .8rem;border:1px solid var(--line);border-radius:10px;background:#fff}
+.treks li b{display:block;font:500 1.05rem var(--display);color:var(--ink)}
+.treks li span{display:block;margin-top:.15rem;font:.8rem "Times New Roman",Times,serif;color:#5e3f0c}
+.treks-note{margin:.8rem 0 0;font:.7rem var(--text);color:var(--soft)}
+
+/* ===== Everything centred in the main column, like the poem ===== */
+#about,#recent,#plogs,.sections{text-align:center}
+.kicker::before,.sections h2::before{margin-left:auto!important;margin-right:auto!important}
+.lede,.recent-item h3.sub,.recent-item .line,.sections p{margin-left:auto!important;margin-right:auto!important}
+.recent-item .meta,.recent-item .links{justify-content:center}
+/* two-column rows become stacked: date, then title, then place, then details */
+.record,.contact-list li,.keyed-list li,#publications li{display:block!important;text-align:center}
+.record-head{display:block!important}
+.record-when,.contact-key,.pub-year{display:block!important;margin:0 0 .15rem}
+.record-head h3{margin:0 auto .1rem}
+.record-where{display:block}
+.highlights,.contact-list,.keyed-list{list-style:none;padding:0!important;margin-left:auto;margin-right:auto}
+.highlights li{max-width:44rem;margin-left:auto;margin-right:auto}
+.highlights li::before{content:none!important}
+#publications ol{padding:0}
+#publications h3{text-align:center}
+.pub-body{display:block;max-width:46rem;margin:0 auto}
+/* boxes in the column sit centred too */
+.proj-vis,.recent-item .duo,.recent-item .plog{margin-left:auto!important;margin-right:auto!important}
+.livemap-note{text-align:center}
+.btn{margin-left:auto;margin-right:auto}
+/* hierarchy inside each centred entry: dates (label) → role (title) → institution · place (quiet) → details */
+.record{max-width:46rem;margin:0 auto!important;padding:1.7rem 0 1.9rem;border-top:1px solid var(--line)}
+.sections h2 + .record,.sections h2 + p + .record{border-top:0;padding-top:.4rem}
+.record-head{display:flex!important;flex-direction:column;align-items:center}
+.record-when{order:-1;margin:0 0 .35rem!important;font:600 .7rem/1.4 var(--type)!important;letter-spacing:.14em!important;text-transform:uppercase;color:var(--gold)!important}
+.record-head h3{margin:0 0 .3rem!important;font:500 1.5rem/1.2 var(--display)!important;color:var(--ink)}
+.record-where{margin:0 0 .7rem!important;font-size:.9rem!important;font-style:italic;color:var(--soft)!important}
+.record-where .latlon{font-style:normal}
+.record > p,.highlights li{font-size:.95rem;line-height:1.55;color:var(--ink)}
+.highlights li + li{margin-top:.35rem}
+/* contact and skills: small label over its value */
+.contact-list li,.keyed-list li{padding:.6rem 0!important;border-top:1px solid var(--line)}
+.contact-key{margin-bottom:.2rem!important;font:600 .66rem var(--type)!important;letter-spacing:.14em!important;text-transform:uppercase;color:var(--gold)!important}
+
+/* the right panel's controls */
+.hp-ctl{display:flex;flex-wrap:wrap;gap:.25rem;margin:.1rem 0 .3rem}
+.hp-tg,.hp-play{padding:.18rem .45rem;border:1px solid var(--line);border-radius:999px;background:#fff;font:.58rem var(--text);color:var(--ink);cursor:pointer}
+.hp-tg i{display:inline-block;width:.7rem;height:2px;margin:0 .25rem .15rem 0;background:var(--c);vertical-align:middle}
+.hp-tg[aria-pressed=true]{border-color:var(--ink);background:#1d1b180d;font-weight:600}
+.hp-play{border-color:#a50f1555;color:#a50f15}
+.hp-play:hover,.hp-tg:hover{border-color:var(--ink)}
+.hpanel[data-only=ssp126] path[data-s=ssp585],.hpanel[data-only=ssp585] path[data-s=ssp126]{opacity:.08;transition:opacity .3s}
+.hp-band,.hp-ssp{transition:opacity .3s}
+.hp-read.pin{border-top-color:#a50f15}
+.hp-read.pin span{background:#a50f15}
+
+/* both project dashboards exactly the same size */
+.recent-item.proj .proj-vis{width:min(100%,38rem)!important;max-width:none!important}
+.recent-item.proj .livemap{width:100%!important;aspect-ratio:16/10!important;height:auto!important}
+/* item headings (projects, talks, roles, degrees, awards) in their own colour, under the black section titles */
+.recent-item h3.sub,.recent-item h3.sub b,.record-head h3{color:#23466e!important}
 </style>
 <script data-goatcounter="https://prajwalkhanal.goatcounter.com/count"
         async src="//gc.zgo.at/count.js"></script>
@@ -741,9 +922,6 @@ h2.kicker{margin-top:0}
 <section class="chapter" id="about" data-nav>
   <div class="kicker reveal">About</div>
   <p class="lede reveal">I model soil&ndash;vegetation&ndash;atmosphere interactions, with a focus on <em>water and carbon fluxes</em>. My work spans both ends of the modelling spectrum: process-based land surface models and data-driven deep learning.</p>
-  <div class="tl reveal">
-    <ol class="tl-list"><li data-i="0" class="home"><span class="tl-day" data-date="2014-11-01">2014</span><span class="tl-ll">27.68° N, 85.32° E · 1 307 m</span></li><li data-i="1" class="move"><span class="tl-day" data-date="2020-11-01">2020</span><span class="tl-ll">48.15° N, 11.57° E · 523 m</span></li><li data-i="2" class="move"><span class="tl-day" data-date="2022-03-01">2022</span><span class="tl-ll">50.91° N, 11.57° E · 210 m</span></li><li data-i="3" class="move"><span class="tl-day" data-date="2023-02-01">2023</span><span class="tl-ll">52.22° N, 6.89° E · 44 m</span></li><li data-i="4" class="trip"><span class="tl-day" data-date="2025-10-22">2025</span><span class="tl-ll">33.99° N, 102.08° E · 4 021 m</span></li><li data-i="5" class="trip"><span class="tl-day" data-date="2026-10-08">2026</span><span class="tl-ll">52.37° N, 4.90° E · 11 m</span></li></ol>
-  </div>
 </section>
 
 <section class="chapter" id="recent" data-nav>
@@ -919,7 +1097,7 @@ h2.kicker{margin-top:0}
       </div>
       <p class="record-where">Technical University of Munich, Germany <span class="latlon">48.15° N, 11.57° E · 523 m</span></p>
       <ul class="highlights">
-        <li>Graduated with 1.4/5.0 on the German scale, where 1.0 is the highest mark.</li>
+        <li>Graduated with 1.4/5.0 on the German scale (1 = max, 5 = min).</li>
         <li>Thesis: <a href="https://hdl.handle.net/21.11116/0000-000B-6895-8" rel="noopener">Role of
         surface and sub-surface soil moisture for vegetation functioning</a>, which became the
         2024 <i>Biogeosciences</i> paper.</li>
@@ -1113,8 +1291,22 @@ h2.kicker{margin-top:0}
 
 </div>
 
+<figure class="poem">
+  <p class="poem-title">Sagarmatha</p>
+  <blockquote>
+    <p>The turquoise lake<br>that longs to belong to the ocean<br>trapped to see<br>dazzling face of the Everest.</p>
+    <p>The climbers from the world over<br>come to see their haggard faces<br>in the clear light of her crystal eyes<br>before facing the forehead of the Sky</p>
+    <p>A hope<br>that someday I shall sprout<br>like a tree<br>on the edge of a remote hillside.</p>
+    <p>A hope<br>someday a Queen-of-the-Night<br>shall bloom in my chest<br>and suck all the smoke<br>I have inhaled<br>in these malignant cities.</p>
+    <p>A hope that someday<br>a just born brook shall clean<br>and wash<br>bacteria of greed in me.</p>
+    <p>A hope that someday<br>a Buddha meditating in the niche of a cairn<br>by the heap of the city<br>garbage shall shake his limbs<br>and walk away towards a village of eternity<br>to take another birth<br>to save me<br>from the shame of becoming a glacier.</p>
+  </blockquote>
+  <figcaption>Yuyutsu Sharma, from <i>Panaharu Khali Chhan</i> (2020)</figcaption>
+</figure>
+<p class="play-link"><a href="dhaulagiri.html"><b>Dhaulagiri Circuit</b> explore in 3D ↗</a></p>
+
 <footer>
-  <img src="images/site/hero0480.jpg" alt="Horses in snow at Maqu">
+  <img src="images/site/hero0464.jpg" alt="Birds over a frozen lake below snowy hills at Maqu">
   <canvas class="flags lungta" data-size="large"></canvas>
   <p>Sanin jyalewo</p>
 </footer>
@@ -1122,14 +1314,14 @@ h2.kicker{margin-top:0}
 <div class="alti" aria-hidden="true"><div class="alti-track"><i></i></div><span id="alti-n">8 848 m</span></div>
 
 <!-- A row of prayer wheels along the bottom of the screen. Scrolling turns them. -->
-<div class="pwbar single" role="button" tabindex="0" aria-label="Prayer wheel: play or stop the chant">
+<div class="pwbar single" role="button" tabindex="0" aria-label="Prayer wheel: rotate it (or press Enter) to play the chant">
   <div class="mtnphoto"></div>
   <canvas class="mtn"></canvas>
   <canvas class="flg"></canvas>
   <div class="pwrow"></div>
   <div class="pwrail"></div>
 </div>
-<p class="sound-hint" aria-hidden="true">Click the wheel to hear the chant</p>
+<p class="sound-hint" aria-hidden="true">Rotate for the chant ▸</p>
 <div class="ytcard" aria-label="Om Mani Padme Hum, played from YouTube"><div id="ytplayer"></div><p class="ytsrc">Om Mani Padme Hum · <a href="https://www.youtube.com/watch?v=mvBLSJWk6HE" rel="noopener">Essence of Universe on YouTube</a></p></div>
 <button class="sound" type="button" aria-pressed="false" aria-label="Chant: on or off"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z" fill="currentColor"/><path class="w1" d="M16 9a4 4 0 0 1 0 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path class="w2" d="M18.5 6.5a7.5 7.5 0 0 1 0 11" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path class="x" d="M16 9l5 6M21 9l-5 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></button>
 
@@ -1350,13 +1542,23 @@ h2.kicker{margin-top:0}
       cols=[];for(var x=0;x<DW;x++){var a=(x+.5)/DW*2-1,b=Math.min(1,(x+1.5)/DW*2-1),t=Math.asin(a);cols.push({u:t/(2*Math.PI)*TW,w:Math.max(1,(Math.asin(b)-t)/(2*Math.PI)*TW)});}
       wheels.forEach(drawWheel);}
 
+    // turn the wheel by hand: drag it sideways; a real turn starts the chant
+    var drag=null;
+    bar.addEventListener('pointerdown',function(e){drag={x:e.clientX,moved:0};bar.setPointerCapture&&bar.setPointerCapture(e.pointerId);});
+    bar.addEventListener('pointermove',function(e){if(!drag)return;var dx=e.clientX-drag.x;drag.x=e.clientX;drag.moved+=Math.abs(dx);
+      wheels.forEach(function(w){w.off-=dx*dpr*2.8;w.v=Math.max(w.v,Math.abs(dx)*dpr*.12);w.dirty=true;});});
+    function end(){if(!drag)return;var m=drag.moved;drag=null;
+      if(m>14){bar.dataset.turned='1';bar.dispatchEvent(new CustomEvent('turned'));}}
+    bar.addEventListener('pointerup',end);bar.addEventListener('pointercancel',end);
+    bar.addEventListener('nudge',function(){wheels.forEach(function(w){w.v+=TW/(dpr*60);});});
     function build(){layoutFlags();buildWheels();}
     var lastY=scrollY,lastT=0;
     function frame(t){var dt=lastT?Math.min(50,t-lastT):16;lastT=t;
       var dy=Math.abs(scrollY-lastY);lastY=scrollY;
       if(dy)wheels.forEach(function(w,i){w.queue.push({at:t+i*22,amt:dy*(.9+Math.random()*.2)})});
       var chanting=bar.classList.contains('playing');
-      wheels.forEach(function(w){if(chanting&&w.v<.5)w.v=.5;while(w.queue.length&&w.queue[0].at<=t)w.v+=w.queue.shift().amt*dpr*.033;
+      // while the chant plays the wheel keeps a steady turn, about one turn every few seconds
+      wheels.forEach(function(w){if(chanting&&w.v<TW/(dpr*140))w.v=TW/(dpr*140);while(w.queue.length&&w.queue[0].at<=t)w.v+=w.queue.shift().amt*dpr*.033;
         if(w.v>.01){w.off-=w.v*dt/16;w.v*=Math.pow(.955,dt/16);w.dirty=true;}else w.v=0;if(w.dirty)drawWheel(w);});
       if(!still&&strings.length)drawFlags(t);
       requestAnimationFrame(frame);}
@@ -1368,7 +1570,7 @@ h2.kicker{margin-top:0}
   // The chant: Om Mani Padme Hum by Essence of Universe, played through the
   // YouTube player (their recording; embedding is how YouTube allows it to be
   // used, and the player stays visible while it plays). Turning the wheel
-  // opens the card and plays; turning it again pauses and closes it.
+  // by hand opens the card and plays; a tap pauses and closes it.
   (function(){
     var wheelEl=document.querySelector('.pwbar'),card=document.querySelector('.ytcard'),hint=document.querySelector('.sound-hint');
     if(!wheelEl||!card)return;
@@ -1384,7 +1586,10 @@ h2.kicker{margin-top:0}
       if(want){show(true);if(ready)player.playVideo();else{queued=true;if(!player)load();}}
       else{show(false);if(ready)player.pauseVideo();queued=false;}}
     load();   // prepare the player in the background so the first turn is quick
-    wheelEl.addEventListener('click',function(e){e.stopPropagation();toggle()});
+    wheelEl.addEventListener('turned',function(){if(!want)toggle();});
+    wheelEl.addEventListener('click',function(e){e.stopPropagation();
+      if(wheelEl.dataset.turned){delete wheelEl.dataset.turned;return;}   // that was a turn, not a tap
+      if(want)toggle(); else wheelEl.dispatchEvent(new CustomEvent('nudge'));});
     wheelEl.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();toggle()}});
   })();
 
@@ -1502,6 +1707,177 @@ h2.kicker{margin-top:0}
   });
 })();
 </script>
-<script src="assets/site.js"></script>
+<script src="assets/site.js?v=2"></script>
+<script>
+// the chant hint always sits left of the wheel, then the wheel, then the name, on the name's line;
+// where the margin is too narrow (phones), the wheel and the name move right to make room
+(function(){
+  var h=document.querySelector('.sound-hint'), n=document.querySelector('.topbar .mono'), w=document.querySelector('.pwbar');
+  if(!h||!n||!w) return;
+  function place(){
+    n.style.marginLeft=''; w.style.removeProperty('left');
+    h.style.setProperty('display','block','important');
+    var a=n.getBoundingClientRect(), wb=w.getBoundingClientRect(), hw=h.offsetWidth, x0=8;
+    var need=x0+hw+8-wb.left;                       // how far the wheel must move right
+    if(need>0){
+      w.style.setProperty('left',(wb.left+need)+'px','important');
+      n.style.marginLeft='calc(2.4rem + '+need+'px)';
+      a=n.getBoundingClientRect(); wb=w.getBoundingClientRect();
+    }
+    w.style.setProperty('top',Math.max(2,a.top+a.height/2-wb.height/2)+'px','important'); wb=w.getBoundingClientRect();
+    h.style.transform='translate('+(wb.left-8-hw)+'px,'+(a.top+a.height/2-h.offsetHeight/2)+'px)';
+  }
+  addEventListener('resize',place); document.fonts&&document.fonts.ready.then(place); place();
+})();
+</script>
+<div class="nprofile" aria-hidden="true">
+  <div class="np-plot"><svg viewBox="0 0 100 299" preserveAspectRatio="none"><defs><linearGradient id="np-temp" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="0" y2="299"></linearGradient></defs><path class="np-fill"/><path class="np-line"/></svg><div class="np-axis"></div><span class="np-mark np-sum"><i></i>Sagarmatha</span><span class="np-mark np-ktm"><i></i>Kathmandu</span><span class="np-dot"></span><span class="np-tag"></span></div>
+  <span class="np-cap np-bot">Terai</span>
+  <div class="np-key"><i></i><span>−30</span><span>mean annual °C, 1991–2020</span><span>25</span></div>
+</div>
+<script>
+// A profile of Nepal from Sagarmatha west to Kathmandu (160 km) and south to Birgunj in the
+// Terai (90 km), drawn on its side: the summit at the top, height to the right. The dot walks
+// it down as the page scrolls. Elevations: AWS terrain tiles, 300 points about 840 m apart.
+// Fill: mean annual temperature 1991–2020 at 14 points along the line, from ERA5-Land
+// (Open-Meteo archive, adjusted to the height of the line).
+(function(){
+  var Z=[8848, 7826, 6951, 6536, 6301, 6227, 6571, 6289, 5687, 5423, 5414, 5078, 5124, 5209, 5355, 5663, 5696, 5533, 5121, 5180, 5285, 5285, 5101, 5120, 5354, 5111, 4727, 4756, 4752, 4779, 5015, 5214, 5463, 5029, 5182, 5255, 4662, 4444, 4731, 5124, 4980, 4989, 5072, 5218, 5524, 5846, 5915, 6168, 5883, 5344, 5171, 5017, 5291, 5431, 5040, 5318, 5414, 5879, 6464, 5702, 5475, 5430, 5470, 4913, 4296, 3782, 4193, 4583, 4372, 4507, 3977, 4234, 3825, 3912, 4051, 3945, 3901, 3735, 3381, 3270, 3052, 2586, 2156, 1922, 1552, 1811, 2324, 2821, 2720, 3390, 3348, 3920, 3942, 3398, 3220, 2797, 2318, 2217, 2073, 2134, 2533, 2431, 2489, 2421, 2470, 2516, 2851, 3030, 3003, 3232, 3447, 3387, 3245, 3278, 3263, 3088, 2885, 2423, 2048, 1738, 1789, 1739, 1728, 1542, 1163, 1027, 1339, 1710, 2041, 2205, 2301, 2013, 1693, 1498, 1597, 1510, 1508, 1459, 1053, 791, 1057, 891, 1017, 1074, 1230, 1410, 1421, 1329, 1193, 1061, 1101, 1360, 1026, 1169, 1295, 1313, 1074, 936, 847, 737, 852, 1077, 1098, 952, 980, 1037, 1145, 1221, 1366, 1511, 1646, 1833, 1707, 1465, 1481, 1524, 1448, 1389, 1371, 1344, 1369, 1365, 1371, 1379, 1355, 1337, 1361, 1343, 1344, 1314, 1317, 1317, 1308, 1308, 1314, 1294, 1297, 1297, 1290, 1321, 1321, 1299, 1297, 1359, 1629, 1681, 1573, 1719, 1557, 1604, 1853, 1866, 1977, 1820, 1739, 1603, 1303, 1437, 1593, 1682, 1753, 1634, 1691, 1639, 1909, 2088, 1820, 1914, 2182, 1591, 1218, 866, 1073, 1151, 763, 793, 793, 621, 617, 702, 547, 458, 464, 483, 519, 568, 618, 625, 479, 437, 431, 405, 369, 423, 537, 555, 353, 339, 322, 304, 286, 267, 247, 250, 245, 236, 225, 207, 210, 201, 187, 179, 174, 162, 152, 142, 135, 128, 121, 114, 113, 113, 113, 106, 103, 100, 100, 96, 97, 97, 95, 95, 93, 91, 92, 89, 90, 92, 89, 91], TOP=0, KTM=192, MAX=9000;
+  var box=document.querySelector('.nprofile'); if(!box) return;
+  var x=function(h){return (h/MAX*100).toFixed(2)}, line='';
+  Z.forEach(function(h,i){line+=(i?'L':'M')+x(h)+' '+i});
+  box.querySelector('.np-line').setAttribute('d',line);
+  box.querySelector('.np-fill').setAttribute('d','M0 0 '+line.replace('M','L')+' L0 '+(Z.length-1)+'Z');
+  [[box.querySelector('.np-sum'),0],[box.querySelector('.np-ktm'),KTM]].forEach(function(m){m[0].style.top=(m[1]/(Z.length-1)*100)+'%'; m[0].style.left=(Z[m[1]]/MAX*100)+'%';});
+  var TEMP=[[0, -28.69], [23, -4.28], [46, -9.52], [69, -1.09], [92, 1.72], [115, 5.88], [138, 18.46], [161, 17.81], [184, 17.62], [207, 16.25], [230, 19.06], [253, 21.8], [276, 23.61], [299, 24.39]], KM=250;
+  // cold to warm
+  var SCALE=[[-30,'#2c4f8a'],[-15,'#6f97c6'],[-5,'#b9d0e6'],[0,'#e9eef1'],[8,'#f3dd8c'],[16,'#eba65a'],[25,'#c8502d']];
+  function col(t){for(var i=1;i<SCALE.length;i++)if(t<=SCALE[i][0]||i==SCALE.length-1){var a=SCALE[i-1],b=SCALE[i],f=Math.max(0,Math.min(1,(t-a[0])/(b[0]-a[0])));
+    var A=parseInt(a[1].slice(1),16),B=parseInt(b[1].slice(1),16),c=[16,8,0].map(function(sh){return Math.round(((A>>sh)&255)*(1-f)+((B>>sh)&255)*f)});
+    return 'rgb('+c.join(',')+')';}}
+  var g=box.querySelector('#np-temp');
+  TEMP.forEach(function(q){var st=document.createElementNS('http://www.w3.org/2000/svg','stop');st.setAttribute('offset',(q[0]/(Z.length-1)).toFixed(3));st.setAttribute('stop-color',col(q[1]));g.appendChild(st);});
+  box.querySelector('.np-key i').style.background='linear-gradient(90deg,'+SCALE.map(function(q){return q[1]+' '+((q[0]+30)/55*100).toFixed(0)+'%'}).join(',')+')';
+  var ax=box.querySelector('.np-axis');
+  for(var k=0;k<=KM;k+=50){var e=document.createElement('span');e.style.top=(k/KM*100)+'%';e.textContent=k+' km';ax.appendChild(e);}
+  var dot=box.querySelector('.np-dot'), tag=box.querySelector('.np-tag');
+  function walk(){
+    var max=document.documentElement.scrollHeight-innerHeight, p=max>0?Math.min(1,Math.max(0,scrollY/max)):0;
+    var i=Math.round(TOP+p*(Z.length-1-TOP)), h=Z[i];
+    dot.style.top=tag.style.top=(i/(Z.length-1)*100)+'%';
+    dot.style.left=(h/MAX*100)+'%'; tag.style.left='calc('+(h/MAX*100)+'% + 10px)';
+    tag.textContent=h.toLocaleString('en-GB').replace(/,/g,'\u2009')+' m';
+  }
+  addEventListener('scroll',walk,{passive:true}); addEventListener('resize',walk); walk();
+  // out of the way while the yaks are on screen
+  var foot=document.querySelector('footer');
+  if(foot) new IntersectionObserver(function(es){box.classList.toggle('np-off',es[0].isIntersecting)},{threshold:.15}).observe(foot);
+})();
+</script>
+<div class="hpanel">
+  <p class="hp-name"><b>Himalaya</b><span lang="ne">हिमालय</span><span class="hp-ety"><span lang="ne">हिम</span> (snow) <span lang="ne">को</span> <span lang="ne">आलय</span> (house)</span></p>
+  <p class="hp-x">warming <b>1.3×</b> the global average</p>
+  <div class="hp-chart"><svg preserveAspectRatio="none"></svg><div class="hp-years"></div><div class="hp-notes"></div></div>
+  <div class="hp-axis"></div>
+  <p class="hp-unit">mean annual °C</p>
+  <ul class="hp-snow"></ul>
+  <div class="hp-ctl"><button type="button" class="hp-tg" data-s="ssp126" aria-pressed="false"><i style="--c:#2c7bb6"></i>Low emissions</button><button type="button" class="hp-tg" data-s="ssp585" aria-pressed="false"><i style="--c:#a50f15"></i>High emissions</button><button type="button" class="hp-play">▶ Play 1981–2050</button></div>
+  <p class="hp-key">shaded: 10–90 % of the models · hover, or click to pin a year</p>
+  <button class="hp-src" type="button" aria-expanded="false">Source</button>
+  <div class="hp-pop" hidden>
+    <p><b>Himalaya, 3 088–8 848 m</b>: the mean of six ERA5-Land points along the profile on the left, year by year, 1981–2024. Thin line: each year; thick line and shading: 9-year running mean, coloured from its coldest (1981) to its warmest (2024) value.</p>
+    <p>Warming 1981–2024: +0.28 °C per decade here; +0.21 °C for the world, land and ocean (NASA GISTEMP v4): 1.3× the global average.</p>
+    <p>Snow days: days with at least 5 cm of snow on the ground, ERA5-Land, mean of the four points without glacier (3 088–5 915 m).</p>
+    <p>Snow days in 2050, a rough estimate: in ERA5-Land each extra 1 °C in a year's mean has meant about 44 fewer snow days (±3) at these points; applied to each pathway's median warming from 2024, starting from the 2015–2024 mean of 93 days. Hover the graph for any year. Not a snow model: it assumes the past link holds, uses Nepal-wide warming (the Himalaya warm faster) and ignores changes in snowfall.</p>
+    <p>2025–2050: CMIP6 multi-model projections for Nepal under a low (SSP1-2.6) and a high (SSP5-8.5) emission pathway (World Bank Climate Change Knowledge Portal, 0.25°), as change from 1995–2014, joined to the 9-year mean at 2024; lines are each pathway's median and the shaded bands its 10th to 90th percentile across the models; 11-year means. These are for Nepal as a whole; the Himalaya have warmed faster than that.</p>
+    <p>ERA5-Land: Muñoz-Sabater et al., 2021, <i>Earth Syst. Sci. Data</i>, via Open-Meteo. GISTEMP v4: Lenssen et al., 2024, <i>J. Geophys. Res. Atmos.</i> CMIP6: Eyring et al., 2016, <i>Geosci. Model Dev.</i></p>
+  </div>
+</div>
+<script>
+// The Himalayan stretch of the profile on the left, year by year: observed 1981–2024 as stripes
+// and a line, then four CMIP6 pathways to 2050 with their spread. 2050 at the top. Notes under
+// "Source"; numbers made offline from ERA5-Land, NASA GISTEMP v4 and the World Bank CCKP.
+(function(){
+  var D={"T": [-6.65, -6.74, -7.04, -5.9, -6.05, -7.05, -6.22, -5.59, -6.65, -5.71, -6.29, -6.68, -5.91, -6.44, -6.69, -6.2, -7.38, -5.61, -5.36, -6.29, -5.9, -6.34, -6.46, -6.05, -6.38, -5.51, -5.39, -5.54, -5.13, -5.27, -6.12, -6.46, -6.03, -6.14, -6.3, -4.87, -5.27, -5.5, -6.32, -6.06, -5.09, -5.29, -5.24, -4.94], "snow": [140, 120, 140, 108, 131, 156, 182, 110, 154, 99, 130, 148, 136, 145, 178, 135, 154, 141, 70, 119, 91, 138, 144, 111, 118, 83, 95, 90, 54, 71, 136, 126, 119, 147, 151, 69, 59, 49, 144, 147, 77, 103, 41, 90], "base8110": -6.147, "proj": {"ssp126": {"p10": [-5.92, -5.88, -5.87, -5.86, -5.82, -5.79, -5.78, -5.75, -5.74, -5.72, -5.7, -5.7, -5.7, -5.68, -5.65, -5.65, -5.64, -5.61, -5.59, -5.57, -5.55, -5.53, -5.49, -5.47, -5.45, -5.43, -5.4], "median": [-5.35, -5.32, -5.31, -5.28, -5.25, -5.23, -5.21, -5.2, -5.17, -5.14, -5.14, -5.11, -5.08, -5.07, -5.04, -5.01, -4.99, -4.95, -4.91, -4.9, -4.86, -4.83, -4.81, -4.78, -4.75, -4.73, -4.72], "p90": [-4.82, -4.78, -4.76, -4.72, -4.67, -4.62, -4.57, -4.53, -4.47, -4.43, -4.37, -4.32, -4.28, -4.24, -4.21, -4.19, -4.15, -4.13, -4.11, -4.1, -4.06, -4.06, -4.05, -4.01, -3.98, -3.96, -3.94]}, "ssp245": {"p10": [-6.02, -5.97, -5.95, -5.9, -5.88, -5.87, -5.84, -5.81, -5.78, -5.75, -5.72, -5.71, -5.66, -5.61, -5.6, -5.57, -5.52, -5.5, -5.47, -5.45, -5.41, -5.39, -5.33, -5.32, -5.3, -5.29, -5.25], "median": [-5.41, -5.38, -5.35, -5.31, -5.29, -5.25, -5.25, -5.23, -5.21, -5.17, -5.14, -5.12, -5.08, -5.03, -5.01, -4.97, -4.93, -4.88, -4.83, -4.79, -4.76, -4.7, -4.65, -4.62, -4.61, -4.57, -4.54], "p90": [-4.82, -4.78, -4.77, -4.74, -4.71, -4.67, -4.67, -4.64, -4.58, -4.54, -4.51, -4.48, -4.45, -4.39, -4.34, -4.28, -4.25, -4.2, -4.15, -4.1, -4.06, -3.98, -3.93, -3.87, -3.82, -3.79, -3.75]}, "ssp370": {"p10": [-6.16, -6.11, -6.12, -6.05, -6.03, -5.99, -5.97, -5.94, -5.91, -5.87, -5.88, -5.87, -5.86, -5.8, -5.79, -5.75, -5.74, -5.69, -5.65, -5.62, -5.58, -5.51, -5.46, -5.41, -5.36, -5.31, -5.27], "median": [-5.51, -5.47, -5.46, -5.43, -5.4, -5.36, -5.31, -5.28, -5.24, -5.2, -5.17, -5.14, -5.11, -5.06, -5.01, -4.99, -4.95, -4.92, -4.87, -4.83, -4.79, -4.75, -4.71, -4.67, -4.62, -4.61, -4.56], "p90": [-4.85, -4.84, -4.81, -4.76, -4.71, -4.67, -4.61, -4.57, -4.53, -4.46, -4.4, -4.35, -4.28, -4.22, -4.19, -4.14, -4.07, -4.06, -3.99, -3.95, -3.9, -3.85, -3.82, -3.78, -3.71, -3.68, -3.63]}, "ssp585": {"p10": [-5.99, -5.96, -5.9, -5.87, -5.81, -5.78, -5.74, -5.72, -5.69, -5.65, -5.6, -5.59, -5.57, -5.55, -5.5, -5.46, -5.39, -5.34, -5.28, -5.23, -5.19, -5.13, -5.05, -4.97, -4.9, -4.86, -4.8], "median": [-5.4, -5.36, -5.31, -5.28, -5.24, -5.2, -5.15, -5.11, -5.07, -5.01, -4.96, -4.91, -4.86, -4.8, -4.74, -4.67, -4.6, -4.54, -4.46, -4.39, -4.34, -4.27, -4.21, -4.15, -4.08, -4.0, -3.94], "p90": [-4.8, -4.75, -4.73, -4.69, -4.65, -4.59, -4.55, -4.5, -4.43, -4.36, -4.3, -4.24, -4.15, -4.06, -3.99, -3.93, -3.88, -3.81, -3.71, -3.64, -3.58, -3.48, -3.39, -3.31, -3.22, -3.13, -3.05]}}};
+  D.snowNow=D.snow.slice(-10).reduce(function(a,b){return a+b})/10;   // 2015–2024 mean, the base for the estimates
+  var Y0=1981, END=2050, R=END-Y0, LO=-7.5, HI=-3, NS='http://www.w3.org/2000/svg';
+  var box=document.querySelector('.hpanel'); if(!box) return;
+  var svg=box.querySelector('svg'); svg.setAttribute('viewBox','0 0 100 '+R);
+  // like the profile on the left: warmer reaches further from the left edge
+  var x=function(t){return ((t-LO)/(HI-LO)*100).toFixed(2)}, r=function(y){return END-y}, pct=function(y){return r(y)/R*100};
+  var el=function(n,a,p){var e=document.createElementNS(NS,n);for(var k in a)e.setAttribute(k,a[k]);(p||svg).appendChild(e);return e};
+  // the same cold-to-warm colours as the profile, stretched over this range
+  var SC=['#2c4f8a','#6f97c6','#b9d0e6','#e9eef1','#f3dd8c','#eba65a','#c8502d'];
+  // colours stretched over what was observed, so the warming since 1981 shows
+  function col(t){var CL=Math.min.apply(null,SM), CH=Math.max.apply(null,SM), f=Math.max(0,Math.min(1,(t-CL)/(CH-CL)))*(SC.length-1),i=Math.min(SC.length-2,Math.floor(f)),u=f-i;
+    var A=parseInt(SC[i].slice(1),16),B=parseInt(SC[i+1].slice(1),16);
+    return 'rgb('+[16,8,0].map(function(h){return Math.round(((A>>h)&255)*(1-u)+((B>>h)&255)*u)}).join(',')+')';}
+  // scenarios: medians and 10th–90th percentiles, shifted so they start where the observations end
+  var S=['ssp126','ssp585'], COL={ssp126:'#2c7bb6',ssp245:'#e6b800',ssp370:'#f07c2a',ssp585:'#a50f15'};
+  var SM=D.T.map(function(t,k){var a=D.T.slice(Math.max(0,k-4),k+5);return a.reduce(function(p,q){return p+q})/a.length});
+  var now=SM[SM.length-1], ys=[]; for(var y=2024;y<=END;y++) ys.push(y);
+  var P={}; S.forEach(function(s){var o=now-D.proj[s].median[0];P[s]={};['p10','median','p90'].forEach(function(q){P[s][q]=D.proj[s][q].map(function(v){return v+o})});});
+  HI=Math.ceil(Math.max.apply(null,S.map(function(s){return Math.max.apply(null,P[s].p90)}))*2)/2+.2;
+  var lo=ys.map(function(y,i){return Math.min.apply(null,S.map(function(s){return P[s].p10[i]}))}), hi=ys.map(function(y,i){return Math.max.apply(null,S.map(function(s){return P[s].p90[i]}))});
+  var mid=ys.map(function(y,i){return S.reduce(function(a,s){return a+P[s].median[i]},0)/S.length});
+  // one series 1981–2050: observed, then the mean of the four medians; its area takes the colours
+  // the yearly values swing a lot; a 9-year running mean shows the warming underneath
+  var ser=SM.map(function(t,k){return [Y0+k,t]}).concat(ys.slice(1).map(function(y,i){return [y,mid[i+1]]}));
+  var g=el('linearGradient',{id:'hp-grad',gradientUnits:'userSpaceOnUse',x1:0,y1:0,x2:0,y2:R},el('defs',{}));
+  ser.slice().reverse().forEach(function(q){el('stop',{offset:(r(q[0])/R).toFixed(3),'stop-color':col(q[1])},g);});
+  var line=ser.map(function(q,i){return (i?'L':'M')+x(q[1])+' '+r(q[0])}).join('');
+  // observed in the profile's colours; the projected years in a red of their own
+  var cut=r(2024), obsLine=ser.filter(function(q){return q[0]<=2024}), futLine=ser.filter(function(q){return q[0]>=2024});
+  el('path',{class:'hp-area',d:'M0 '+R+' '+obsLine.map(function(q){return 'L'+x(q[1])+' '+r(q[0])}).join('')+' L0 '+cut+'Z'});
+  var fg=el('linearGradient',{id:'hp-fut',x1:0,y1:1,x2:0,y2:0},el('defs',{}));
+  el('stop',{offset:0,'stop-color':'#f4b9a3'},fg); el('stop',{offset:1,'stop-color':'#b8322a'},fg);
+  // each pathway: its 10th–90th percentile across the models, in its own colour
+  S.forEach(function(s){el('path',{class:'hp-band','data-s':s,fill:COL[s],stroke:COL[s],d:ys.map(function(y,i){return (i?'L':'M')+x(P[s].p10[i])+' '+r(y)}).join('')+ys.slice().reverse().map(function(y,i){return 'L'+x(P[s].p90[ys.length-1-i])+' '+r(y)}).join('')+'Z'});});
+  S.forEach(function(s){el('path',{class:'hp-ssp','data-s':s,stroke:COL[s],d:ys.map(function(y,i){return (i?'L':'M')+x(P[s].median[i])+' '+r(y)}).join('')});});
+  el('path',{class:'hp-obs',d:D.T.map(function(t,k){return (k?'L':'M')+x(t)+' '+r(Y0+k)}).join('')});
+  el('path',{class:'hp-smooth',d:SM.map(function(t,k){return (k?'L':'M')+x(t)+' '+r(Y0+k)}).join('')});
+  el('line',{class:'hp-now',x1:0,x2:100,y1:r(2024),y2:r(2024)});
+  var yl=box.querySelector('.hp-years');
+  [2050,2024,2000,1981].forEach(function(y){var e=document.createElement('span');e.style.top=pct(y)+'%';e.textContent=y;yl.appendChild(e);});
+  var nt=box.querySelector('.hp-notes');
+  var avg=function(a){return Math.round(a.reduce(function(p,q){return p+q})/a.length)};
+  // the same estimate the hover uses: about 44 fewer snow days per extra 1 °C, from the 2015–2024 mean
+  var snow2050=function(s){return Math.max(0,Math.round(D.snowNow-44.3*(P[s].median[P[s].median.length-1]-now)))};
+  box.querySelector('.hp-snow').innerHTML='<li><b>'+avg(D.snow.slice(0,10))+'</b> snow days a year, 1981–1990</li><li><b>'+avg(D.snow.slice(-10))+'</b> snow days a year, 2015–2024</li><li class="fut"><b>~'+snow2050('ssp126')+'</b> to <b>~'+snow2050('ssp585')+'</b> snow days a year, 2050 (low to high emissions)</li>';
+  [].forEach(function(n){
+    var e=document.createElement('span');e.className=n[2];e.style.top=pct(n[0])+'%';e.textContent=n[1];nt.appendChild(e);});
+  var ax=box.querySelector('.hp-axis');
+  [-7,-6,-5,-4,-3].filter(function(t){return t<=HI}).forEach(function(t){var e=document.createElement('span');e.style.left=x(t)+'%';e.textContent='−'+Math.abs(t);ax.appendChild(e);});
+  // hover: the year, its temperature (or the projected range), and snow days where known
+  var ch=box.querySelector('.hp-chart'), rd=document.createElement('div'); rd.className='hp-read'; rd.innerHTML='<span></span>'; ch.appendChild(rd);
+  var f1=function(v){return (v<0?'−':'+')+Math.abs(v).toFixed(1)};
+  // one pathway or both; the readout follows the choice
+  var only=null, tgs=box.querySelectorAll('.hp-tg');
+  tgs.forEach(function(bt){bt.addEventListener('click',function(){only=only===bt.dataset.s?null:bt.dataset.s;
+    tgs.forEach(function(o){o.setAttribute('aria-pressed',o.dataset.s===only)}); only?box.setAttribute('data-only',only):box.removeAttribute('data-only'); if(cur)show(cur);});});
+  var cur=null, pinned=false;
+  function show(y){cur=y; var t;
+    if(y<=2024){var k=y-Y0;t='<b>'+y+'</b> '+f1(D.T[k])+' °C'+(D.snow[k]!=null?' · '+D.snow[k]+' snow days':'');}
+    else{var i=y-2024, sd=function(s){return Math.max(0,Math.round(D.snowNow-44.3*(P[s].median[i]-now)))},
+      row=function(s,n){return n+' '+f1(P[s].median[i])+' °C · ~'+sd(s)+' snow days'};
+      t='<b>'+y+'</b>'+(only!=='ssp585'?'<br>'+row('ssp126','low'):'')+(only!=='ssp126'?'<br>'+row('ssp585','high'):'');}
+    rd.style.display='block'; rd.style.top=((END-y)/R*100)+'%'; rd.firstChild.innerHTML=t; rd.classList.toggle('pin',pinned);}
+  function yAt(e){var b=ch.getBoundingClientRect();return Math.max(Y0,Math.min(END,Math.round(END-(e.clientY-b.top)/b.height*R)))}
+  ch.addEventListener('pointermove',function(e){if(!pinned&&!playing)show(yAt(e))});
+  ch.addEventListener('pointerleave',function(){if(!pinned&&!playing)rd.style.display='none'});
+  ch.addEventListener('click',function(e){if(playing)return; var y=yAt(e); pinned=!(pinned&&y===cur); show(y); if(!pinned)rd.classList.remove('pin');});
+  // play: a cursor sweeps 1981 → 2050
+  var playing=null, pb=box.querySelector('.hp-play');
+  pb.addEventListener('click',function(){
+    if(playing){clearInterval(playing);playing=null;pb.textContent='▶ Play 1981–2050';return;}
+    pinned=false; var y=Y0; pb.textContent='❚❚ Pause'; show(y);
+    playing=setInterval(function(){y++; if(y>END){clearInterval(playing);playing=null;pb.textContent='▶ Play 1981–2050';pinned=true;show(END);return;} show(y);},115);});
+  var src=box.querySelector('.hp-src'), pop=box.querySelector('.hp-pop');
+  src.addEventListener('click',function(){pop.hidden=!pop.hidden;src.setAttribute('aria-expanded',!pop.hidden);});
+  var foot=document.querySelector('footer');
+  if(foot) new IntersectionObserver(function(es){box.classList.toggle('np-off',es[0].isIntersecting)},{threshold:.15}).observe(foot);
+})();
+</script>
+
 </body>
 </html>

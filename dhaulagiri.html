@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dhaulagiri Circuit · Prajwal Khanal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#1d1b18;--soft:#78726a;--text:"Work Sans",system-ui,sans-serif;--display:"Cormorant Garamond",Georgia,serif}
+html,body{margin:0;height:100%;background:#d6e3ee;color:var(--ink);font-family:var(--text)}
+.play-stage{position:fixed;inset:0;background:linear-gradient(#8fb2d1,#d6e3ee 60%,#ece6da)}
+.play-stage canvas{display:block;width:100%!important;height:100%!important;cursor:grab}
+.play-stage canvas:active{cursor:grabbing}
+.play-labels{position:absolute;inset:0;pointer-events:none}
+.pl-peak,.pl-stop{position:absolute;left:0;top:0;display:none;white-space:nowrap;text-align:center}
+.pl-peak{padding:0 0 6px;font:600 .82rem/1.15 var(--text);color:#fff;text-shadow:0 1px 4px #000b,0 0 1px #000}
+.pl-peak em{display:block;font:400 .82rem "Times New Roman",Times,serif}
+.pl-peak::after{content:"";position:absolute;left:50%;bottom:0;width:1px;height:5px;background:#fffc}
+.pl-stop{padding:.15rem .5rem;border-radius:999px;background:#fff8e6e8;box-shadow:0 2px 8px #0003;font:600 .74rem var(--text);color:var(--ink)}
+.pl-stop em{font:400 .74rem "Times New Roman",Times,serif;color:#5e3f0c}
+.play-tip{position:absolute;left:0;top:0;z-index:3;padding:.35rem .6rem;border-radius:8px;background:#1d1b18e0;color:#fff;font:.78rem var(--text);pointer-events:none;opacity:0;transition:opacity .15s;white-space:nowrap}
+.play-tip b{font:600 1rem "Times New Roman",Times,serif}
+.card{position:fixed;left:1rem;top:1rem;z-index:5;max-width:24rem;padding:.8rem 1rem;background:#fffffff2;border-radius:12px;box-shadow:0 8px 30px #0002}
+.card a{font:.78rem var(--text);color:var(--soft);text-decoration:none}
+.card a:hover{color:var(--ink)}
+.card h1{margin:.3rem 0 .2rem;font:500 1.7rem/1.1 var(--display)}
+.card p{margin:0;font:.82rem/1.5 var(--text)}
+.card small{display:block;margin-top:.5rem;font-size:.66rem;line-height:1.4;color:var(--soft)}
+.hint{position:fixed;left:50%;bottom:1rem;transform:translateX(-50%);z-index:5;margin:0;padding:.35rem .8rem;border-radius:999px;background:#fffd;font:.75rem var(--text)}
+@media(max-width:40rem){.card{right:1rem;max-width:none}.card small{display:none}}
+
+.card{max-height:calc(100vh - 2rem);overflow:auto;box-sizing:border-box;width:24rem}
+.facts{display:flex;gap:1rem;margin:.35rem 0 .6rem!important;font:.74rem var(--text)!important;color:var(--soft)}
+.facts b{display:block;font:500 1.35rem/1 "Times New Roman",Times,serif;color:var(--ink)}
+.prof{display:block;width:100%;height:120px;overflow:visible}
+.prof .ar{fill:#e0312b22}.prof .ln{fill:none;stroke:#e0312b;stroke-width:1.6;vector-effect:non-scaling-stroke}
+.prof .gd{stroke:#1d1b1814;vector-effect:non-scaling-stroke}
+.prof text{font:9px "Times New Roman",Times,serif;fill:var(--soft)}
+.prof .st circle{fill:#fff;stroke:#1d1b18;stroke-width:1;vector-effect:non-scaling-stroke}
+.prof-x{display:flex;justify-content:space-between;font:.62rem var(--text);color:var(--soft);margin-top:.15rem}
+.pdot{position:fixed;display:none}
+.itin{margin-top:.7rem;font:.76rem/1.4 var(--text)}
+.itin summary{cursor:pointer;font-weight:600}
+.itin ol{margin:.5rem 0 0;padding-left:1.6rem}
+.itin li{margin:0 0 .3rem}.itin li b{font-weight:500}.itin li span{display:block;font:.72rem "Times New Roman",Times,serif;color:#5e3f0c}
+.itin .note{font-size:.68rem!important;color:var(--soft)}
+.ptip{position:fixed;z-index:9;padding:.25rem .5rem;border-radius:6px;background:#1d1b18e0;color:#fff;font:.72rem var(--text);pointer-events:none;opacity:0;white-space:nowrap}
+
+.hint .touch{display:none}
+@media (hover:none){.hint .mouse{display:none}.hint .touch{display:inline}}
+@media(max-width:40rem){
+  .card{left:.5rem;right:.5rem;top:.5rem;width:auto;padding:.6rem .8rem;max-height:46vh}
+  .card h1{font-size:1.35rem;margin:.15rem 0 0}
+  .facts b{font-size:1.1rem}
+  .prof{height:70px}
+  .hint{font-size:.68rem;white-space:nowrap}
+}
+</style>
+</head>
+<body>
+<div class="play-stage" data-full>
+  <div class="play-labels"></div>
+  <div class="play-tip"></div>
+</div>
+<div class="card">
+  <a href="index.html">← Prajwal Khanal</a>
+  <h1>Dhaulagiri Circuit</h1>
+  <p class="facts"><span><b>15</b> days</span><span><b>~115</b> km</span><span><b>5 360</b> m French Pass</span></p>
+  <svg class="prof" viewBox="0 0 300 120" preserveAspectRatio="none" aria-label="Elevation along the trail"></svg>
+  <div class="prof-x"><span>0 km</span><span>km along the trail</span><span class="end"></span></div>
+  <details class="itin">
+    <summary>Itinerary, day by day</summary>
+    <ol>
+      <li><b>Pokhara → Beni → Darbang</b><span>drive · 1 110 m</span></li>
+      <li><b>Darbang → Dharapani</b><span>1 470 m</span></li>
+      <li><b>Dharapani → Muri</b><span>1 850 m</span></li>
+      <li><b>Muri → Boghara</b><span>2 080 m</span></li>
+      <li><b>Boghara → Dobang</b><span>2 520 m</span></li>
+      <li><b>Dobang → Sallaghari</b><span>3 110 m</span></li>
+      <li><b>Sallaghari → Italian Base Camp</b><span>3 660 m</span></li>
+      <li><b>Italian Base Camp</b><span>rest, acclimatise</span></li>
+      <li><b>Italian Base Camp → Glacier Camp</b><span>4 200 m</span></li>
+      <li><b>Glacier Camp → Dhaulagiri Base Camp</b><span>4 740 m</span></li>
+      <li><b>Dhaulagiri Base Camp</b><span>rest, acclimatise</span></li>
+      <li><b>Over French Pass → Hidden Valley</b><span>5 360 m → 5 050 m</span></li>
+      <li><b>Over Dhampus Pass → Yak Kharka</b><span>5 240 m → 3 680 m</span></li>
+      <li><b>Yak Kharka → Marpha</b><span>2 670 m</span></li>
+      <li><b>Marpha → Jomsom → Pokhara</b><span>drive or fly</span></li>
+    </ol>
+    <p class="note">A typical itinerary; operators vary by a day or two. Tents above Italian Base Camp.</p>
+  </details>
+  <small>Terrain: Copernicus GLO-30 DEM, ESA · surface: Sentinel-2 cloudless 2020 by EOX IT Services GmbH (contains modified Copernicus Sentinel data 2020), CC BY-NC-SA 4.0 · trail and km routed along the valleys between these places, not a GPS track · relief ×1.5</small>
+</div>
+<p class="hint"><span class="mouse">Drag to turn · right-drag to move · scroll to zoom · hover the land</span><span class="touch">Drag to turn · pinch to zoom · two fingers to move</span></p>
+<div class="ptip"></div>
+<script>
+// Elevation along the routed trail (the same data the 3D model uses), with the stops marked.
+fetch('data/dhaulagiri-circuit.json').then(function(r){return r.json()}).then(function(T){
+  var svg=document.querySelector('.prof'), NS='http://www.w3.org/2000/svg', P=T.pts, K=P[P.length-1][3], H0=500, H1=6000;
+  var x=function(k){return k/K*300}, y=function(h){return 120-(h-H0)/(H1-H0)*120};
+  var el=function(n,a,p){var e=document.createElementNS(NS,n);for(var k in a)e.setAttribute(k,a[k]);(p||svg).appendChild(e);return e};
+  [1000,2000,3000,4000,5000].forEach(function(h){el('line',{class:'gd',x1:0,x2:300,y1:y(h),y2:y(h)});el('text',{x:2,y:y(h)-2}).textContent=(h/1000)+'\u2009000 m';});
+  var d=P.map(function(q,i){return (i?'L':'M')+x(q[3]).toFixed(1)+' '+y(q[2]).toFixed(1)}).join('');
+  el('path',{class:'ar',d:d+'L300 120L0 120Z'}); el('path',{class:'ln',d:d});
+  T.stops.forEach(function(s){var q=P[s.k],g=el('g',{class:'st'});el('circle',{cx:x(q[3]),cy:y(q[2]),r:2.2},g);});
+  document.querySelector('.prof-x .end').textContent=Math.round(K)+' km';
+  var tip=document.querySelector('.ptip');
+  svg.addEventListener('pointermove',function(e){var b=svg.getBoundingClientRect(),k=(e.clientX-b.left)/b.width*K,q=P.reduce(function(a,c){return Math.abs(c[3]-k)<Math.abs(a[3]-k)?c:a});
+    var s=T.stops.reduce(function(a,c){return Math.abs(P[c.k][3]-q[3])<Math.abs(P[a.k][3]-q[3])?c:a});
+    tip.textContent=Math.round(q[3])+' km · '+q[2].toLocaleString('en-GB').replace(/,/g,'\u2009')+' m'+(Math.abs(P[s.k][3]-q[3])<2?' · '+s.n:'');
+    tip.style.opacity=1; tip.style.left=(e.clientX+12)+'px'; tip.style.top=(e.clientY+12)+'px';});
+  svg.addEventListener('pointerleave',function(){tip.style.opacity=0});
+});
+</script>
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>
+<script type="module" src="assets/dhaulagiri.js?v=7"></script>
+</body>
+</html>

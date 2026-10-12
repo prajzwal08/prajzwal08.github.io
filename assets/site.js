@@ -51,6 +51,12 @@
 
     var year = el('span', 'pub-year');
     year.textContent = pub.year || '—';
+    // With a publication date (from the DOI), the gutter shows days since birth
+    if (pub.date) {
+      var d = Math.round((new Date(pub.date) - new Date('1997-03-08')) / 864e5);
+      year.textContent = 'Day ' + d.toLocaleString('en-GB').replace(/,/g, '\u2009');
+      year.title = pub.date;
+    }
     li.appendChild(year);
 
     var body = el('span', 'pub-body');
@@ -119,7 +125,7 @@
     });
   }
 
-  fetch('data/publications.json')
+  fetch('data/publications.json', { cache: 'no-cache' })
     .then(function (response) {
       if (!response.ok) throw new Error('HTTP ' + response.status);
       return response.json();
