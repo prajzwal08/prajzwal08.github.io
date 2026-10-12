@@ -6,7 +6,7 @@
 // Terrain: Copernicus GLO-30 DEM (© DLR e.V. 2010–2014 and © Airbus 2014–2018, provided under
 // COPERNICUS by the European Union and ESA), averaged to 400 × 498, 28.30–28.86° N, 83.30–83.75° E.
 // Surface: Sentinel-2 cloudless 2020 by EOX IT Services GmbH (contains modified Copernicus
-// Sentinel data 2020), CC BY-NC-SA 4.0.
+// Sentinel data 2020), CC BY-NC-SA 4.0. Streams painted on in blue from flow accumulation on the same terrain.
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { Line2 } from 'three/addons/lines/Line2.js';
@@ -161,9 +161,9 @@ function play(stage) {
   const d0 = cam.position.distanceTo(look); scene.fog.near = d0 * 1.1; scene.fog.far = d0 * 3;
   const overP = cam.position.clone(), overL = look.clone();
 
-  // the first view: standing on the green hills above Muri, looking up the valley to Dhaulagiri I
-  const hillP = new THREE.Vector3(X(83.405), Y(ground(28.455, 83.405)) + 1.6, Zw(28.455));
-  const hillL = new THREE.Vector3(X(83.4897), Y(7200), Zw(28.6975));
+  // the first view: on the green hills above Darbang, looking up the valley to Dhaulagiri I and the range
+  const hillP = new THREE.Vector3(X(83.43), Y(ground(28.385, 83.43)) + 2.4, Zw(28.385));
+  const hillL = new THREE.Vector3(X(83.47), Y(6200), Zw(28.69));
   function go(P, L, ms) {
     const p0 = cam.position.clone(), l0 = ctl.target.clone(), t0 = performance.now();
     (function step(t) { const k = Math.min(1, (t - t0) / ms), e = k < .5 ? 2 * k * k : 1 - Math.pow(-2 * k + 2, 2) / 2;
@@ -191,7 +191,7 @@ if (stage) new IntersectionObserver((es, io) => {
   Promise.all([
     fetch('data/dhaulagiri-dem.bin').then(r => r.arrayBuffer()),
     fetch('data/dhaulagiri-circuit.json').then(r => r.json()),
-    new THREE.TextureLoader().loadAsync('images/site/dhaulagiri-s2.jpg'),
+    new THREE.TextureLoader().loadAsync('images/site/dhaulagiri-s2.jpg?v=3'),
   ]).then(([dem, trail, t]) => {
     Z = new Uint16Array(dem); T = trail; tex = t; tex.colorSpace = THREE.SRGBColorSpace; tex.anisotropy = 8;
     play(stage);
