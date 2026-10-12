@@ -945,6 +945,13 @@ canvas.lungta-corner,.ktm{display:none}
 .hp-sep{position:absolute;left:-2.2rem;right:-1rem;height:0;border-top:1.5px dashed #1d1b1899;pointer-events:none}
 .hp-sep span{position:absolute;right:0;font:.5rem var(--text);letter-spacing:.04em;color:#1d1b18aa}
 .hp-sep .up{bottom:2px}.hp-sep .dn{top:2px}
+
+/* one kind of divider everywhere: the same thin line across the whole column, the text kept narrow */
+.record{max-width:none!important}
+.record > *{max-width:46rem;margin-left:auto!important;margin-right:auto!important}
+.record,.recent-item,.contact-list li,.keyed-list li,#publications li{border-top:1px solid var(--line)!important}
+.contact-list,.keyed-list{max-width:none!important}
+.contact-list li > *,.keyed-list li > *{max-width:46rem;margin-left:auto;margin-right:auto}
 </style>
 <script data-goatcounter="https://prajwalkhanal.goatcounter.com/count"
         async src="//gc.zgo.at/count.js"></script>
