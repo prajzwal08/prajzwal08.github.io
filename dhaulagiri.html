@@ -118,7 +118,7 @@ html,body{margin:0;height:100%;background:#d6e3ee;color:var(--ink);font-family:v
   <small>Terrain: Copernicus GLO-30 DEM, ESA · surface: Sentinel-2 cloudless 2020 by EOX IT Services GmbH (contains modified Copernicus Sentinel data 2020), CC BY-NC-SA 4.0 · trail and km routed along the valleys between these places, not a GPS track · relief ×1.5</small>
   </div>
 </div>
-<div class="views"><button type="button" data-v="trek" class="play" aria-pressed="false">▶ Play the trek</button><button type="button" data-v="hill" aria-pressed="true">From Beni</button><button type="button" data-v="over" aria-pressed="false">Whole circuit</button></div>
+<div class="views"><button type="button" data-v="trek" class="play" aria-pressed="false">❚❚ Pause</button></div>
 <p class="trekcap" aria-live="polite"></p>
 <p class="hint"><span class="mouse">Drag to turn · right-drag to move · scroll to zoom · hover the land</span><span class="touch">Drag to turn · pinch to zoom · two fingers to move</span></p>
 <div class="ptip"></div>
@@ -147,6 +147,6 @@ fetch('data/dhaulagiri-circuit.json').then(function(r){return r.json()}).then(fu
       dispatchEvent(new Event('resize'));});})();
 </script>
 <script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>
-<script type="module" src="assets/dhaulagiri.js?v=22"></script>
+<script type="module" src="assets/dhaulagiri.js?v=24"></script>
 </body>
 </html>

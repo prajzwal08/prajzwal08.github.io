@@ -200,14 +200,21 @@ function play(stage) {
 
   // ---- play the trek: a drone flies the trail from Beni to Marpha, like a video ----
   const TP = T.pts.map(([la, lo]) => new THREE.Vector3(X(lo), Y(ground(la, lo)) + .1, Zw(la)));
-  // a small trekker: red jacket, dark legs, a backpack and a sun hat
-  const walker = new THREE.Group(), M = c => new THREE.MeshStandardMaterial({ color: c, roughness: .8 });
-  const legs = new THREE.Mesh(new THREE.CylinderGeometry(.028, .028, .14, 8), M('#2b2b33')); legs.position.y = .07;
-  const body = new THREE.Mesh(new THREE.CylinderGeometry(.04, .045, .13, 10), M('#d1322a')); body.position.y = .2;
-  const pack = new THREE.Mesh(new THREE.BoxGeometry(.07, .1, .05), M('#e2a33a')); pack.position.set(0, .21, .05);
-  const head = new THREE.Mesh(new THREE.SphereGeometry(.035, 12, 10), M('#c8956a')); head.position.y = .3;
-  const hat = new THREE.Mesh(new THREE.CylinderGeometry(.06, .06, .012, 14), M('#f2e6c9')); hat.position.y = .33;
-  walker.add(legs, body, pack, head, hat); walker.scale.setScalar(1.25);
+  // a small trekker of our own: red cap, red jacket, blue trousers and a big trekking backpack
+  const walker = new THREE.Group(), M = c => new THREE.MeshStandardMaterial({ color: c, roughness: .75 });
+  const part = (g, c, x, y, z) => { const m = new THREE.Mesh(g, M(c)); m.position.set(x, y, z); walker.add(m); return m; };
+  part(new THREE.BoxGeometry(.035, .03, .06), '#4a2d1a', -.025, .015, -.01);              // boots
+  part(new THREE.BoxGeometry(.035, .03, .06), '#4a2d1a', .025, .015, -.01);
+  part(new THREE.CylinderGeometry(.022, .024, .11, 8), '#2f55b8', -.025, .085, 0);         // trousers
+  part(new THREE.CylinderGeometry(.022, .024, .11, 8), '#2f55b8', .025, .085, 0);
+  part(new THREE.CylinderGeometry(.052, .055, .12, 12), '#d1322a', 0, .2, 0);             // jacket
+  part(new THREE.SphereGeometry(.045, 14, 12), '#e0ac7d', 0, .3, 0);                     // head
+  part(new THREE.SphereGeometry(.048, 14, 10, 0, Math.PI * 2, 0, Math.PI / 2), '#d1322a', 0, .315, 0);  // cap
+  part(new THREE.BoxGeometry(.06, .012, .05), '#d1322a', 0, .318, -.045);                 // cap peak
+  part(new THREE.BoxGeometry(.11, .17, .08), '#e2a33a', 0, .22, .075);                    // big backpack
+  part(new THREE.BoxGeometry(.09, .05, .03), '#c98a24', 0, .17, .12);                     // its pocket
+  const mat = part(new THREE.CylinderGeometry(.025, .025, .13, 10), '#3b7a3a', 0, .325, .075); mat.rotation.z = Math.PI / 2;  // rolled mat
+  walker.scale.setScalar(1.3);
   walker.visible = false; scene.add(walker);
   const cap = document.querySelector('.trekcap'), pbtn = views && views.querySelector('[data-v=trek]');
   const DAYS = [[0, 1], [1, 1], [2, 3], [3, 4], [4, 5], [5, 7], [6, 10], [7, 12], [8, 12], [9, 13], [10, 13], [11, 14]];   // stop → itinerary day
@@ -240,6 +247,8 @@ function play(stage) {
     trek = 1; ctl.enabled = false; walker.visible = true; labels.forEach(l => { l.behind = false; });
     pbtn.textContent = '❚❚ Pause'; if (cap) cap.classList.add('on'); requestAnimationFrame(frameTrek);
   });
+  // the page opens playing: a moment on the view from below Beni, then the walk begins
+  if (pbtn) setTimeout(() => { if (!trek && tk === 0) pbtn.click(); }, 1800);
 
   // the page scrolls past it until someone chooses to play
   const cover = stage.querySelector('.play-cover');
