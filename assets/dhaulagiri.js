@@ -157,8 +157,24 @@ function play(stage) {
     look.z -= shift * 4; cam.position.z -= shift * 4; cam.lookAt(look); cam.updateMatrixWorld();
   }
   ctl.target.copy(look); ctl.update();
-  // haze starts beyond the land, however far back the first view sits (phones sit further back)
+  // haze starts beyond the land, however far back the overview sits (phones sit further back)
   const d0 = cam.position.distanceTo(look); scene.fog.near = d0 * 1.1; scene.fog.far = d0 * 3;
+  const overP = cam.position.clone(), overL = look.clone();
+
+  // the first view: standing on the green hills above Muri, looking up the valley to Dhaulagiri I
+  const hillP = new THREE.Vector3(X(83.405), Y(ground(28.455, 83.405)) + 1.6, Zw(28.455));
+  const hillL = new THREE.Vector3(X(83.4897), Y(7200), Zw(28.6975));
+  function go(P, L, ms) {
+    const p0 = cam.position.clone(), l0 = ctl.target.clone(), t0 = performance.now();
+    (function step(t) { const k = Math.min(1, (t - t0) / ms), e = k < .5 ? 2 * k * k : 1 - Math.pow(-2 * k + 2, 2) / 2;
+      cam.position.lerpVectors(p0, P, e); ctl.target.lerpVectors(l0, L, e); cam.lookAt(ctl.target); loop();
+      if (k < 1) requestAnimationFrame(step); else { ctl.update(); setTimeout(() => { occlude(); loop(); }, 60); } })(t0);
+  }
+  cam.position.copy(hillP); ctl.target.copy(hillL); cam.lookAt(hillL); ctl.update();
+  const views = stage.parentElement.querySelector('.views');
+  if (views) views.addEventListener('click', e => { const b = e.target.closest('button'); if (!b) return;
+    views.querySelectorAll('button').forEach(x => x.setAttribute('aria-pressed', x === b));
+    b.dataset.v === 'hill' ? go(hillP, hillL, 1600) : go(overP, overL, 1600); });
   occlude(); loop();
 
   // the page scrolls past it until someone chooses to play
