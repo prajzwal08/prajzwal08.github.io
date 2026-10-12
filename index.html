@@ -962,6 +962,21 @@ canvas.lungta-corner,.ktm{display:none}
 .hp-pop{left:calc(100% + .8rem)!important;right:auto!important;bottom:0!important;width:min(20rem,calc(100vw - 100% - 3rem))!important;z-index:30;padding-top:1.6rem!important}
 .hp-x-close{position:absolute;top:.35rem;right:.4rem;width:1.5rem;height:1.5rem;border:0;border-radius:50%;background:#1d1b18;color:#fff;font:.95rem/1 var(--text);cursor:pointer}
 .hp-x-close:hover{background:#b8322a}
+
+/* ===== small screens: the graphs, flags and skyline as a section after About ===== */
+.climate-strip{display:none}
+@media(max-width:81.99rem){
+  .climate-strip{display:block;position:relative;z-index:1;margin:2.5rem auto 0;padding:0 var(--gut,1.25rem);max-width:46rem}
+  .cs-top{display:flex;align-items:flex-end;justify-content:space-between;gap:1rem;border-bottom:1px solid var(--line);padding-bottom:.2rem}
+  .cs-top canvas.lungta-corner{display:block!important;position:static!important;width:7rem!important;height:30px!important}
+  .cs-top .ktm{display:block!important;position:static!important;width:min(60%,17rem)!important;height:auto!important;max-height:none!important}
+  .cs-graphs{display:grid;grid-template-columns:1fr 1fr;gap:1.4rem;margin-top:1rem}
+  .cs-graphs .hpanel,.cs-graphs .nprofile{display:flex!important;position:relative!important;top:auto!important;bottom:auto!important;left:auto!important;right:auto!important;
+    width:auto!important;height:min(78svh,40rem);opacity:1!important}
+  .cs-graphs .nprofile{padding-left:2.4rem;padding-top:1rem}
+  .cs-graphs .hp-pop{left:0!important;right:auto!important;bottom:auto!important;top:100%;width:calc(200% + 1.4rem)!important;max-width:calc(100vw - 2.5rem)}
+}
+@media(max-width:30rem){ .cs-graphs{gap:.8rem} .cs-graphs .nprofile{padding-left:2.1rem} }
 </style>
 <script data-goatcounter="https://prajwalkhanal.goatcounter.com/count"
         async src="//gc.zgo.at/count.js"></script>
@@ -1007,6 +1022,8 @@ canvas.lungta-corner,.ktm{display:none}
   <div class="kicker reveal">About</div>
   <p class="lede reveal">I model soil&ndash;vegetation&ndash;atmosphere interactions, with a focus on <em>water and carbon fluxes</em>. My work spans both ends of the modelling spectrum: process-based land surface models and data-driven deep learning.</p>
 </section>
+
+<section class="climate-strip" id="himalaya" aria-label="The Himalaya and the profile of Nepal"><div class="cs-top"></div><div class="cs-graphs"></div></section>
 
 <section class="chapter" id="recent" data-nav>
   <h2 class="kicker reveal">Recent</h2>
@@ -1951,5 +1968,16 @@ canvas.lungta-corner,.ktm{display:none}
 })();
 </script>
 
+<script>
+// small screens have no margins: the two graphs, the flags and the skyline move into a section of the page
+(function(){
+  var mq=matchMedia('(max-width: 81.99rem)'), strip=document.getElementById('himalaya'); if(!strip) return;
+  var top=strip.querySelector('.cs-top'), gr=strip.querySelector('.cs-graphs');
+  var parts=[['.lungta-corner',top],['.ktm',top],['.hpanel',gr],['.nprofile',gr]].map(function(q){var e=document.querySelector(q[0]);return e&&{e:e,home:e.parentNode,next:e.nextSibling,to:q[1]}}).filter(Boolean);
+  function place(){parts.forEach(function(p){ if(mq.matches){ if(p.e.parentNode!==p.to) p.to.appendChild(p.e); } else if(p.e.parentNode!==p.home){ p.home.insertBefore(p.e,p.next); } });
+    strip.hidden=!mq.matches; dispatchEvent(new Event('resize'));}
+  mq.addEventListener('change',place); place();
+})();
+</script>
 </body>
 </html>
