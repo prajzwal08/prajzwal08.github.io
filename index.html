@@ -957,6 +957,11 @@ canvas.lungta-corner,.ktm{display:none}
 .hp-years{z-index:2}
 .hp-years span{background:var(--bg,#fff);padding-left:.15rem}
 .hp-sep{z-index:1}
+
+/* Source opens beside the graph, never over it */
+.hp-pop{left:calc(100% + .8rem)!important;right:auto!important;bottom:0!important;width:min(20rem,calc(100vw - 100% - 3rem))!important;z-index:30;padding-top:1.6rem!important}
+.hp-x-close{position:absolute;top:.35rem;right:.4rem;width:1.5rem;height:1.5rem;border:0;border-radius:50%;background:#1d1b18;color:#fff;font:.95rem/1 var(--text);cursor:pointer}
+.hp-x-close:hover{background:#b8322a}
 </style>
 <script data-goatcounter="https://prajwalkhanal.goatcounter.com/count"
         async src="//gc.zgo.at/count.js"></script>
@@ -1847,6 +1852,7 @@ canvas.lungta-corner,.ktm{display:none}
   <p class="hp-key">shaded: 10–90 % of the models · hover, or click to pin a year</p>
   <button class="hp-src" type="button" aria-expanded="false">Source</button>
   <div class="hp-pop" hidden>
+    <button class="hp-x-close" type="button" aria-label="Close">×</button>
     <p><b>Himalaya, 3 088–8 848 m</b>: the mean of six ERA5-Land points along the profile on the left, year by year, 1981–2024. Thin line: each year; thick line and shading: 9-year running mean, coloured from its coldest (1981) to its warmest (2024) value.</p>
     <p>Warming 1981–2024: +0.28 °C per decade here; +0.21 °C for the world, land and ocean (NASA GISTEMP v4): 1.3× the global average.</p>
     <p>Snow days: days with at least 5 cm of snow on the ground, ERA5-Land, mean of the four points without glacier (3 088–5 915 m).</p>
@@ -1938,6 +1944,8 @@ canvas.lungta-corner,.ktm{display:none}
     playing=setInterval(function(){y++; if(y>END){clearInterval(playing);playing=null;pb.textContent='▶ Play 1981–2050';pinned=true;show(END);return;} show(y);},115);});
   var src=box.querySelector('.hp-src'), pop=box.querySelector('.hp-pop');
   src.addEventListener('click',function(){pop.hidden=!pop.hidden;src.setAttribute('aria-expanded',!pop.hidden);});
+  pop.querySelector('.hp-x-close').addEventListener('click',function(){pop.hidden=true;src.setAttribute('aria-expanded',false);src.focus();});
+  addEventListener('keydown',function(e){if(e.key==='Escape'&&!pop.hidden){pop.hidden=true;src.setAttribute('aria-expanded',false);}});
   var foot=document.querySelector('footer');
   if(foot) new IntersectionObserver(function(es){box.classList.toggle('np-off',es[0].isIntersecting)},{threshold:.15}).observe(foot);
 })();
