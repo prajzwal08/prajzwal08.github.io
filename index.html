@@ -928,8 +928,23 @@ footer p{margin-left:var(--pad)!important}
 .lungta-mini{gap:3px}.lungta-mini i{width:9px;height:12px}
 
 /* real cloth flags by the name, drawn by the same code as the footer's */
-canvas.lungta-name{display:inline-block;width:78px;height:30px;margin:-6px 1.1rem -6px 0;vertical-align:middle}
-@media(max-width:52rem){canvas.lungta-name{width:58px;height:24px}}
+
+/* corners of the top band: real cloth flags over the left graph, Kathmandu at Dashain over the right */
+canvas.lungta-corner,.ktm{display:none}
+@media(min-width:82rem){
+  canvas.lungta-corner{display:block;position:absolute;left:1rem;top:6px;width:min(8rem,calc(var(--pad) - 3rem));height:32px}
+  .ktm{display:block;position:absolute;right:.6rem;top:0;bottom:0;height:100%;width:min(19rem,calc(var(--pad) - 1.4rem))}
+}
+@media(max-width:81.99rem){ .topbar .mono::before{content:none} }
+.ktm .hills{fill:#d9b98a55}.ktm .snow{fill:#fff}.ktm .city{fill:#8c2f1e}
+.ktm .kite{animation:kite 5s ease-in-out infinite;transform-box:fill-box;transform-origin:50% 100%}
+.ktm .k2{animation-duration:6.5s;animation-delay:-2s}.ktm .k4{animation-duration:7s;animation-delay:-1s}.ktm .k3{animation-duration:5.8s;animation-delay:-3.5s}
+@keyframes kite{50%{transform:translate(2px,-2px) rotate(6deg)}}
+@media(prefers-reduced-motion:reduce){.ktm .kite{animation:none}}
+/* observed | projected: one dashed line across the panel */
+.hp-sep{position:absolute;left:-2.2rem;right:-1rem;height:0;border-top:1.5px dashed #1d1b1899;pointer-events:none}
+.hp-sep span{position:absolute;right:0;font:.5rem var(--text);letter-spacing:.04em;color:#1d1b18aa}
+.hp-sep .up{bottom:2px}.hp-sep .dn{top:2px}
 </style>
 <script data-goatcounter="https://prajwalkhanal.goatcounter.com/count"
         async src="//gc.zgo.at/count.js"></script>
@@ -938,7 +953,37 @@ canvas.lungta-name{display:inline-block;width:78px;height:30px;margin:-6px 1.1re
 <svg width="0" height="0" style="position:absolute"><defs><linearGradient id="fold" x1="0" x2="1"><stop offset="0" stop-color="#000" stop-opacity=".12"/><stop offset=".2" stop-color="#fff" stop-opacity=".16"/><stop offset=".45" stop-color="#000" stop-opacity=".08"/><stop offset=".7" stop-color="#fff" stop-opacity=".12"/><stop offset="1" stop-color="#000" stop-opacity=".14"/></linearGradient><linearGradient id="cap" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="0" y2="120"><stop offset="0" stop-color="#fff"/><stop offset=".36" stop-color="#fff"/><stop offset=".40" stop-color="#fff" stop-opacity="0"/></linearGradient><linearGradient id="cap2" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="0" y2="120"><stop offset="0" stop-color="#fbf8f2"/><stop offset=".52" stop-color="#fbf8f2"/><stop offset=".56" stop-color="#fbf8f2" stop-opacity="0"/></linearGradient></defs></svg>
 
 <header class="topbar">
-  <a href="#top" class="mono"><canvas class="lungta lungta-name" aria-hidden="true"></canvas>Prajwal Khanal</a>
+  <canvas class="lungta lungta-corner" aria-hidden="true"></canvas>
+  <svg class="ktm" viewBox="40 10 212 62" preserveAspectRatio="xMaxYMax meet" aria-label="Kathmandu skyline at Dashain: the Himalaya behind, Swayambhu, Dharahara, Nyatapola, Krishna Mandir, Boudhanath and pagodas, and a bamboo swing" role="img">
+    <path class="hills" d="M0 46 L22 30 L34 36 L52 18 L64 28 L80 14 L96 30 L112 22 L130 34 L150 16 L168 30 L186 20 L204 32 L224 12 L242 28 L260 20 L280 32 L300 24 V72 H0 Z"/>
+    <path class="snow" d="M46 23 L52 18 L58 23 L55 22 L52 24 L49 22 Z M74 19 L80 14 L86 19 L83 18 L80 20 L77 18 Z M144 21 L150 16 L156 21 L153 20 L150 22 L147 20 Z M218 17 L224 12 L230 17 L227 16 L224 18 L221 16 Z"/>
+    <g class="city">
+      <path d="M0 72 V62 h8 v-3 h9 v5 h6 V72 Z"/>
+      <!-- linge ping: a bamboo swing -->
+      <path d="M24 72 L30 46 L31 46 L26 72 Z M40 72 L34 46 L33 46 L38 72 Z M29 46 h7 v1.2 h-7 Z"/><path d="M31.5 47 v10 M33.5 47 v10" stroke="#8c2f1e" stroke-width=".5"/><rect x="30.5" y="57" width="4" height="1" />
+      <!-- Swayambhu: dome, the eyes on the harmika, 13 rings, umbrella -->
+      <path d="M44 72 V64 q0 -11 15 -11 q15 0 15 11 V72 Z"/><rect x="54.5" y="46" width="9" height="7"/>
+      <path class="eyes" d="M56 49 q1.2 -1 2.4 0 M60 49 q1.2 -1 2.4 0" stroke="#f4efe4" stroke-width=".7" fill="none"/>
+      <path d="M55.5 46 L59 28 L62.5 46 Z"/><path d="M56 27 h6 l-3 -3 Z"/>
+      <!-- Dharahara -->
+      <path d="M80 72 V52 l2 -2 V30 l1.6 -6 l1.6 6 V50 l2 2 V72 Z"/>
+      <!-- Nyatapola: five roofs on a stepped plinth -->
+      <path d="M94 72 v-3 h2 v-3 h2 v-3 h20 v3 h2 v3 h2 v3 Z"/>
+      <path d="M99 63 l-3 0 l12 -6 l12 6 l-3 0 v-1 h-18 Z"/><path d="M101 58 l-3 0 l10 -5 l10 5 l-3 0 Z"/><path d="M103 54 l-3 0 l8 -4 l8 4 l-3 0 Z"/><path d="M104.5 50 l-2.5 0 l6 -3 l6 3 l-2.5 0 Z"/><path d="M106 47 l-2 0 l4 -2.5 l4 2.5 l-2 0 Z"/><path d="M107.4 44.5 L108 41 L108.6 44.5 Z"/>
+      <rect x="99" y="63" width="18" height="6"/>
+      <path d="M124 72 V62 h12 v-4 h8 V72 Z"/>
+      <!-- Krishna Mandir: a shikhara with small towers -->
+      <path d="M148 72 V60 h22 V72 Z"/><path d="M151 60 l2 -6 l2 6 Z M163 60 l2 -6 l2 6 Z"/><path d="M155 60 q4 -22 4 -22 q0 0 4 22 Z"/><path d="M158.4 38 L159 33 L159.6 38 Z"/>
+      <path d="M172 72 V64 h9 v-6 h7 V72 Z"/>
+      <!-- a two-roof pagoda -->
+      <path d="M190 72 V60 h-3 l10 -5 l10 5 h-3 v-1 h-14 Z"/><path d="M191 55 l-2 0 l8 -4 l8 4 l-2 0 Z"/><path d="M196.4 51 L197 47 L197.6 51 Z"/><rect x="191" y="60" width="12" height="12"/>
+      <!-- Boudhanath: wide dome and spire -->
+      <path d="M212 72 v-3 h-2 v-2 h40 v2 h-2 v3 Z"/><path d="M214 67 q0 -11 16 -11 q16 0 16 11 Z"/><rect x="225" y="49" width="10" height="7"/>
+      <path class="eyes" d="M227 52 q1.2 -1 2.4 0 M231 52 q1.2 -1 2.4 0" stroke="#f4efe4" stroke-width=".7" fill="none"/><path d="M226 49 L230 33 L234 49 Z"/>
+      <path d="M252 72 V60 h10 v-5 h9 v8 h8 v-4 h9 v5 h12 V72 Z"/>
+    </g>
+  </svg>
+  <a href="#top" class="mono">Prajwal Khanal</a>
   <nav class="tabs"><a href="#about">About</a><a href="#recent">Recent</a><a href="#plogs">Plogs</a><a href="#projects">Projects</a><a href="#experience">Experience</a><a href="#education">Education</a><a href="#publications-section">Publications</a><a href="#contact">Contact</a><a href="cv/cv.pdf">CV</a></nav>
   <svg class="climb" viewBox="0 0 1000 14" preserveAspectRatio="none" aria-hidden="true">
     <defs><clipPath id="climbed"><rect id="climbrect" x="0" y="0" width="0" height="14"/></clipPath></defs>
@@ -1868,7 +1913,9 @@ canvas.lungta-name{display:inline-block;width:78px;height:30px;margin:-6px 1.1re
   S.forEach(function(s){el('path',{class:'hp-ssp','data-s':s,stroke:COL[s],d:ys.map(function(y,i){return (i?'L':'M')+x(P[s].median[i])+' '+r(y)}).join('')});});
   el('path',{class:'hp-obs',d:D.T.map(function(t,k){return (k?'L':'M')+x(t)+' '+r(Y0+k)}).join('')});
   el('path',{class:'hp-smooth',d:SM.map(function(t,k){return (k?'L':'M')+x(t)+' '+r(Y0+k)}).join('')});
-  el('line',{class:'hp-now',x1:0,x2:100,y1:r(2024),y2:r(2024)});
+  // the line between what was measured and what is projected, across the whole panel
+  var sep=document.createElement('div'); sep.className='hp-sep'; sep.style.top=pct(2024)+'%';
+  sep.innerHTML='<span class="up">projected ↑</span><span class="dn">observed ↓</span>'; box.querySelector('.hp-chart').appendChild(sep);
   var yl=box.querySelector('.hp-years');
   [2050,2024,2000,1981].forEach(function(y){var e=document.createElement('span');e.style.top=pct(y)+'%';e.textContent=y;yl.appendChild(e);});
   var nt=box.querySelector('.hp-notes');
