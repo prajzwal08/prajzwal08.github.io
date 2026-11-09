@@ -3,6 +3,30 @@
 What changed, and why. Newest first. Named `LOG.md` to sit beside `README.md`
 and `TODO.md`; `git log` has the same story in more detail.
 
+## 9 November 2026 — ECMWF talk added to Recent
+
+A new entry at the top of **Recent** for the talk at the 2026 Workshop on Machine
+Learning for Land and Hydrology, ECMWF, Reading, 3 November 2026: an update on
+the Boussinesq Lecture talk.
+
+- **Text**: the heading uses the short name "ML for Land and Hydrology Workshop,
+  ECMWF"; one italic line, without numbers, says the TerraMind embeddings carry
+  both spatial and temporal signals useful for predicting daily root-zone soil
+  moisture.
+- **Slides**: `files/khanal-ecmwf-mlland-2026.pdf`, all 24 slides, compressed
+  from 12.6 MB to 3.7 MB with Ghostscript.
+- **Figures**, side by side in equal columns, stacked on phones: TerraMind
+  embeddings of Sentinel-2 at TxSON in four seasons of 2019 (slide 4), and the
+  0–10 cm time series of the two TxSON stations with almost no bias, CR1000-2
+  and CR200-15 (slide 14).
+- Tried and removed: a Shapley bar chart, the Twente Shapley time series, the
+  Sentinel-1 embeddings panel, and a figure pair wider than the text column
+  (it overflowed).
+- **Reviewed** by two agents: one checked the content against the slides, the
+  other rendered the page at 360–1920 px. Fixed: the time-series crop had
+  clipped the header of the CR1000-2 panel; the two figure cards are now equal
+  height, like the Boussinesq pair. No overflow at any width.
+
 ## 12 October 2026 — Hierarchy, Himalaya climate panels, Dhaulagiri in 3D
 
 - **One type scale**: every section heading is the same large serif with a gold

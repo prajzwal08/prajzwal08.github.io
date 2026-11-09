@@ -1101,6 +1101,9 @@ html,body{overflow-x:clip}
 }
 
 @media(min-width:64rem){ .topbar{background:#fffffff5!important} }
+/* ECMWF talk: two figures side by side, inside the column */
+.recent-item .duo.wide{grid-template-columns:1fr 1fr;gap:1.2rem}
+@media(max-width:52rem){.recent-item .duo.wide{grid-template-columns:1fr}}
 </style>
 <script data-goatcounter="https://prajwalkhanal.goatcounter.com/count"
         async src="//gc.zgo.at/count.js"></script>
@@ -1152,6 +1155,16 @@ html,body{overflow-x:clip}
   <h2 class="kicker reveal">Recent</h2>
 
   <!-- One <article class="recent-item"> per item, newest first. -->
+  <article class="recent-item reveal">
+    <p class="meta"><span class="day" data-date="2026-11-03">3 November 2026</span> · <span class="latlon">51.42° N, 0.95° W · 60 m</span></p>
+    <h3 class="sub">Presented at the <b>ML for Land and Hydrology Workshop, ECMWF</b>.</h3>
+    <p class="line"><em>The presentation shows that TerraMind embeddings contain both spatial and temporal signals that are useful for predicting daily root-zone soil moisture.</em></p>
+    <a class="btn" href="files/khanal-ecmwf-mlland-2026.pdf">Slides · PDF &nbsp;↗</a>
+  <div class="duo wide">
+    <a class="lens reveal" href="images/site/talk-ecmwf-txson-s2.jpg" data-zoom="2.2"><img src="images/site/talk-ecmwf-txson-s2.jpg" alt="Sentinel-2 images of TxSON in four seasons of 2019 above their TerraMind embeddings"><span class="glass"></span><figcaption style="text-transform:none;letter-spacing:.02em">TerraMind embeddings at TxSON, Texas, 2019. Sentinel-2 images in four seasons (top) and their embeddings (bottom; colours: first three principal components; dots: stations).</figcaption></a>
+    <a class="lens reveal" href="images/site/talk-ecmwf-txson-ts.png" data-zoom="2.2"><img src="images/site/talk-ecmwf-txson-ts.png" alt="Predicted and observed soil moisture at two TxSON stations, 2016 to 2022"><span class="glass"></span><figcaption style="text-transform:none;letter-spacing:.02em">Predicted and observed soil moisture (m³/m³) at 0–10 cm at two TxSON stations within the same 2.24 km input tile, 2016–2022.</figcaption></a>
+  </div>
+  </article>
   <article class="recent-item reveal">
     <p class="meta"><span class="day" data-date="2026-10-08">8 October 2026</span> · <span class="latlon">52.37° N, 4.90° E · 11 m</span></p>
     <h3 class="sub">Presented <b>Daily root-zone soil moisture with multimodal drivers and geospatial foundation model embeddings</b> at the <b>Boussinesq Lecture, KNAW</b>.</h3>
