@@ -26,6 +26,10 @@ the Boussinesq Lecture talk.
   other rendered the page at 360–1920 px. Fixed: the time-series crop had
   clipped the header of the CR1000-2 panel; the two figure cards are now equal
   height, like the Boussinesq pair. No overflow at any width.
+- **GitHub profile**: a profile README now sits in a new public repository,
+  `prajzwal08/prajzwal08`, in the style of a short emoji list: role, research
+  focus, current work on TerraMind embeddings, contact, and links to this site,
+  Google Scholar and ORCID. It lives outside this repository.
 
 ## 12 October 2026 — Hierarchy, Himalaya climate panels, Dhaulagiri in 3D
 
